@@ -81,5 +81,7 @@ module.exports = function(grunt) {
 	// Default task.
 	grunt.registerTask('default', ['jshint', 'mochaTest']);
 
-
+	grunt.registerTask('testAndReleasePatch', ['jshint', 'mochaTest', 'release:patch']);
+	grunt.registerTask('testAndReleaseMinor', ['jshint', 'mochaTest', 'release:minor']);
+	grunt.registerTask('testAndReleaseMajor', ['jshint', 'mochaTest', 'release:major']);
 };
