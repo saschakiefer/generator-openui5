@@ -3,7 +3,8 @@
 	var util = require('util');
 	var yeoman = require('yeoman-generator');
 
-	var ComponentGenerator = module.exports = function ComponentGenerator(args, options /*, config*/ ) {
+	/*jshint unused: vars */
+	var ComponentGenerator = module.exports = function ComponentGenerator(args, options, config) {
 		// We use Base instead of name Base to have the option of calling w/o arguments
 		yeoman.generators.Base.apply(this, arguments);
 

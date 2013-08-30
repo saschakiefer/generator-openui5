@@ -1,10 +1,11 @@
+/*global __dirname*/
 (function() {
 	'use strict';
 	var util = require('util');
 	var path = require('path');
 	var yeoman = require('yeoman-generator');
 
-
+	/*jshint unused: vars */
 	var Sapui5Generator = module.exports = function Sapui5Generator(args, options, config) {
 		yeoman.generators.Base.apply(this, arguments);
 		console.log(this.yeoman);

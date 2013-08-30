@@ -1,47 +1,47 @@
 {
-	"name": "generator-sapui5",
-	"version": "0.0.2",
-	"description": "SAP UI5 generator for yeoman",
-	"keywords": [
-		"yeoman-generator", "SAP", "UI5"
-	],
-
-	"homepage": "https://github.com/saschakiefer/generator-sapui5",
-	"bugs": "https://github.com/saschakiefer/generator-sapui5/issues",
-	"author": {
-		"name": "Sascha Kiefer",
-		"email": "mail@sascha-kiefer.de",
-		"url": "https://github.com/saschakiefer"
-	},
-
-	"main": "app/index.js",
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/saschakiefer/generator-sapui5.git"
-	},
-
-	"scripts": {
-		"test": "mocha"
-	},
-
-	"dependencies": {
-		"yeoman-generator": "~0.13.0"
-	},
-
-	"devDependencies": {
-		"mocha": "~1.12.0"
-	},
-
-	"peerDependencies": {
-		"yo": ">=1.0.0-rc.1"
-	},
-
-	"engines": {
-		"node": ">=0.8.0",
-		"npm": ">=1.2.10"
-	},
-
-	"licenses": [{
-		"type": "MIT"
-	}]
+  "name": "generator-sapui5",
+  "version": "0.0.2",
+  "description": "SAP UI5 generator for yeoman",
+  "keywords": [
+    "yeoman-generator",
+    "SAP",
+    "UI5"
+  ],
+  "homepage": "https://github.com/saschakiefer/generator-sapui5",
+  "bugs": "https://github.com/saschakiefer/generator-sapui5/issues",
+  "author": {
+    "name": "Sascha Kiefer",
+    "email": "mail@sascha-kiefer.de",
+    "url": "https://github.com/saschakiefer"
+  },
+  "main": "app/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/saschakiefer/generator-sapui5.git"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "yeoman-generator": "~0.13.0"
+  },
+  "devDependencies": {
+    "mocha": "~1.12.0",
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.6.4",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-mocha": "~0.4.1"
+  },
+  "peerDependencies": {
+    "yo": ">=1.0.0-rc.1"
+  },
+  "engines": {
+    "node": ">=0.8.0",
+    "npm": ">=1.2.10"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ]
 }

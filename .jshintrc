@@ -16,7 +16,7 @@
 		"require": true,
 		"module": true
 	},
-	"reporter": "jslint",
-	"reporterOutput": "jslint_report.xml",
+	//"reporter": "jslint",
+	//"reporterOutput": "jslint_report.xml",
 	"ignores": []
 }

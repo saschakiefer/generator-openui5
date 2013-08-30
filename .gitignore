@@ -1,2 +1,5 @@
 node_modules/
 temp/
+
+npm-debug.log
+jslint_report.xml

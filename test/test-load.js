@@ -1,11 +1,13 @@
-/*global describe, beforeEach, it*/
-'use strict';
+/*global describe, it*/
+(function() {
+	"use strict";
 
-var assert  = require('assert');
+	var assert = require('assert');
 
-describe('sapui5 generator', function () {
-  it('can be imported without blowing up', function () {
-    var app = require('../app');
-    assert(app !== undefined);
-  });
-});
+	describe('sapui5 generator', function() {
+		it('can be imported without blowing up', function() {
+			var app = require('../app');
+			assert(app !== undefined);
+		});
+	});
+}());
