@@ -1,6 +1,6 @@
 {
 	"name": "generator-sapui5",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "SAP UI5 generator for yeoman",
 	"keywords": [
 		"yeoman-generator", "SAP", "UI5"
