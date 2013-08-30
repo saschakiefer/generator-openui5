@@ -13,7 +13,7 @@
 		}
 	};
 
-	util.inherits(ComponentGenerator, yeoman.generators.NamedBase);
+	util.inherits(ComponentGenerator, yeoman.generators.Base);
 
 	ComponentGenerator.prototype.askForViewName = function askForViewName() {
 		// If a name was passed as parameter, we don't need to ask for a name

@@ -19,7 +19,7 @@
 		}
 	};
 
-	util.inherits(ViewGenerator, yeoman.generators.NamedBase);
+	util.inherits(ViewGenerator, yeoman.generators.Base);
 
 	ViewGenerator.prototype.askForViewName = function askForViewName() {
 		// If a name was passed as parameter, we don't need to ask for a name

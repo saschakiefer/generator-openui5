@@ -11,6 +11,7 @@
 
 		this.hookFor('sapui5:view', {
 			options: {
+				args: args,
 				options: {
 					skipApplicationJs: false // Tell the view to also copy the Application.js (since the ViewName needs to be added there)
 				}
