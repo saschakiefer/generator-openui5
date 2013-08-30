@@ -66,7 +66,7 @@ module.exports = function(grunt) {
 				files: '<%= jshint.generators.src %>',
 				tasks: ['jshint:generators']
 			}
-		}
+		},
 	});
 
 
@@ -75,9 +75,11 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-mocha-test');
+	grunt.loadNpmTasks('grunt-release'); // use grunt release (= release:patch), release:minor, release:major
 
 
 	// Default task.
 	grunt.registerTask('default', ['jshint', 'mochaTest']);
+
 
 };
