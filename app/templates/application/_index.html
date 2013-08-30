@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta charset="UTF-8">
+        
+        <title><%= applicationName %></title>
+        
+        <script id="sap-ui-bootstrap" 
+            src="https://sapui5.netweaver.ondemand.com/resources/sap-ui-core.js"
+            data-sap-ui-libs="sap.ui.commons"
+            data-sap-ui-theme="sap_goldreflection">
+        </script>
+        <!-- add sap.ui.table,sap.ui.ux3 and/or other libraries to 'data-sap-ui-libs' if required -->
+        
+        <link rel="stylesheet" type="text/css" href="css/style.css">            
+        
+        <script>
+            // Tell UI5 where to find application content
+            sap.ui.localResources("util");  // paths starting with "util" will be resolved relative to the index.html location
+            sap.ui.localResources("view");
+            sap.ui.localResources("model");
+            sap.ui.localResources("i18n");
+            jQuery.sap.registerModulePath('Application', 'Application');
+
+            // Launch application
+            jQuery.sap.require("Application");
+            var oApp = new Application({root : "content"}); // instantiate your application and mark the HTML element with id "content" as location for the UI
+        </script>  
+
+        
+    </head>
+    <body class="sapUiBody" id="content">
+    </body>
+</html>
+

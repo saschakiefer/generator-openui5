@@ -1,0 +1,22 @@
+{
+	"devel": true,
+	"curly": true,
+	"eqeqeq": true,
+	"immed": true,
+	"latedef": true,
+	"newcap": true,
+	"noarg": true,
+	"sub": true,
+	"undef": true,
+	"unused": true,
+	"boss": true,
+	"eqnull": true,
+	"browser": true,
+	"globals": {
+		"require": true,
+		"module": true
+	},
+	"reporter": "jslint",
+	"reporterOutput": "jslint_report.xml",
+	"ignores": []
+}

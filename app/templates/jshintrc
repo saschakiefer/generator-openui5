@@ -1,0 +1,26 @@
+{
+    "boss": true,
+    "browser": true,
+    "curly": true,
+    "devel": true,
+    "eqeqeq": true,
+    "eqnull": true,
+    "globals": {
+        "$": true,
+        "jQuery": true,
+        "model": true,
+        "sap": true,
+        "util": true,
+        "view": true
+    },
+    "ignores": [],
+    "immed": true,
+    "latedef": true,
+    "newcap": true,
+    "noarg": true,
+    "reporter": "jslint",
+    "reporterOutput": "jslint_report.xml",
+    "sub": true,
+    "undef": true,
+    "unused": true
+}
