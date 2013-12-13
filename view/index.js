@@ -33,7 +33,7 @@
 		var prompts = [{
 			type: 'input',
 			name: 'viewName',
-			message: 'What is the name of the view you want to generate? (Will be created in "view" folder by convention; default is Main. Reserved words: ext, view, i18n, css, img, model, node*, test, util)?',
+			message: 'What is the name of the view you want to generate (will be created in "view" folder by convention; default is Main)?',
 			default: 'view.Main'
 		}];
 
