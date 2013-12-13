@@ -39,7 +39,7 @@
 			default: 'My Application'
 		}, {
 			name: 'appDescription',
-			message: 'Please, describe it with a view words:'
+			message: 'Please describe it with a few words:'
 		}, {
 			name: 'authorName',
 			message: 'What is your name?',

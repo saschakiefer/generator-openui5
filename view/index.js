@@ -21,6 +21,7 @@
 
 	util.inherits(ViewGenerator, yeoman.generators.Base);
 
+	// By convention we use a folder called view to store the views and controllers.
 	ViewGenerator.prototype.askForViewName = function askForViewName() {
 		// If a name was passed as parameter, we don't need to ask for a name
 		if (this.viewName) {
@@ -32,12 +33,12 @@
 		var prompts = [{
 			type: 'input',
 			name: 'viewName',
-			message: 'What is the name of the view you want to generate?',
+			message: 'What is the name of the view you want to generate? (Will be created in "view" folder by convention; default is Main. Reserved words: ext, view, i18n, css, img, model, node*, test, util)?',
 			default: 'view.Main'
 		}];
 
 		this.prompt(prompts, function(props) {
-			this.viewName = props.viewName;
+			this.viewName = (props.viewName === 'view.Main')? props.viewName : 'view.' + props.viewName;
 
 			cb();
 		}.bind(this));
