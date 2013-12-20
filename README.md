@@ -60,4 +60,4 @@ $ yo openui5:facelessComponent
 
 ## License
 
-[MIT License](https://github.com/saschakiefer/generator-openui5/blob/master/LICENSE)
+[Apache License, Version 2.0](https://github.com/saschakiefer/generator-openui5/blob/master/LICENSE)
