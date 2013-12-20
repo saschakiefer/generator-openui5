@@ -17,6 +17,12 @@ Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](
 $ npm install -g yo
 ```
 
+### What is OpenUI5
+
+UI5 lets you build enterprise-ready web applications, responsive to all devices, running on almost any browser of your choice. It’s based on JavaScript, using JQuery as its foundation and follows web standards. It eases your development with a client-side HTML5 rendering library including a rich set of controls and supports data binding to different models (JSON, XML and OData).
+
+Visit the [OpenUI5 pages on github](http://sap.github.io/openui5/) for more information.
+
 ### OpenUI5 Generators
 
 To install generator-openui5 from npm, run:
