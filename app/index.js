@@ -6,11 +6,11 @@
 	var yeoman = require('yeoman-generator');
 
 	/*jshint unused: vars */
-	var Sapui5Generator = module.exports = function Sapui5Generator(args, options, config) {
+	var openui5Generator = module.exports = function openui5Generator(args, options, config) {
 		yeoman.generators.Base.apply(this, arguments);
 		console.log(this.yeoman);
 
-		this.hookFor('sapui5:view', {
+		this.hookFor('openui5:view', {
 			options: {
 				args: args,
 				options: {
@@ -28,9 +28,9 @@
 		this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
 	};
 
-	util.inherits(Sapui5Generator, yeoman.generators.Base);
+	util.inherits(openui5Generator, yeoman.generators.Base);
 
-	Sapui5Generator.prototype.askFor = function askFor() {
+	openui5Generator.prototype.askFor = function askFor() {
 		var cb = this.async();
 
 		var prompts = [{
@@ -65,7 +65,7 @@
 		}.bind(this));
 	};
 
-	Sapui5Generator.prototype.app = function app() {
+	openui5Generator.prototype.app = function app() {
 		this.mkdir('css');
 		this.copy('application/css/style.css', 'css/style.css');
 
@@ -91,7 +91,7 @@
 		this.template('application/_index.html', 'index.html');
 	};
 
-	Sapui5Generator.prototype.projectfiles = function projectfiles() {
+	openui5Generator.prototype.projectfiles = function projectfiles() {
 		this.copy('Gruntfile.js', 'Gruntfile.js');
 		this.copy('jshintrc', '.jshintrc');
 		this.template('_bower.json', 'bower.json');

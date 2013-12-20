@@ -6,14 +6,14 @@
 	var helpers = require('yeoman-generator').test;
 
 
-	describe('sapui5 app generator', function() {
+	describe('openui5 app generator', function() {
 		beforeEach(function(done) {
 			helpers.testDirectory(path.join(__dirname, 'temp'), function(err) {
 				if (err) {
 					return done(err);
 				}
 
-				this.app = helpers.createGenerator('sapui5:app', [
+				this.app = helpers.createGenerator('openui5:app', [
 					'../../app',
 					'../../view'
 				]);

@@ -1,6 +1,6 @@
-# generator-sapui5 [![Build Status](https://secure.travis-ci.org/saschakiefer/generator-sapui5.png?branch=master)](https://travis-ci.org/saschakiefer/generator-sapui5)
+# generator-openui5 [![Build Status](https://secure.travis-ci.org/saschakiefer/generator-openui5.png?branch=master)](https://travis-ci.org/saschakiefer/generator-openui5)
 
-A SAP UI5 generator for [Yeoman](http://yeoman.io).
+A OpenUI5 generator for [Yeoman](http://yeoman.io).
 
 
 ## Getting Started
@@ -17,41 +17,41 @@ Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](
 $ npm install -g yo
 ```
 
-### SAP UI5 Generators
+### OpenUI5 Generators
 
-To install generator-sapui5 from npm, run:
+To install generator-openui5 from npm, run:
 
 ```
-$ npm install -g generator-sapui5
+$ npm install -g generator-openui5
 ```
 
 Finally, initiate the generator:
 
 ```
-$ yo sapui5
+$ yo openui5
 ```
-This will generate a complete runnable SAP UI5 Application with a main view and some infrastructure around it.
+This will generate a complete runnable OpenUI5 Application with a main view and some infrastructure around it.
 
 If you just need some parts of it, use the sub generators:
 #### Sub Generators
 Create a view with controller:
 
 ```
-$ yo sapui5:view
+$ yo openui5:view
 ```
 
 Create a UI Component:
 
 ```
-$ yo sapui5:uiComponent
+$ yo openui5:uiComponent
 ```
 
 Create a faceless Component:
 
 ```
-$ yo sapui5:facelessComponent
+$ yo openui5:facelessComponent
 ```
 
 ## License
 
-[MIT License](https://github.com/saschakiefer/generator-sapui5/blob/master/LICENSE)
+[MIT License](https://github.com/saschakiefer/generator-openui5/blob/master/LICENSE)
