@@ -41,8 +41,6 @@
 	ComponentGenerator.prototype.createView = function createView() {
 		var path = this.componentName.replace(/\./g, '/');
 
-		console.log(path[path.length]);
-
 		if (path[path.length] !== '/') {
 			path = path + '/';
 		}
