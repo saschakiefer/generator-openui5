@@ -63,7 +63,7 @@ module.exports = function(grunt) {
 			},
 			application: {
 				files: '<%= jshint.application.src %>',
-				tasks: ['collaboration']
+				tasks: ['jshint:application']
 			}
 		}
 	});
