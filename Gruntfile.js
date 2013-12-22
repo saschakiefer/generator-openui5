@@ -93,9 +93,16 @@ module.exports = function(grunt) {
 		release: {
 			options: {
 				commitMessage: '<%= version %>',
-				tagName: 'v<%= version %>',
+				tagName: '<%= version %>',
 				bump: false, // we have our own bump
-				file: 'package.json'
+				file: 'package.json',
+				add: false, //default: true
+				commit: false, //default: true
+				tag: true, //default: true
+				push: true, //default: true
+				pushTags: true, //default: true
+				npm: true, //default: true
+				npmtag: true, //default: no tag
 			}
 		},
 
