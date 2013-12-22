@@ -3,6 +3,7 @@
 	var util = require('util');
 	var yeoman = require('yeoman-generator');
 	var openui5Utils = require('../utils.js');
+	var chalk = require('chalk');
 
 	/*jshint unused: vars */
 	var ComponentGenerator = module.exports = function ComponentGenerator(args, options, config) {
@@ -39,6 +40,11 @@
 	};
 
 	ComponentGenerator.prototype.createComponent = function createComponent() {
+		if (!this.componentName) {
+			console.error(chalk.red('Sorry, but without a component name, I could not generate a component.'));
+			return;
+		}
+
 		var path = this.componentName.replace(/\./g, '/');
 
 		if (path[path.length] !== '/') {
