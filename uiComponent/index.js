@@ -38,7 +38,7 @@
 		}.bind(this));
 	};
 
-	ComponentGenerator.prototype.createView = function createView() {
+	ComponentGenerator.prototype.createComponent = function createComponent() {
 		var path = this.componentName.replace(/\./g, '/');
 
 		if (path[path.length] !== '/') {
