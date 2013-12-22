@@ -51,7 +51,7 @@
 		}, {
 			name: 'licenseType',
 			message: 'What is your license Type?',
-			default: 'MIT'
+			default: 'Apache License, Version 2.0'
 		}, ];
 
 		this.prompt(prompts, function(props) {
