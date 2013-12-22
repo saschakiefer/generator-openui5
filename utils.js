@@ -1,16 +1,24 @@
-// This file is borrowed from the generator-angular project.
+/*global process */
 'use strict';
 var path = require('path');
 var fs = require('fs');
-
+var path = require('path');
 
 module.exports = {
 	rewrite: rewrite,
 	rewriteFile: rewriteFile,
-	appName: appName,
-	addScriptToIndex: addScriptToIndex
+	addLocalResource: addLocalResource
 };
 
+// This concept is borrowed from the generator-angular project.
+
+/**
+ * Method searching a certain string in a file and adding it just before the give hook string.
+ *
+ * @param  {Object} args.splicable: Content to be added if not present
+ *                  args.haysteck:  Content string to be searched within
+ *                  args.needle:    Hook string, before which the content is added
+ */
 function rewriteFile(args) {
 	args.path = args.path || process.cwd();
 	var fullPath = path.join(args.path, args.file);
@@ -21,10 +29,30 @@ function rewriteFile(args) {
 	fs.writeFileSync(fullPath, body);
 }
 
+
+
+/**
+ * Escaping function
+ *
+ * @param  {String} str Input
+ *
+ * @return {String}     Output
+ */
 function escapeRegExp(str) {
 	return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
 }
 
+
+
+/**
+ * Method searching a certain string in a file and adding it just before the give hook string.
+ *
+ * @param  {Object} args.splicable: Content to be added if not present
+ *                  args.haysteck:  Content string to be searched within
+ *                  args.needle:    Hook string, before which the content is added
+ *
+ * @return {String} Modified content
+ */
 function rewrite(args) {
 	// check if splicable is already in the body text
 	var re = new RegExp(args.splicable.map(function(line) {
@@ -61,34 +89,26 @@ function rewrite(args) {
 	return lines.join('\n');
 }
 
-function appName(self) {
-	var counter = 0,
-		suffix = self.options['app-suffix'];
-	// Have to check this because of generator bug #386
-	process.argv.forEach(function(val) {
-		if (val.indexOf('--app-suffix') > -1) {
-			counter++;
-		}
-	});
-	if (counter === 0 || (typeof suffix === 'boolean' && suffix)) {
-		suffix = 'App';
-	}
-	return suffix ? self._.classify(suffix) : '';
-}
 
 
-function addScriptToIndex(script) {
+/**
+ * Check if a sap.ui.localResources() entry exists for the first element of the
+ * elemetPath in index.html. If not, it's added to index.html.
+ *
+ * @param {String} elementPath Path of the element to be checked
+ */
+function addLocalResource(elementPath) {
+	var indexPath = path.join(process.cwd(), 'index.html');
+
 	try {
-		var appPath = this.env.options.appPath;
-		var fullPath = path.join(appPath, 'index.html');
 		rewriteFile({
-			file: fullPath,
-			needle: '<!-- endbuild -->',
+			file: 'index.html',
+			needle: '/* endOfResources */',
 			splicable: [
-				'<script src="scripts/' + script.replace('\\', '/') + '.js"></script>'
+				'sap.ui.localResources("' + elementPath.split('.')[0] + '");'
 			]
 		});
 	} catch (e) {
-		console.log('\nUnable to find '.yellow + fullPath + '. Reference to '.yellow + script + '.js ' + 'not added.\n'.yellow);
+		console.log('\nUnable to find '.yellow + indexPath + '. sap.ui.localResources to '.yellow + elementPath.split('.')[0] + ' not added.\n'.yellow);
 	}
 }
