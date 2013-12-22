@@ -2,6 +2,8 @@
 	'use strict';
 	var util = require('util');
 	var yeoman = require('yeoman-generator');
+	var openui5Utils = require('../utils.js');
+	var chalk = require('chalk');
 
 	/*jshint unused: vars */
 	var ComponentGenerator = module.exports = function ComponentGenerator(args, options, config) {
@@ -37,10 +39,13 @@
 		}.bind(this));
 	};
 
-	ComponentGenerator.prototype.createView = function createView() {
-		var path = this.componentName.replace(/\./g, '/');
+	ComponentGenerator.prototype.createComponent = function createComponent() {
+		if (!this.componentName) {
+			console.error(chalk.red('Sorry, but without a component name, I could not generate a component.'));
+			return;
+		}
 
-		console.log(path[path.length]);
+		var path = this.componentName.replace(/\./g, '/');
 
 		if (path[path.length] !== '/') {
 			path = path + '/';
@@ -51,5 +56,8 @@
 
 		this.template('application/_Component.js', path + 'Component.js');
 		this.template('application/_component.json', path + 'component.json');
+
+		// Check if a link to the local resource exists and if not, add it.
+		openui5Utils.addLocalResource(this.componentName);
 	};
 }());

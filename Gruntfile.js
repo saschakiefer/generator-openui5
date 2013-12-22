@@ -1,5 +1,11 @@
 /*global module:false*/
+'use strict';
+
+var semver = require('semver');
+
 module.exports = function(grunt) {
+	// Load all plugins
+	require('load-grunt-tasks')(grunt);
 
 	// Project configuration.
 	grunt.initConfig({
@@ -67,21 +73,71 @@ module.exports = function(grunt) {
 				tasks: ['jshint:generators']
 			}
 		},
+
+
+
+		pkg: grunt.file.readJSON('package.json'),
+
+
+
+		changelog: {
+			options: {
+				dest: 'CHANGELOG.md',
+				versionFile: 'package.json',
+				github: 'http://github.com/saschakiefer/generator-openui5'
+			}
+		},
+
+
+
+		release: {
+			options: {
+				commitMessage: '<%= version %>',
+				tagName: 'v<%= version %>',
+				bump: false, // we have our own bump
+				file: 'package.json'
+			}
+		},
+
+
+
+		stage: {
+			options: {
+				files: ['CHANGELOG.md']
+			}
+		}
 	});
 
 
 
-	// These plugins provide necessary tasks.
-	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-mocha-test');
-	grunt.loadNpmTasks('grunt-release'); // use grunt release (= release:patch), release:minor, release:major
+	grunt.registerTask('bump', 'bump manifest version', function(type) {
+		var options = this.options({
+			file: grunt.config('pkgFile') || 'package.json'
+		});
+
+		function setup(file, type) {
+			var pkg = grunt.file.readJSON(file);
+			var newVersion = pkg.version = semver.inc(pkg.version, type || 'patch');
+			return {
+				file: file,
+				pkg: pkg,
+				newVersion: newVersion
+			};
+		}
+
+		var config = setup(options.file, type);
+		grunt.file.write(config.file, JSON.stringify(config.pkg, null, '  ') + '\n');
+		grunt.log.ok('Version bumped to ' + config.newVersion);
+	});
+
 
 
 	// Default task.
 	grunt.registerTask('default', ['jshint', 'mochaTest']);
 
-	grunt.registerTask('testAndReleasePatch', ['jshint', 'mochaTest', 'release']);
-	grunt.registerTask('testAndReleaseMinor', ['jshint', 'mochaTest', 'release:minor']);
-	grunt.registerTask('testAndReleaseMajor', ['jshint', 'mochaTest', 'release:major']);
+
+
+	grunt.registerTask('prepare', ['bump', 'changelog']);
+
+	// grunt release can be called directly
 };

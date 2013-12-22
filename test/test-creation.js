@@ -23,7 +23,7 @@
 					appDescription: 'Test Description',
 					authorName: 'John Doe',
 					gitRepository: 'ssh://github.com/ropository/url.git',
-					licenseType: 'MIT'
+					licenseType: 'Apache License, Version 2.0'
 				};
 
 				this.expected = [
