@@ -3,6 +3,7 @@
 var path = require('path');
 var fs = require('fs');
 var path = require('path');
+var chalk = require('chalk');
 
 module.exports = {
 	rewrite: rewrite,
@@ -99,16 +100,15 @@ function rewrite(args) {
  */
 function addLocalResource(elementPath) {
 	var indexPath = path.join(process.cwd(), 'index.html');
+	var localResourcesString = 'sap.ui.localResources("' + elementPath.split('.')[0] + '");';
 
 	try {
 		rewriteFile({
 			file: 'index.html',
 			needle: '/* endOfResources */',
-			splicable: [
-				'sap.ui.localResources("' + elementPath.split('.')[0] + '");'
-			]
+			splicable: [localResourcesString]
 		});
 	} catch (e) {
-		console.log('\nUnable to find '.yellow + indexPath + '. sap.ui.localResources to '.yellow + elementPath.split('.')[0] + ' not added.\n'.yellow);
+		console.log(chalk.red('\nUnable to find ' + indexPath + '. ') + chalk.yellow(localResourcesString) + ' not added.\n');
 	}
 }
