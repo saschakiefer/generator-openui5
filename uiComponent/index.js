@@ -2,6 +2,7 @@
 	'use strict';
 	var util = require('util');
 	var yeoman = require('yeoman-generator');
+	var openui5Utils = require('../utils.js');
 
 	/*jshint unused: vars */
 	var ComponentGenerator = module.exports = function ComponentGenerator(args, options, config) {
@@ -62,5 +63,8 @@
 
 		this.template('application/_Component.js', path + 'Component.js');
 		this.template('application/_component.json', path + 'component.json');
+
+		// Check if a link to the local resource exists and if not, add it.
+		openui5Utils.addLocalResource(this.componentName);
 	};
 }());
