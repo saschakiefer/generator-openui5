@@ -98,9 +98,9 @@ module.exports = function(grunt) {
 				file: 'package.json',
 				add: false, //default: true
 				commit: false, //default: true
-				tag: true, //default: true
-				push: true, //default: true
-				pushTags: true, //default: true
+				tag: false, //default: true
+				push: false, //default: true
+				pushTags: false, //default: true
 				npm: true, //default: true
 				npmtag: true, //default: no tag
 			}
