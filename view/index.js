@@ -34,11 +34,11 @@
 			type: 'input',
 			name: 'viewName',
 			message: 'What is the name of the view you want to generate (will be created in "view" folder by convention; default is Main)?',
-			default: 'view.Main'
+			default: 'Main'
 		}];
 
 		this.prompt(prompts, function(props) {
-			this.viewName = (props.viewName === 'view.Main')? props.viewName : 'view.' + props.viewName;
+			this.viewName = 'view.' + props.viewName;
 
 			cb();
 		}.bind(this));
