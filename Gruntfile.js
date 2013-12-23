@@ -83,8 +83,7 @@ module.exports = function(grunt) {
 		changelog: {
 			options: {
 				dest: 'CHANGELOG.md',
-				versionFile: 'package.json',
-				github: 'http://github.com/saschakiefer/generator-openui5'
+				versionFile: 'package.json'
 			}
 		},
 
