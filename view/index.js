@@ -16,6 +16,7 @@
 		// Assume the first argument being the file name
 		if (args.length > 0) {
 			this.viewName = args[0];
+			this.xmlView = args[1];  //true = xml view; false = js view
 		}
 	};
 
@@ -23,7 +24,7 @@
 
 	// By convention we use a folder called view to store the views and controllers.
 	ViewGenerator.prototype.askForViewName = function askForViewName() {
-		// If a name was passed as parameter, we don't need to ask for a name
+		// If a name was passed as parameter, we don't need to ask for a name. If the view type was not also provided then use JS
 		if (this.viewName) {
 			return;
 		}

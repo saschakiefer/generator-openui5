@@ -1,9 +1,9 @@
 /*global module:false*/
-'use strict';
-
 var semver = require('semver');
 
 module.exports = function(grunt) {
+	"use strict";
+	
 	// Load all plugins
 	require('load-grunt-tasks')(grunt);
 
