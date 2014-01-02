@@ -35,10 +35,26 @@
 			name: 'viewName',
 			message: 'What is the name of the view you want to generate (will be created in "view" folder by convention; default is Main)?',
 			default: 'Main'
+		}, {
+			type: 'checkbox',
+			name: 'features',
+			message: 'What more would you like?',
+			choices: [{
+				name: 'XML View',
+				value: 'xmlView',
+				checked: true
+			}]
 		}];
 
 		this.prompt(prompts, function(props) {
 			this.viewName = 'view.' + props.viewName;
+
+			// check for other features...
+			var features = props.features;
+
+			function hasFeature(feat) { return features.indexOf(feat) !== -1; }
+
+			this.xmlView = hasFeature('xmlView');
 
 			cb();
 		}.bind(this));
@@ -54,11 +70,15 @@
 
 		var absoluteNamePref = this.viewName.replace(/\./g, '/');
 
-		//
+		// Setup the view and associated controller
 		this.template('application/view/_Main.controller.js', absoluteNamePref + '.controller.js');
-		this.template('application/view/_Main.view.js', absoluteNamePref + '.view.js');
+		if (this.xmlView) {
+			this.template('application/view/_Main.view.xml', absoluteNamePref + '.view.xml');
+		} else {
+			this.template('application/view/_Main.view.js', absoluteNamePref + '.view.js');
+		}
 
-		// If the generator is kalled from the main task, the Application.js needs to be copied as well.
+		// If the generator is called from the main task, the Application.js needs to be copied as well.
 		// This can be done only here, since the dynamic view name needs to be templated into the view
 		if (!this.skipApplicationJS) {
 			this.template('../../app/templates/application/_Application.js', 'Application.js');

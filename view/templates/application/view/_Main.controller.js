@@ -37,5 +37,9 @@
 		//	onExit: function() {
 		//
 		//	}
+
+		doSomething: function() {
+			alert("Button was pressed!");
+		}
 	});
 }());

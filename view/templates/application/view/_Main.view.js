@@ -22,7 +22,8 @@
 		/*jshint unused: vars */
 		createContent: function(oController) {
 			var oControl = new sap.ui.commons.Button({
-				text: "{i18n>WELCOME_MESSAGE}"
+				text: "{i18n>WELCOME_MESSAGE}",
+				press: oController.doSomething
 			});
 
 			return oControl;
