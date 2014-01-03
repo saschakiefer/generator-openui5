@@ -14,7 +14,7 @@
 			var sCurrentLocale = sap.ui.getCore().getConfiguration().getLanguage();
 			var oResourceModel = new sap.ui.model.resource.ResourceModel({
 				// bundleUrl: "i18n",
-				bundleName: "i18n.i18n",
+				bundleName: "i18n.messageBundle",
 				bundleLocale: sCurrentLocale
 			});
 			sap.ui.getCore().setModel(oResourceModel, "i18n");

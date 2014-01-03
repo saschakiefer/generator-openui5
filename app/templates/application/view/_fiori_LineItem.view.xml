@@ -1,0 +1,32 @@
+<core:View
+        controllerName="<%= namespace %>.view.LineItem"
+        xmlns="sap.m"
+        xmlns:core="sap.ui.core" >
+        <Page
+                id="page"
+                title=" {i18n>LineItemTitle}"
+                showNavButton="true"
+                navButtonPress="handleNavBack" >
+                <footer>
+                        <Bar>
+                        </Bar>
+                </footer>
+                <content>
+                        <ObjectHeader
+                                title="{ProductId}"
+                                number="{GrossAmount}"
+                                numberUnit="{CurrencyCode}" >
+                                <attributes>
+                                        <ObjectAttribute text="{
+                                                path:'DeliveryDate',
+                                                formatter:'<%= namespace %>.util.Formatter.date'
+                                        }" />
+                                        <ObjectAttribute text="{
+                                                path:'Quantity',
+                                                formatter:'<%= namespace %>.util.Formatter.quantity'
+                                        }" />
+                                </attributes>
+                        </ObjectHeader>
+                </content>
+        </Page>
+</core:View>

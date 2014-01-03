@@ -2,7 +2,7 @@
 	"devel": true,
 	"curly": true,
 	"eqeqeq": true,
-	"immed": true,
+	"immed": false,
 	"latedef": true,
 	"newcap": true,
 	"noarg": true,
@@ -12,6 +12,8 @@
 	"boss": true,
 	"eqnull": true,
 	"browser": true,
+	"quotmark": "double",
+	"trailing": true,
 	"globals": {
 		"require": true,
 		"module": true
