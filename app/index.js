@@ -1,5 +1,5 @@
 ( function() {
-    /* global __dirname */
+    /* global __dirname, require, module */
     "use strict";
     var util = require( "util" );
     var path = require( "path" );

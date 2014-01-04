@@ -1,4 +1,5 @@
 ( function() {
+    /* global require, module */
     "use strict";
     var util = require( "util" );
     var yeoman = require( "yeoman-generator" );
