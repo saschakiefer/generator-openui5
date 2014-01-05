@@ -3,22 +3,14 @@
 var util = require("util");
 var path = require("path");
 var yeoman = require("yeoman-generator");
-var openUI5Utils = require("./util.js");
+var openUI5Utils = require("./utils.js");
 var chalk = require("chalk");
 
 var Generator = module.exports = function Generator() {
-	yeoman.generators.NamedBase.apply(this, arguments);
+	yeoman.generators.Base.apply(this, arguments);
 };
 
-util.inherits(Generator, yeoman.generators.NamedBase);
-
-Generator.prototype.appTemplate = function(src, dest) {
-	yeoman.generators.Base.prototype.template.apply(this, [
-		src + this.scriptSuffix,
-		path.join(this.env.options.appPath, dest.toLowerCase()) + this.scriptSuffix
-	]);
-};
-
+util.inherits(Generator, yeoman.generators.Base);
 
 
 /**
@@ -27,17 +19,18 @@ Generator.prototype.appTemplate = function(src, dest) {
  *
  * @param {String} elementPath Path of the element to be checked
  */
-Generator.prototype.appTemplate = function addLocalResource(elementPath) {
+Generator.prototype.addLocalResource = function(elementPath) {
 	var indexPath = path.join(process.cwd(), "index.html");
 	var localResourcesString = "sap.ui.localResources(\"" + elementPath.split(".")[0] + "\");";
 
 	try {
+		console.log(chalk.green("    check ") + "localResources register in index.html.");
 		openUI5Utils.rewriteFile({
-			file: "index.html ",
+			file: "index.html",
 			needle: "/* endOfResources */",
 			splicable: [localResourcesString]
 		});
 	} catch (e) {
-		console.log(chalk.red("\nUnable to find " + indexPath + ".") + chalk.yellow(localResourcesString) + "not added.\n");
+		console.log(chalk.red("\nUnable to find " + indexPath + ". ") + chalk.yellow(localResourcesString) + " could not be registered. Please check the resource register manaually.\n");
 	}
 };
