@@ -24,7 +24,7 @@
 
 		// Assume the first argument being the file name
 		if (args.length > 0) {
-			this.viewName = args[0];
+			this.viewName = "view." + args[0];
 			this.xmlView = args[1]; //true = xml view; false = js view
 		}
 	};
