@@ -39,8 +39,13 @@ module.exports = function(grunt) {
 				src: "Gruntfile.js"
 			},
 
+
+			util: {
+				src: "./*.js"
+			},
+
 			test: {
-				src: ["lib/**/*.js", "test/**/*.js"]
+				src: "test/**/*.js"
 			},
 
 			generators: {
