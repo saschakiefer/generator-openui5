@@ -77,6 +77,11 @@ module.exports = function(grunt) {
 			generators: {
 				files: "<%= jshint.generators.src %>",
 				tasks: ["jshint:generators"]
+			},
+
+			util: {
+				files: "<%= jshint.util.src %>",
+				tasks: ["jshint:generators"]
 			}
 		},
 
