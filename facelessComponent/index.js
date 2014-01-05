@@ -1,4 +1,4 @@
-/*global process, module, require */
+/*global module, require */
 (function() {
 	"use strict";
 	var util = require("util");
