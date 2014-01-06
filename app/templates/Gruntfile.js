@@ -26,53 +26,52 @@ module.exports = function(grunt) {
 					"util": true,
 					"view": true,
 					"model": true
-				},
+				}
 				// Uncomment the following lines, if you want the lint results beign generatedt to a file
 				// "reporter": "jslint",
-				// "reporterOutput": "jslint_report.xml",
-				"ignores": []
+				// "reporterOutput": "jslint_report.xml"
 			},
 
 			gruntfile: {
-				src: 'Gruntfile.js'
+				src: "Gruntfile.js"
 			},
 			libTest: {
-				src: ['lib/**/*.js', 'test/**/*.js']
+				src: ["lib/**/*.js", "test/**/*.js"]
 			},
 			application: {
-				src: ['model/**/*.js', 'util/**/*.js', 'view/**/*.js', 'Application.js']
+				src: ["model/**/*.js", "util/**/*.js", "view/**/*.js", "Application.js"]
 			}
 		},
 
 
 		qunit: {
 			all: {
-				src: ['test/**/*.html']
+				src: ["test/**/*.html"]
 			}
 		},
 
 
 		watch: {
 			gruntfile: {
-				files: '<%= jshint.gruntfile.src %>',
-				tasks: ['jshint:gruntfile']
+				files: "<%= jshint.gruntfile.src %>",
+				tasks: ["jshint:gruntfile"]
 			},
 			libTest: {
-				files: '<%= jshint.libTest.src %>',
-				tasks: ['jshint:lib_test', 'qunit']
+				files: "<%= jshint.libTest.src %>",
+				tasks: ["jshint:lib_test", "qunit"]
 			},
 			application: {
-				files: '<%= jshint.application.src %>',
-				tasks: ['jshint:application']
+				files: "<%= jshint.application.src %>",
+				tasks: ["jshint:application"]
 			}
 		}
 	});
 
 	// These plugins provide necessary tasks.
-	grunt.loadNpmTasks('grunt-contrib-qunit');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks("grunt-contrib-qunit");
+	grunt.loadNpmTasks("grunt-contrib-jshint");
+	grunt.loadNpmTasks("grunt-contrib-watch");
 
 	// Default task.
-	grunt.registerTask('default', ['jshint', 'qunit:all', 'watch']);
+	grunt.registerTask("default", ["jshint", "qunit:all", "watch"]);
 };
