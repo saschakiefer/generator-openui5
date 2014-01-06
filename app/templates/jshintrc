@@ -15,7 +15,6 @@
         "util": true,
         "view": true
     },
-    "ignores": [],
     "immed": true,
     "latedef": true,
     "newcap": true,
