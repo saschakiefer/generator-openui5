@@ -1,5 +1,5 @@
 <core:View
-    controllerName="<%= namespace + '.view.Master' %>"
+    controllerName="<%= fioriComponentNamespace + '.view.Master' %>"
     xmlns="sap.m"
     xmlns:core="sap.ui.core" >
     <Page
@@ -33,7 +33,7 @@
                         text="{BillingStatus}"
                         state="{
                             path: 'BillingStatus',
-                            formatter: '<%= namespace %>.util.Formatter.statusState'
+                            formatter: '<%= fioriComponentNamespace %>.util.Formatter.statusState'
                         }" />
                 </firstStatus>
             </ObjectListItem>

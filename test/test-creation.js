@@ -1,67 +1,67 @@
 /*global describe, beforeEach, it, __dirname, require*/
-( function() {
-    "use strict";
+(function() {
+	"use strict";
 
-    var path = require( "path" );
-    var helpers = require( "yeoman-generator" ).test;
+	var path = require("path");
+	var helpers = require("yeoman-generator").test;
 
 
-    describe( "openui5 app generator", function() {
-        beforeEach( function( done ) {
-            helpers.testDirectory( path.join( __dirname, "temp" ), function( err ) {
-                if ( err ) {
-                    return done( err );
-                }
+	describe("openui5 app generator", function() {
+		beforeEach(function(done) {
+			helpers.testDirectory(path.join(__dirname, "temp"), function(err) {
+				if (err) {
+					return done(err);
+				}
 
-                this.app = helpers.createGenerator( "openui5:app", [
-                    "../../app",
-                    "../../view"
-                ] );
+				this.app = helpers.createGenerator("openui5:app", [
+					"../../app",
+					"../../view"
+				]);
 
-                done();
-            }.bind( this ) );
-        } );
+				done();
+			}.bind(this));
+		});
 
-        it( "app gen creates expected files with args", function( done ) {
-            var mockPrompts = {
-                applicationName: "My Application",
-                appDescription: "Test Description",
-                authorName: "John Doe",
-                gitRepository: "ssh://github.com/ropository/url.git",
-                licenseType: "Apache License, Version 2.0",
-                features: "" // No added features
-            };
-            var expected = [
-                "css/style.css",
-                "ext/.gitkeep",
-                "test/.gitkeep",
-                "i18n/messageBundle.properties",
-                "img/.gitkeep",
-                "model/Config.js",
-                "model/img.json",
-                "util/.gitkeep",
-                "index.html",
-                "Gruntfile.js",
-                ".jshintrc",
-                "bower.json",
-                "package.json",
-                "README.md",
-                "view/Main.controller.js",
-                "view/Main.view.js",
-                "Application.js"
-            ];
+		it("app gen creates expected files with args", function(done) {
+			var mockPrompts = {
+				applicationName: "My Application",
+				appDescription: "Test Description",
+				authorName: "John Doe",
+				gitRepository: "ssh://github.com/ropository/url.git",
+				licenseType: "Apache License, Version 2.0",
+				applicationType: "classical"
+			};
+			var expected = [
+				"css/style.css",
+				"ext/.gitkeep",
+				"test/.gitkeep",
+				"i18n/messageBundle.properties",
+				"img/.gitkeep",
+				"model/Config.js",
+				"model/img.json",
+				"util/.gitkeep",
+				"index.html",
+				"Gruntfile.js",
+				".jshintrc",
+				"bower.json",
+				"package.json",
+				"README.md",
+				"view/Main.controller.js",
+				"view/Main.view.js",
+				"Application.js"
+			];
 
-            helpers.mockPrompt( this.app, mockPrompts );
+			helpers.mockPrompt(this.app, mockPrompts);
 
-            this.app.args = [ "Main", false ];
-            this.app.options[ "skip-install" ] = true;
-            this.app.run( {}, function() {
-                helpers.assertFiles( expected );
-                done();
-            } );
-        } );
+			this.app.args = ["Main", false];
+			this.app.options["skip-install"] = true;
+			this.app.run({}, function() {
+				helpers.assertFiles(expected);
+				done();
+			});
+		});
 
-        /*
+		/*
         Unable to un-comment this just yet (as of 6/1/14). The yeoman generator-generator 
         module has a bug in the helpers#testDirectory function that stops refreshing (clearing
         out) the temp directory (on Windows).
@@ -107,37 +107,37 @@
             } );
         } );
         */
-    } );
+	});
 
-    describe( "openui5 view generator", function() {
-        beforeEach( function( done ) {
-            //helpers.testDirectory(path.join(__dirname, 'temp'), function(err) {
-            //  if (err) {
-            //      return done(err);
-            //  }
+	describe("openui5 view generator", function() {
+		beforeEach(function(done) {
+			//helpers.testDirectory(path.join(__dirname, 'temp'), function(err) {
+			//  if (err) {
+			//      return done(err);
+			//  }
 
-            this.view = helpers.createGenerator( "openui5:view", [
-                "../../view"
-            ] );
+			this.view = helpers.createGenerator("openui5:view", [
+				"../../view"
+			]);
 
-            done();
-            //}.bind(this));
-        } );
+			done();
+			//}.bind(this));
+		});
 
-        it( "creates expected files with args", function( done ) {
-            var expected = [
-                "view/Test.controller.js",
-                "view/Test.view.xml"
-            ];
+		it("creates expected files with args", function(done) {
+			var expected = [
+				"view/Test.controller.js",
+				"view/Test.view.xml"
+			];
 
-            helpers.mockPrompt( this.view, {
-                viewName: "Test",
-                features: [ "xmlView" ]
-            } );
-            this.view.run( {}, function() {
-                helpers.assertFiles( expected );
-                done();
-            } );
-        } );
-    } );
-}() );
+			helpers.mockPrompt(this.view, {
+				viewName: "Test",
+				features: ["xmlView"]
+			});
+			this.view.run({}, function() {
+				helpers.assertFiles(expected);
+				done();
+			});
+		});
+	});
+}());

@@ -1,5 +1,5 @@
 <core:View
-        controllerName="<%= namespace %>.view.LineItem"
+        controllerName="<%= fioriComponentNamespace %>.view.LineItem"
         xmlns="sap.m"
         xmlns:core="sap.ui.core" >
         <Page
@@ -19,11 +19,11 @@
                                 <attributes>
                                         <ObjectAttribute text="{
                                                 path:'DeliveryDate',
-                                                formatter:'<%= namespace %>.util.Formatter.date'
+                                                formatter:'<%= fioriComponentNamespace %>.util.Formatter.date'
                                         }" />
                                         <ObjectAttribute text="{
                                                 path:'Quantity',
-                                                formatter:'<%= namespace %>.util.Formatter.quantity'
+                                                formatter:'<%= fioriComponentNamespace %>.util.Formatter.quantity'
                                         }" />
                                 </attributes>
                         </ObjectHeader>

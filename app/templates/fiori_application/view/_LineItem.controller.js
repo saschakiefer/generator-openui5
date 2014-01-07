@@ -1,6 +1,6 @@
-sap.ui.controller("<%= namespace %>.view.LineItem", {
+sap.ui.controller("<%= fioriComponentNamespace %>.view.LineItem", {
 
-    handleNavBack : function (evt) {
-        this.nav.back("Detail");
-    }
+	handleNavBack: function(evt) {
+		this.nav.back("Detail");
+	}
 });
