@@ -5,6 +5,8 @@
     "devel": true,
     "eqeqeq": true,
     "eqnull": true,
+    "quotmark": "double",
+    "trailing": true,
     "globals": {
         "$": true,
         "jQuery": true,
@@ -13,7 +15,6 @@
         "util": true,
         "view": true
     },
-    "ignores": [],
     "immed": true,
     "latedef": true,
     "newcap": true,

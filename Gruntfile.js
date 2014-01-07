@@ -1,11 +1,11 @@
 /*global module:false*/
-'use strict';
-
-var semver = require('semver');
+var semver = require("semver");
 
 module.exports = function(grunt) {
+	"use strict";
+
 	// Load all plugins
-	require('load-grunt-tasks')(grunt);
+	require("load-grunt-tasks")(grunt);
 
 	// Project configuration.
 	grunt.initConfig({
@@ -31,19 +31,25 @@ module.exports = function(grunt) {
 				},
 				// "reporter": "jslint",
 				// "reporterOutput": "jslint_report.xml",
-				"ignores": ['test/temp/**/*.js', './**/templates/**/*.js']
+				"ignores": ["test/temp/**/*.js", "./**/templates/**/*.js"],
+				"quotmark": "double"
 			},
 
 			gruntfile: {
-				src: 'Gruntfile.js'
+				src: "Gruntfile.js"
+			},
+
+
+			util: {
+				src: "./*.js"
 			},
 
 			test: {
-				src: ['lib/**/*.js', 'test/**/*.js']
+				src: "test/**/*.js"
 			},
 
 			generators: {
-				src: ['app/**/*.js', 'facelessComponent/**/*.js', 'uiComponent/**/*.js', 'view/**/*.js']
+				src: ["app/**/*.js", "facelessComponent/**/*.js", "uiComponent/**/*.js", "view/**/*.js"]
 			}
 		},
 
@@ -51,7 +57,7 @@ module.exports = function(grunt) {
 
 		mochaTest: {
 			test: {
-				src: ['test/*.js']
+				src: ["test/*.js"]
 			}
 		},
 
@@ -59,32 +65,36 @@ module.exports = function(grunt) {
 
 		watch: {
 			gruntfile: {
-				files: '<%= jshint.gruntfile.src %>',
-				tasks: ['jshint:gruntfile']
+				files: "<%= jshint.gruntfile.src %>",
+				tasks: ["jshint:gruntfile"]
 			},
 
 			test: {
-				files: '<%= jshint.lib_test.src %>',
-				tasks: ['jshint:test']
+				files: "<%= jshint.test.src %>",
+				tasks: ["jshint:test"]
 			},
 
 			generators: {
-				files: '<%= jshint.generators.src %>',
-				tasks: ['jshint:generators']
+				files: "<%= jshint.generators.src %>",
+				tasks: ["jshint:generators"]
+			},
+
+			util: {
+				files: "<%= jshint.util.src %>",
+				tasks: ["jshint:generators"]
 			}
 		},
 
 
 
-		pkg: grunt.file.readJSON('package.json'),
+		pkg: grunt.file.readJSON("package.json"),
 
 
 
 		changelog: {
 			options: {
-				dest: 'CHANGELOG.md',
-				versionFile: 'package.json',
-				github: 'http://github.com/saschakiefer/generator-openui5'
+				dest: "CHANGELOG.md",
+				versionFile: "package.json"
 			}
 		},
 
@@ -92,10 +102,17 @@ module.exports = function(grunt) {
 
 		release: {
 			options: {
-				commitMessage: '<%= version %>',
-				tagName: 'v<%= version %>',
+				commitMessage: "<%= version %>",
+				tagName: "<%= version %>",
 				bump: false, // we have our own bump
-				file: 'package.json'
+				file: "package.json",
+				add: false, //default: true
+				commit: false, //default: true
+				tag: false, //default: true
+				push: false, //default: true
+				pushTags: false, //default: true
+				npm: true, //default: true
+				npmtag: true, //default: no tag
 			}
 		},
 
@@ -103,21 +120,21 @@ module.exports = function(grunt) {
 
 		stage: {
 			options: {
-				files: ['CHANGELOG.md']
+				files: ["CHANGELOG.md"]
 			}
 		}
 	});
 
 
 
-	grunt.registerTask('bump', 'bump manifest version', function(type) {
+	grunt.registerTask("bump", "bump manifest version", function(type) {
 		var options = this.options({
-			file: grunt.config('pkgFile') || 'package.json'
+			file: grunt.config("pkgFile") || "package.json"
 		});
 
 		function setup(file, type) {
 			var pkg = grunt.file.readJSON(file);
-			var newVersion = pkg.version = semver.inc(pkg.version, type || 'patch');
+			var newVersion = pkg.version = semver.inc(pkg.version, type || "patch");
 			return {
 				file: file,
 				pkg: pkg,
@@ -126,18 +143,18 @@ module.exports = function(grunt) {
 		}
 
 		var config = setup(options.file, type);
-		grunt.file.write(config.file, JSON.stringify(config.pkg, null, '  ') + '\n');
-		grunt.log.ok('Version bumped to ' + config.newVersion);
+		grunt.file.write(config.file, JSON.stringify(config.pkg, null, "  ") + "\n");
+		grunt.log.ok("Version bumped to " + config.newVersion);
 	});
 
 
 
 	// Default task.
-	grunt.registerTask('default', ['jshint', 'mochaTest']);
+	grunt.registerTask("default", ["jshint", "mochaTest"]);
 
 
 
-	grunt.registerTask('prepare', ['bump', 'changelog']);
+	grunt.registerTask("prepare", ["bump", "changelog"]);
 
 	// grunt release can be called directly
 };

@@ -14,7 +14,7 @@
 			var sCurrentLocale = sap.ui.getCore().getConfiguration().getLanguage();
 			var oResourceModel = new sap.ui.model.resource.ResourceModel({
 				// bundleUrl: "i18n",
-				bundleName: "i18n.i18n",
+				bundleName: "i18n.messageBundle",
 				bundleLocale: sCurrentLocale
 			});
 			sap.ui.getCore().setModel(oResourceModel, "i18n");
@@ -36,8 +36,12 @@
 
 		main: function() {
 			// create app view and put to html root element
-			var root = this.getRoot();
-			sap.ui.jsview("main", "<%= viewName %>").placeAt(root);
+			var root = this.getRoot(); <%
+			if (viewType === "xmlView") { %>
+					sap.ui.xmlview("main", "<%= viewName %>").placeAt(root); <%
+			} else { %>
+					sap.ui.jsview("main", "<%= viewName %>").placeAt(root); <%
+			} %>
 		}
 	});
 }());

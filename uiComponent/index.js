@@ -1,14 +1,13 @@
+/*global module, require */
 (function() {
-	'use strict';
-	var util = require('util');
-	var yeoman = require('yeoman-generator');
-	var openui5Utils = require('../utils.js');
-	var chalk = require('chalk');
+	"use strict";
+	var util = require("util");
+	var chalk = require("chalk");
+	var ScriptBase = require("../script-base.js");
 
 	/*jshint unused: vars */
 	var ComponentGenerator = module.exports = function ComponentGenerator(args, options, config) {
-		// We use Base instead of name Base to have the option of calling w/o arguments
-		yeoman.generators.Base.apply(this, arguments);
+		ScriptBase.apply(this, arguments);
 
 		// Assume the first argument being the file name
 		if (args.length > 0) {
@@ -16,10 +15,10 @@
 		}
 	};
 
-	util.inherits(ComponentGenerator, yeoman.generators.Base);
+	util.inherits(ComponentGenerator, ScriptBase);
 
 	ComponentGenerator.prototype.askForViewName = function askForViewName() {
-		// If a name was passed as parameter, we don't need to ask for a name
+		// If a name was passed as parameter, we don"t need to ask for a name
 		if (this.componentName) {
 			return;
 		}
@@ -27,9 +26,9 @@
 		var cb = this.async();
 
 		var prompts = [{
-			type: 'input',
-			name: 'componentName',
-			message: 'What is the name of the component you want to generate (e.g. foo.bar.myComponent)?',
+			type: "input",
+			name: "componentName",
+			message: "What is the name of the component you want to generate (e.g. foo.bar.myComponent)?",
 		}];
 
 		this.prompt(prompts, function(props) {
@@ -41,36 +40,36 @@
 
 	ComponentGenerator.prototype.createComponent = function createComponent() {
 		if (!this.componentName) {
-			console.error(chalk.red('Sorry, but without a component name, I could not generate a component.'));
+			console.error(chalk.red("Sorry, but without a component name, I could not generate a component."));
 			return;
 		}
 
-		var path = this.componentName.replace(/\./g, '/');
+		var path = this.componentName.replace(/\./g, "/");
 
-		if (path[path.length] !== '/') {
-			path = path + '/';
+		if (path[path.length] !== "/") {
+			path = path + "/";
 		}
 
-		this.mkdir(path + '/css');
-		this.copy('../../app/templates/gitkeep', path + 'css/.gitkeep');
+		this.mkdir(path + "/css");
+		this.copy("../../app/templates/gitkeep", path + "css/.gitkeep");
 
-		this.mkdir(path + '/i18n');
-		this.copy('../../app/templates/gitkeep', path + 'i18n/.gitkeep');
+		this.mkdir(path + "/i18n");
+		this.copy("../../app/templates/gitkeep", path + "i18n/.gitkeep");
 
-		this.mkdir(path + '/img');
-		this.copy('../../app/templates/gitkeep', path + 'img/.gitkeep');
+		this.mkdir(path + "/img");
+		this.copy("../../app/templates/gitkeep", path + "img/.gitkeep");
 
-		this.mkdir(path + '/js');
-		this.copy('../../app/templates/gitkeep', path + 'js/.gitkeep');
+		this.mkdir(path + "/js");
+		this.copy("../../app/templates/gitkeep", path + "js/.gitkeep");
 
-		this.mkdir(path + '/view');
-		this.copy('../../app/templates/gitkeep', path + 'view/.gitkeep');
+		this.mkdir(path + "/view");
+		this.copy("../../app/templates/gitkeep", path + "view/.gitkeep");
 
 
-		this.template('application/_Component.js', path + 'Component.js');
-		this.template('application/_component.json', path + 'component.json');
+		this.template("application/_Component.js", path + "Component.js");
+		this.template("application/_component.json", path + "component.json");
 
 		// Check if a link to the local resource exists and if not, add it.
-		openui5Utils.addLocalResource(this.componentName);
+		this.addLocalResource(this.componentName);
 	};
 }());

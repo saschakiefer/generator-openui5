@@ -1,0 +1,32 @@
+<core:View
+        controllerName="<%= fioriComponentNamespace %>.view.LineItem"
+        xmlns="sap.m"
+        xmlns:core="sap.ui.core" >
+        <Page
+                id="page"
+                title=" {i18n>LineItemTitle}"
+                showNavButton="true"
+                navButtonPress="handleNavBack" >
+                <footer>
+                        <Bar>
+                        </Bar>
+                </footer>
+                <content>
+                        <ObjectHeader
+                                title="{ProductId}"
+                                number="{GrossAmount}"
+                                numberUnit="{CurrencyCode}" >
+                                <attributes>
+                                        <ObjectAttribute text="{
+                                                path:'DeliveryDate',
+                                                formatter:'<%= fioriComponentNamespace %>.util.Formatter.date'
+                                        }" />
+                                        <ObjectAttribute text="{
+                                                path:'Quantity',
+                                                formatter:'<%= fioriComponentNamespace %>.util.Formatter.quantity'
+                                        }" />
+                                </attributes>
+                        </ObjectHeader>
+                </content>
+        </Page>
+</core:View>

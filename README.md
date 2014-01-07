@@ -58,6 +58,13 @@ Create a faceless Component:
 $ yo openui5:facelessComponent
 ```
 
+## Participate
+We're happy about everybody who wants to help us create an even more amazing tool. To make sure, that everything fits together, please familiarize yourself with our project guidelines:
+
+* [Git Branching Model](https://github.com/saschakiefer/generator-openui5/wiki/Git%20Branching%20Model)
+* [Git Commit Guidelines](https://github.com/saschakiefer/generator-openui5/wiki/Git-Commit-Guidelines)
+* [Code Format Guidelines](https://github.com/saschakiefer/generator-openui5/wiki/Code-Format-Guidelines)
+
 ## License
 
 [Apache License, Version 2.0](https://github.com/saschakiefer/generator-openui5/blob/master/LICENSE)
