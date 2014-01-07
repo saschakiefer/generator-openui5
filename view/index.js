@@ -1,103 +1,116 @@
-( function() {
-    /* global require, module */
-    "use strict";
-    var util = require( "util" );
-    var ScriptBase = require( "../script-base.js" );
+(function() {
+	/* global require, module */
+	"use strict";
+	var util = require("util");
+	var ScriptBase = require("../script-base.js");
 
-    var ViewGenerator = module.exports = function ViewGenerator( args, options /*, config*/ ) {
-        ScriptBase.apply( this, arguments );
+	var ViewGenerator = module.exports = function ViewGenerator(args, options /*, config*/ ) {
+		ScriptBase.apply(this, arguments);
 
-        // Is the app generator scaffolding a fiori app - if so then just exit.
-        var LocalStorage = require( "node-localstorage" ).LocalStorage;
-        var ls = new LocalStorage( "./scratch" );
-        if ( ls.getItem( "fiori" ) === "true" ) {
-            this.fiori = true;
-            ls._deleteLocation();
-            console.log( "view generator: skipping as this is a fiori app." );
-        }
+		// Is the app generator scaffolding a fiori app - if so then just exit.
+		var LocalStorage = require("node-localstorage").LocalStorage;
+		var ls = new LocalStorage("./scratch");
+		if (ls.getItem("fiori") === "true") {
+			this.fiori = true;
+			ls._deleteLocation();
+			console.log("view generator: skipping as this is a fiori app.");
+		}
 
-        if ( typeof options.skipApplicationJs === "undefined" ) {
-            this.skipApplicationJS = true;
-        } else {
-            this.skipApplicationJS = false;
-        }
+		if (typeof options.skipApplicationJs === "undefined") {
+			this.skipApplicationJS = true;
+		} else {
+			this.skipApplicationJS = false;
+		}
 
-        // Assume the first argument being the file name
-        if ( args.length > 0 ) {
-            this.viewName = "view." + args[ 0 ];
-            this.xmlView = args[ 1 ]; //true = xml view; false = js view
-        }
-    };
+		// Assume the first argument being the file name and the second the view type
+		// TODO: Refactor this, since the dependency on the right sequenc is unfortunate
+		if (args.length > 0) {
+			this.viewName = "view." + args[0];
 
-    util.inherits( ViewGenerator, ScriptBase );
+			//true = xml view; false = js view
+            if (args[1] === "true") {
+				this.viewType = "xmlView";
+			} else {
+				this.viewType = "jsView";
+			}
+		}
+	};
 
-    // By convention we use a folder called view to store the views and controllers.
-    ViewGenerator.prototype.askForViewName = function askForViewName() {
-        // If a name was passed as parameter -- or -- the app generator is building a fiori-style app, we don't need to ask for a name.
-        if ( this.viewName || this.fiori ) {
-            return;
-        }
+	util.inherits(ViewGenerator, ScriptBase);
 
-        var cb = this.async();
 
-        var prompts = [ {
-            type: "input",
-            name: "viewName",
-            message: "What is the name of the view you want to generate (will be created in \"view\" folder by convention; default is Main)?",
-            default: "Main"
-        }, {
-            type: "checkbox",
-            name: "features",
-            message: "What more would you like?",
-            choices: [ {
-                name: "XML View",
-                value: "xmlView",
-                checked: true
-            } ]
-        } ];
 
-        this.prompt( prompts, function( props ) {
-            this.viewName = "view." + props.viewName;
+	/**
+	 * Generator prompts for view name and type
+	 * By convention we use a folder called view to store the views and controllers.
+	 */
+	ViewGenerator.prototype.askForViewNameAndType = function askForViewNameAndType() {
+		// If a name was passed as parameter -- or -- the app generator is building a fiori-style app, we don't need to ask for a name.
+		if (this.viewName || this.fiori) {
+			return;
+		}
 
-            // check for other features...
-            var features = props.features;
+		var cb = this.async();
 
-            function hasFeature( feat ) {
-                return features.indexOf( feat ) !== -1;
-            }
+		var prompts = [{
+			type: "input",
+			name: "viewName",
+			message: "What is the name of the view you want to generate (will be created in 'view' folder by convention; default is Main)?",
+			default: "Main"
+		}, {
+			type: "list",
+			name: "viewType",
+			message: "What view type would you like?",
+			choices: [{
+				name: "JS View",
+				value: "jsView",
+			}, {
+				name: "XML View",
+				value: "xmlView",
+			}]
+		}];
 
-            this.xmlView = hasFeature( "xmlView" );
+		this.prompt(prompts, function(props) {
+			this.viewName = "view." + props.viewName;
+			this.viewType = props.viewType;
 
-            cb();
-        }.bind( this ) );
-    };
+			cb();
+		}.bind(this));
+	};
 
-    ViewGenerator.prototype.createView = function createView() {
-        if ( this.fiori ) {
-            return;
-        }
 
-        // Create a potential folder structure
-        if ( this.viewName.lastIndexOf( "." ) > -1 ) {
-            var path = this.viewName.substring( 0, this.viewName.lastIndexOf( "." ) );
-            path = path.replace( /\./g, "/" );
-            this.mkdir( path );
-        }
 
-        var absoluteNamePref = this.viewName.replace( /\./g, "/" );
+	/**
+	 * Scaffolding of the view
+	 */
+	ViewGenerator.prototype.createView = function createView() {
+		if (this.fiori) {
+			return;
+		}
 
-        // Setup the view and associated controller
-        this.template( "application/view/_Main.controller.js", absoluteNamePref + ".controller.js" );
-        if ( this.xmlView ) {
-            this.template( "application/view/_Main.view.xml", absoluteNamePref + ".view.xml" );
-        } else {
-            this.template( "application/view/_Main.view.js", absoluteNamePref + ".view.js" );
-        }
+		// Create a potential folder structure
+		if (this.viewName.lastIndexOf(".") > -1) {
+			var path = this.viewName.substring(0, this.viewName.lastIndexOf("."));
+			path = path.replace(/\./g, "/");
+			this.mkdir(path);
+		}
 
-        // If the generator is called from the main task, the Application.js needs to be copied as well.
-        // This can be done only here, since the dynamic view name needs to be templated into the view
-        if ( !this.skipApplicationJS ) {
-            this.template( "../../app/templates/application/_Application.js", "Application.js" );
-        }
-    };
-}() );
+		var absoluteNamePref = this.viewName.replace(/\./g, "/");
+
+		// Setup the view and associated controller
+		this.template("application/view/_Main.controller.js", absoluteNamePref + ".controller.js");
+
+		if (this.viewType === "xmlView") {
+			this.template("application/view/_Main.view.xml", absoluteNamePref + ".view.xml");
+		} else {
+			this.template("application/view/_Main.view.js", absoluteNamePref + ".view.js");
+		}
+
+		// If the generator is called from the main task, the Application.js needs to be copied as well.
+		// This can be done only here, since the dynamic view name needs to be templated into the view
+		// TODO: This dependency needs to be resolved 
+		if (!this.skipApplicationJS) {
+			this.template("../../app/templates/application/_Application.js", "Application.js");
+		}
+	};
+}());

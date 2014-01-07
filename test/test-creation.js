@@ -22,15 +22,16 @@
 			}.bind(this));
 		});
 
-		it("app gen creates expected files with args", function(done) {
+		it("creates expected files with args", function(done) {
 			var mockPrompts = {
 				applicationName: "My Application",
 				appDescription: "Test Description",
 				authorName: "John Doe",
 				gitRepository: "ssh://github.com/ropository/url.git",
 				licenseType: "Apache License, Version 2.0",
-				applicationType: "classical"
+				applicationType: "classical",
 			};
+
 			var expected = [
 				"css/style.css",
 				"ext/.gitkeep",
@@ -53,6 +54,7 @@
 
 			helpers.mockPrompt(this.app, mockPrompts);
 
+			// Test the view generation in this case via parameter
 			this.app.args = ["Main", false];
 			this.app.options["skip-install"] = true;
 			this.app.run({}, function() {
@@ -132,8 +134,9 @@
 
 			helpers.mockPrompt(this.view, {
 				viewName: "Test",
-				features: ["xmlView"]
+				viewType: "xmlView"
 			});
+
 			this.view.run({}, function() {
 				helpers.assertFiles(expected);
 				done();
