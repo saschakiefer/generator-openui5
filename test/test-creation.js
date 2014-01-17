@@ -1,10 +1,10 @@
-/*global describe, beforeEach, it, __dirname, require*/
+/*global describe, beforeEach, afterEach, it, __dirname, require*/
 (function() {
 	"use strict";
 
 	var path = require("path");
 	var helpers = require("yeoman-generator").test;
-
+	var utils = require("../utils");
 
 	describe("openui5 app generator", function() {
 		beforeEach(function(done) {
@@ -20,6 +20,11 @@
 
 				done();
 			}.bind(this));
+		});
+
+		afterEach(function() {
+			utils.deleteFolderRecursive(path.join(__dirname, "temp"));
+			//done();
 		});
 
 		it("creates expected files with args", function(done) {

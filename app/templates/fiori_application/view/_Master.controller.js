@@ -32,11 +32,10 @@ sap.ui.controller("<%= fioriComponentNamespace %>.view.Master", {
 	},
 
 	handleListSelect: function(evt) {
-		var context = evt.getParameter("listItem").getBindingContext();
-		this.nav.to("Detail", context);
+		this.navigation.navTo("idViewRoot--idViewDetail", evt.getParameter("listItem").getBindingContext());
 	},
 
-	handleViewSettings: function(evt) {
+	handleViewSettings: function() {
 
 		// create dialog
 		var that = this;

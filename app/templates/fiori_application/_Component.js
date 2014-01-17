@@ -1,4 +1,11 @@
-jQuery.sap.declare("<%= namespace %>.Component");
+/*
+Component details:
+	- Main Control: sap.m.SplitApp (wrapped in sap.m.Shell to center app on screen
+					and limit width - remove if you want a fullscreen app)
+	- Views: XML
+	- Navigation: EventBus
+*/
+jQuery.sap.declare("<%= fioriComponentNamespace %>.Component");
 
 sap.ui.core.UIComponent.extend("<%= fioriComponentNamespace %>.Component", {
 
@@ -6,17 +13,16 @@ sap.ui.core.UIComponent.extend("<%= fioriComponentNamespace %>.Component", {
 
 		// create root view
 		var oView = sap.ui.view({
-			id: "app",
-			viewName: "<%= fioriComponentNamespace %>.view.App",
-			type: "JS",
+			id: "idViewRoot",
+			viewName: "<%= fioriComponentNamespace %>.view.Root",
+			type: "XML",
 			viewData: {
 				component: this
 			}
 		});
 
 		// set data model on root view
-		var oModel = new sap.ui.model.json.JSONModel("model/mock.json");
-		oView.setModel(oModel);
+		oView.setModel(new sap.ui.model.json.JSONModel("model/mock.json"));
 
 		// set i18n model
 		var i18nModel = new sap.ui.model.resource.ResourceModel({

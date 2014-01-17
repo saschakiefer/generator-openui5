@@ -4,11 +4,11 @@ jQuery.sap.require("sap.m.MessageToast");
 
 sap.ui.controller("<%= fioriComponentNamespace %>.view.Detail", {
 
-	handleNavButtonPress: function(evt) {
-		this.nav.back("Master");
+	handleNavButtonPress: function() {
+		this.navigation.navBack();
 	},
 
-	handleApprove: function(evt) {
+	handleApprove: function() {
 
 		// show confirmation dialog
 		var bundle = this.getView().getModel("i18n").getResourceBundle();
@@ -28,7 +28,6 @@ sap.ui.controller("<%= fioriComponentNamespace %>.view.Detail", {
 	},
 
 	handleLineItemPress: function(evt) {
-		var context = evt.getSource().getBindingContext();
-		this.nav.to("LineItem", context);
+		this.navigation.navTo("idViewRoot--idViewLineItem", evt.getSource().getBindingContext());
 	}
 });

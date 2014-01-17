@@ -86,7 +86,10 @@
 			message: "What type of Fiori app would you like?",
 			choices: [{
 				name: "Master / Detail",
-				value: "masterdetail",
+				value: "masterdetail"
+			}, {
+				name: "Single Page (tbd)",
+				value: "singlepage"
 			}]
 		}];
 
@@ -196,8 +199,8 @@
 		this.template("fiori_application/util/_Grouper.js", "util/Grouper.js");
 
 		this.mkdir("view");
-		this.template("fiori_application/view/_App.view.js", "view/App.view.js");
-		this.template("fiori_application/view/_App.controller.js", "view/App.controller.js");
+		this.template("fiori_application/view/_Root.view.xml", "view/Root.view.xml");
+		this.template("fiori_application/view/_Root.controller.js", "view/Root.controller.js");
 		this.template("fiori_application/view/_Master.view.xml", "view/Master.view.xml");
 		this.template("fiori_application/view/_Master.controller.js", "view/Master.controller.js");
 		this.template("fiori_application/view/_Empty.view.xml", "view/Empty.view.xml");
