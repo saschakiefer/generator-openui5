@@ -186,8 +186,14 @@
 		this.mkdir("css");
 		this.copy("gitkeep", "css/.gitkeep");
 
+		this.mkdir("test");
+		this.copy("gitkeep", "test/.gitkeep");
+
 		this.mkdir("i18n");
 		this.copy("fiori_application/i18n/messageBundle.properties", "i18n/messageBundle.properties");
+
+		this.mkdir("img");
+		this.copy("gitkeep", "img/.gitkeep");
 
 		this.mkdir("model");
 		this.copy("fiori_application/model/Config.js", "model/Config.js");
