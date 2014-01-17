@@ -1,38 +1,43 @@
-sap.ui.controller("<%= fioriComponentNamespace %>.view.Root", {
+(function() {
+	"use strict";
 
-	onInit: function() {
+	sap.ui.controller("<%= fioriComponentNamespace %>.view.Root", {
 
-		this.oRoot = this.getView().byId("idRoot");
+		onInit: function() {
 
-		// Have child views use this controller for navigation
-		var that = this;
-		this.oRoot.getMasterPages().forEach(function(oPage) {
-			oPage.getController().navigation = that;
-		});
+			this.oRoot = this.getView().byId("idRoot");
 
-		this.oRoot.getDetailPages().forEach(function(oPage) {
-			if (oPage.getId() !== "idViewRoot--idViewEmpty") {
+			// Have child views use this controller for navigation
+			var that = this;
+			this.oRoot.getMasterPages().forEach(function(oPage) {
 				oPage.getController().navigation = that;
+			});
+
+			this.oRoot.getDetailPages().forEach(function(oPage) {
+				if (oPage.getId() !== "idViewRoot--idViewEmpty") {
+					oPage.getController().navigation = that;
+				}
+			});
+
+		},
+
+
+		navTo: function(sPageId, oContext) {
+
+			this.oRoot.to(sPageId);
+			if (oContext) {
+				this.oRoot.getPage(sPageId).setBindingContext(oContext);
 			}
-		});
 
-	},
+		},
 
 
-	navTo: function(sPageId, oContext) {
+		navBack: function() {
 
-		this.oRoot.to(sPageId);
-		if (oContext) {
-			this.oRoot.getPage(sPageId).setBindingContext(oContext);
+			this.oRoot.backDetail();
+
 		}
 
-	},
+	});
 
-
-	navBack: function() {
-
-		this.oRoot.backDetail();
-
-	}
-
-});
+}());
