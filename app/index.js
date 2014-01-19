@@ -241,6 +241,6 @@
 
 		this.mkdir("JADS/objects/resources");
 		this.copy("JADS/objects/resources/file.jpg", "JADS/objects/resources/file.jpg");
-		this.copy("JADS/objects/resources/folder.jpg", "JADS/objects/resources/folder.jpg")
+		this.copy("JADS/objects/resources/folder.jpg", "JADS/objects/resources/folder.jpg");
 	};
 }());
