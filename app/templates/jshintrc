@@ -19,8 +19,6 @@
     "latedef": true,
     "newcap": true,
     "noarg": true,
-    "reporter": "jslint",
-    "reporterOutput": "jslint_report.xml",
     "sub": true,
     "undef": true,
     "unused": true
