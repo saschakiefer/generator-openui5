@@ -66,20 +66,36 @@ module.exports = function(grunt) {
 			}
 		},
 
+
 		execute: {
 			target: {
 				src: ["JADS/jads.js"]
 			}
+		},
+
+
+		open: {
+			root: {
+				path: "http://localhost:8080",
+				options: {
+					delay: 500
+				}
+			}
 		}
 	});
+
+
 
 	// These plugins provide necessary tasks.
 	grunt.loadNpmTasks("grunt-contrib-qunit");
 	grunt.loadNpmTasks("grunt-contrib-jshint");
 	grunt.loadNpmTasks("grunt-contrib-watch");
 	grunt.loadNpmTasks("grunt-execute");
+	grunt.loadNpmTasks("grunt-open");
+
+
 
 	// Default task.
 	grunt.registerTask("default", ["jshint", "qunit:all", "watch"]);
-	grunt.registerTask("server", ["execute"]);
+	grunt.registerTask("server", ["open:root", "execute"]);
 };

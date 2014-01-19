@@ -27,7 +27,8 @@ exports.returnDirectoryContentsForPath = function (fileSystemPath, httpResponse,
         var fileString = '', dirString = '', responseBody;
         
         // Read the HTML page template for the directory listing.
-        responseBody = fs.readFileSync('./objects/jads_dir_list.template', {encoding : 'utf-8'});
+        // !!! The path was changed for the generator: Prefix JADS added !!!
+        responseBody = fs.readFileSync('JADS/objects/jads_dir_list.template', {encoding : 'utf-8'});
         
         // Nothing we can do if there is an error.
 		if (error) {

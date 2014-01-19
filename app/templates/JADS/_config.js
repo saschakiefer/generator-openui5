@@ -8,14 +8,13 @@ exports.debug_mode_enabled = 0;
 
 // Location of the SAPUI5 libraries (if required)
 exports.server_alias_locations = {
-	'sapui5': '/Library/sapui5/sapui5-1.16.3/sapui5-sdk-static',
-	'about': './docs/about.html'
+	'sapui5': 'bower_components/openui5-bower',
+	'about': 'JADS/docs/about.html'
 };
 
 // Location of the web server document root (without trailing slash)
 // E.g. for Windows use a path like: 'C:\\Users\\bocallaghan\\Webserver\\Documents'
 // E.g. for MAC/Unix use a path like: '/some/path/to/your/html/files'
-//exports.documents_location = '/Users/jason/code/test';
 exports.documents_location = process.cwd();
 
 // The assumed file extension if one is not provided
@@ -35,7 +34,7 @@ exports.proxy_sap_username = 'POC_USER'; // The username to log onto the odata s
 exports.proxy_sap_password = 'Password2'; // The passsword to log onto the odata server
 
 // Location of the JADS documentation (DO NOT CHANGE)
-exports.docs_location = './docs/about.html';
+exports.docs_location = 'JADS/docs/about.html';
 
 // ===================================
 // Internal Server config (Experts only)
