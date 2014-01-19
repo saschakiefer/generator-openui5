@@ -1,5 +1,7 @@
 {
 	"name": "package",
 	"version": "0.0.1",
-	"dependencies": {}
+	"dependencies": {
+		"openui5-bower": "~1.16.8-SNAPSHOT"
+	}
 }
