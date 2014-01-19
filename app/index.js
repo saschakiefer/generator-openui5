@@ -86,7 +86,10 @@
 			message: "What type of Fiori app would you like?",
 			choices: [{
 				name: "Master / Detail",
-				value: "masterdetail",
+				value: "masterdetail"
+			}, {
+				name: "Single Page (tbd)",
+				value: "singlepage"
 			}]
 		}];
 
@@ -183,8 +186,14 @@
 		this.mkdir("css");
 		this.copy("gitkeep", "css/.gitkeep");
 
+		this.mkdir("test");
+		this.copy("gitkeep", "test/.gitkeep");
+
 		this.mkdir("i18n");
 		this.copy("fiori_application/i18n/messageBundle.properties", "i18n/messageBundle.properties");
+
+		this.mkdir("img");
+		this.copy("gitkeep", "img/.gitkeep");
 
 		this.mkdir("model");
 		this.copy("fiori_application/model/Config.js", "model/Config.js");
@@ -196,8 +205,8 @@
 		this.template("fiori_application/util/_Grouper.js", "util/Grouper.js");
 
 		this.mkdir("view");
-		this.template("fiori_application/view/_App.view.js", "view/App.view.js");
-		this.template("fiori_application/view/_App.controller.js", "view/App.controller.js");
+		this.template("fiori_application/view/_Root.view.xml", "view/Root.view.xml");
+		this.template("fiori_application/view/_Root.controller.js", "view/Root.controller.js");
 		this.template("fiori_application/view/_Master.view.xml", "view/Master.view.xml");
 		this.template("fiori_application/view/_Master.controller.js", "view/Master.controller.js");
 		this.template("fiori_application/view/_Empty.view.xml", "view/Empty.view.xml");
@@ -208,5 +217,30 @@
 
 		this.template("fiori_application/_index.html", "index.html");
 		this.template("fiori_application/_Component.js", "Component.js");
+	};
+
+	openui5Generator.prototype.jadsServer = function() {
+		this.mkdir("JADS");
+		this.mkdir("JADS/objects");
+		this.template("JADS/_config.js", "JADS/config.js");
+		this.copy("JADS/jads.js", "JADS/jads.js");
+		this.copy("JADS/LICENSE", "JADS/LICENSE");
+		this.copy("JADS/README.md", "JADS/README.md");
+
+		this.mkdir("JADS/docs");
+		this.copy("JADS/docs/about.html", "JADS/docs/about.html");
+
+		this.mkdir("JADS/objects");
+		this.copy("JADS/objects/globalFunctions.js", "JADS/objects/globalFunctions.js");
+		this.copy("JADS/objects/jads_dir_list.template", "JADS/objects/jads_dir_list.template");
+		this.copy("JADS/objects/jads_directory.js", "JADS/objects/jads_directory.js");
+		this.copy("JADS/objects/jads_error.js", "JADS/objects/jads_error.js");
+		this.copy("JADS/objects/jads_proxy.js", "JADS/objects/jads_proxy.js");
+		this.copy("JADS/objects/jads_request.js", "JADS/objects/jads_request.js");
+		this.copy("JADS/objects/jads_response.js", "JADS/objects/jads_response.js");
+
+		this.mkdir("JADS/objects/resources");
+		this.copy("JADS/objects/resources/file.jpg", "JADS/objects/resources/file.jpg");
+		this.copy("JADS/objects/resources/folder.jpg", "JADS/objects/resources/folder.jpg");
 	};
 }());

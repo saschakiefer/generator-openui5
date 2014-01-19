@@ -84,6 +84,6 @@
 
 	module.exports = {
 		rewrite: rewrite,
-		rewriteFile: rewriteFile,
+		rewriteFile: rewriteFile
 	};
 }());

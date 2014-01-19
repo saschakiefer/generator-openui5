@@ -1,108 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <core:View
-        controllerName="<%= fioriComponentNamespace %>.view.Detail"
-        xmlns="sap.m"
-        xmlns:form="sap.ui.layout.form"
-        xmlns:core="sap.ui.core" >
-        <Page
-                title="{i18n>DetailTitle}"
-                class="sapUiFioriObjectPage"
-                showNavButton="{device>/isPhone}"
-                navButtonPress="handleNavButtonPress" >
-                <ObjectHeader
-                        title="{SoId}"
-                        number="{GrossAmount}"
-                        numberUnit="{CurrencyCode}" >
-                        <attributes>
-                                <ObjectAttribute text="{BuyerName}" />
-                                <ObjectAttribute text="{CreatedByBp}" />
-                                <ObjectAttribute text="{
-                                        path: 'CreatedAt',
-                                        formatter: '<%= fioriComponentNamespace %>.util.Formatter.date'
-                                }" />
-                        </attributes>
-                        <firstStatus>
-                                <ObjectStatus
-                                        text="{BillingStatus}"
-                                        state="{
-                                                path: 'BillingStatus',
-                                                formatter: '<%= fioriComponentNamespace %>.util.Formatter.statusState'
-                                        }" />
-                        </firstStatus>
-                </ObjectHeader>
-                <IconTabBar
-                        expanded="{device>/isNoPhone}" >
-                        <items>
-                                <IconTabFilter
-                                        text="Supplier"
-                                        icon="sap-icon://supplier">
-                                        <form:SimpleForm
-                                                minWidth="1024" >
-                                                <core:Title text="Address" />
-                                                <Label text="Name"/>
-                                                <Text text="{BusinessPartner/CompanyName}" />
-                                                <Label text="City"/>
-                                                <Text text="{BusinessPartner/City}, {BusinessPartner/PostalCode}" />
-                                                <Label text="Street"/>
-                                                <Text text="{BusinessPartner/Street}" />
-                                        </form:SimpleForm>
-                                </IconTabFilter>
-                        </items>
-                </IconTabBar>
-                <Table
-                        headerText="{i18n>LineItemTableHeader}"
-                        items="{LineItems}" >
-                        <columns>
-                                <Column>
-                                        <header><Label text="Product" /></header>
-                                </Column>
-                                <Column
-                                        minScreenWidth="Tablet"
-                                        demandPopin="true"
-                                        hAlign="Center" >
-                                        <header><Label text="Delivery Date" /></header>
-                                </Column>
-                                <Column
-                                        minScreenWidth="Tablet"
-                                        demandPopin="true"
-                                        hAlign="Center" >
-                                        <header><Label text="Quantity" /></header>
-                                </Column>
-                                <Column
-                                        hAlign="Right" >
-                                        <header><Label text="Price" /></header>
-                                </Column>
-                        </columns>
-                        <ColumnListItem
-                                type="Navigation"
-                                press="handleLineItemPress" >
-                                <cells>
-                                        <ObjectIdentifier
-                                                title="{ProductId}" />
-                                        <Text
-                                                text="{
-                                                        path:'DeliveryDate',
-                                                        formatter:'<%= fioriComponentNamespace %>.util.Formatter.date'
-                                                }"/>
-                                        <Text
-                                                text="{
-                                                        path:'Quantity',
-                                                        formatter:'<%= fioriComponentNamespace %>.util.Formatter.quantity'
-                                                }"/>
-                                        <ObjectNumber
-                                                number="{GrossAmount}"
-                                                numberUnit="{CurrencyCode}" />
-                                </cells>
-                        </ColumnListItem>
-                </Table>
-                <footer>
-                        <Bar>
-                                <contentRight>
-                                        <Button
-                                                text="{i18n>ApproveButtonText}"
-                                                icon="sap-icon://accept"
-                                                press="handleApprove" />
-                                </contentRight>
-                        </Bar>
-                </footer>
-        </Page>
+	controllerName="<%= fioriComponentNamespace %>.view.Detail"
+	xmlns="sap.m"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:core="sap.ui.core" >
+	<Page
+		title="{i18n>DetailTitle}"
+		class="sapUiFioriObjectPage"
+		showNavButton="{device>/isPhone}"
+		navButtonPress="handleNavButtonPress" >
+		<ObjectHeader
+			title="{SoId}"
+			number="{GrossAmount}"
+			numberUnit="{CurrencyCode}" >
+			<attributes>
+				<ObjectAttribute text="{BuyerName}" />
+				<ObjectAttribute text="{CreatedByBp}" />
+				<ObjectAttribute text="{
+						path: 'CreatedAt',
+						formatter: '<%= fioriComponentNamespace %>.util.Formatter.date'
+				}" />
+			</attributes>
+			<firstStatus>
+				<ObjectStatus
+						text="{BillingStatus}"
+						state="{
+								path: 'BillingStatus',
+								formatter: '<%= fioriComponentNamespace %>.util.Formatter.statusState'
+						}" />
+			</firstStatus>
+		</ObjectHeader>
+		<IconTabBar
+			expanded="{device>/isNoPhone}" >
+			<items>
+				<IconTabFilter
+					text="Supplier"
+					icon="sap-icon://supplier">
+					<form:SimpleForm
+						minWidth="1024" >
+						<core:Title text="Address" />
+						<Label text="Name"/>
+						<Text text="{BusinessPartner/CompanyName}" />
+						<Label text="City"/>
+						<Text text="{BusinessPartner/City}, {BusinessPartner/PostalCode}" />
+						<Label text="Street"/>
+						<Text text="{BusinessPartner/Street}" />
+					</form:SimpleForm>
+				</IconTabFilter>
+			</items>
+		</IconTabBar>
+		<Table
+			headerText="{i18n>LineItemTableHeader}"
+			items="{LineItems}" >
+			<columns>
+				<Column>
+					<header><Label text="Product" /></header>
+				</Column>
+				<Column
+					minScreenWidth="Tablet"
+					demandPopin="true"
+					hAlign="Center" >
+					<header><Label text="Delivery Date" /></header>
+				</Column>
+				<Column
+					minScreenWidth="Tablet"
+					demandPopin="true"
+					hAlign="Center" >
+					<header><Label text="Quantity" /></header>
+				</Column>
+				<Column
+					hAlign="Right" >
+					<header><Label text="Price" /></header>
+				</Column>
+			</columns>
+			<ColumnListItem
+				type="Navigation"
+				press="handleLineItemPress" >
+				<cells>
+					<ObjectIdentifier
+						title="{ProductId}" />
+					<Text
+						text="{
+							path:'DeliveryDate',
+							formatter:'<%= fioriComponentNamespace %>.util.Formatter.date'
+						}"/>
+					<Text
+						text="{
+							path:'Quantity',
+							formatter:'<%= fioriComponentNamespace %>.util.Formatter.quantity'
+						}"/>
+					<ObjectNumber
+						number="{GrossAmount}"
+						numberUnit="{CurrencyCode}" />
+				</cells>
+			</ColumnListItem>
+		</Table>
+		<footer>
+			<Bar>
+				<contentRight>
+					<Button
+						text="{i18n>ApproveButtonText}"
+						icon="sap-icon://accept"
+						press="handleApprove" />
+				</contentRight>
+			</Bar>
+		</footer>
+	</Page>
 </core:View>
