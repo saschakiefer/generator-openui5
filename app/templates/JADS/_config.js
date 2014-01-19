@@ -8,7 +8,7 @@ exports.debug_mode_enabled = 0;
 
 // Location of the SAPUI5 libraries (if required)
 exports.server_alias_locations = {
-	'sapui5': 'C:\\Users\\bocallaghan\\Sapui5',
+	'sapui5': '/Library/sapui5/sapui5-1.16.3/sapui5-sdk-static',
 	'about': './docs/about.html'
 };
 
