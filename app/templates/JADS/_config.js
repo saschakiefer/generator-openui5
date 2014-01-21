@@ -7,9 +7,12 @@
 exports.debug_mode_enabled = 0;
 
 // Location of the SAPUI5 libraries (if required)
-exports.server_alias_locations = {
-	'sapui5': 'bower_components/openui5-bower',
-	'about': 'JADS/docs/about.html'
+exports.server_alias_locations = { <%
+	if (openUI5LocationOption === "bower") { %>
+			'sapui5': 'bower_components/openui5-bower',
+		<%
+	} %>
+		'about': 'JADS/docs/about.html'
 };
 
 // Location of the web server document root (without trailing slash)
