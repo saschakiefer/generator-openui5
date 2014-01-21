@@ -14,6 +14,61 @@
 
 
 	/**
+	 * Prompt to get the UI5 Location string for the bootstrap
+	 * Sets global variables:
+	 * this.openUI5LocationOption: bower or custom
+	 * this.openUI5Location: full path including sap-ui-core.js
+	 */
+	Generator.prototype.promptForUI5Location = function() {
+		console.log("");
+
+		var cb = this.async();
+
+		var openUI5LocationPrompt = [{
+			type: "list",
+			name: "openUI5LocationOption",
+			message: "Where do you want to get OpenUI5 from?",
+			choices: [{
+				name: "Download it with Bower",
+				value: "bower"
+			}, {
+				name: "Specify location",
+				value: "custom"
+			}]
+		}, {
+			when: function(response) {
+				return (response.openUI5LocationOption === "custom");
+			},
+			name: "openUI5Location",
+			message: "Where is your 'sap-ui-core.js' located?",
+			default: "https://openui5.netweaver.ondemand.com/resources"
+		}];
+
+		this.prompt(openUI5LocationPrompt, function(props) {
+			this.openUI5LocationOption = props.openUI5LocationOption;
+
+			// Create full path
+			if (this.openUI5LocationOption === "bower") {
+				this.openUI5Location = "sapui5/resources/";
+			} else {
+				this.openUI5Location = props.openUI5Location;
+			}
+
+			if (this.openUI5Location.slice(-1) !== "/") {
+				this.openUI5Location += "/";
+			}
+
+			this.openUI5Location += "sap-ui-core.js";
+
+			console.log(this.openUI5Location);
+
+			cb();
+		}.bind(this));
+	};
+
+
+
+	/**
 	 * Check if a sap.ui.localResources() entry exists for the first element of the
 	 * elemetPath in index.html. If not, it's added to index.html.
 	 *
