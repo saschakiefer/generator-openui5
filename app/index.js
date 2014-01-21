@@ -119,6 +119,13 @@
 
 			cb();
 		}.bind(this));
+
+	};
+
+
+
+	openui5Generator.prototype.askForUI5Location = function() {
+		this.promptForUI5Location();
 	};
 
 
