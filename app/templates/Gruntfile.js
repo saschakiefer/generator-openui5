@@ -53,25 +53,19 @@ module.exports = function(grunt) {
 
 		watch: {
 			gruntfile: {
-				files: "<%= jshint.gruntfile.src %>",
+				files: "<%%= jshint.gruntfile.src %>",
 				tasks: ["jshint:gruntfile"]
 			},
 			libTest: {
-				files: "<%= jshint.libTest.src %>",
+				files: "<%%= jshint.libTest.src %>",
 				tasks: ["jshint:lib_test", "qunit"]
 			},
 			application: {
-				files: "<%= jshint.application.src %>",
+				files: "<%%= jshint.application.src %>",
 				tasks: ["jshint:application"]
 			}
 		},
 
-
-		execute: {
-			target: {
-				src: ["JADS/jads.js"]
-			}
-		},
 
 
 		open: {
@@ -79,6 +73,21 @@ module.exports = function(grunt) {
 				path: "http://localhost:8080",
 				options: {
 					delay: 500
+				}
+			}
+		},
+
+		jads: {
+			options: {
+				port: "8080",
+				document_root: ".",
+				alias: { <%
+					if (openUI5LocationOption === "bower") { %>
+							"sapui5": "bower_components/openui5-bower" <%
+					} %> <%
+					if (openUI5LocationOption === "custom" && openUI5Location.indexOf("http") === -1) { %>
+							"sapui5": "<%= originalOpenUI5Location %>" <%
+					} %>
 				}
 			}
 		}
@@ -90,12 +99,11 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-contrib-qunit");
 	grunt.loadNpmTasks("grunt-contrib-jshint");
 	grunt.loadNpmTasks("grunt-contrib-watch");
-	grunt.loadNpmTasks("grunt-execute");
 	grunt.loadNpmTasks("grunt-open");
+	grunt.loadNpmTasks("grunt-JADS");
 
 
 
-	// Default task.
 	grunt.registerTask("default", ["jshint", "qunit:all", "watch"]);
-	grunt.registerTask("server", ["open:root", "execute"]);
+	grunt.registerTask("server", ["open:root", "jads:keepalive"]);
 };

@@ -50,6 +50,9 @@
 			// Create full path
 			if (this.openUI5LocationOption === "bower") {
 				this.openUI5Location = "sapui5/resources/";
+			} else if (this.openUI5LocationOption === "custom" && props.openUI5Location.indexOf("http") === -1) {
+				this.originalOpenUI5Location = props.openUI5Location;
+				this.openUI5Location = "sapui5/";
 			} else {
 				this.openUI5Location = props.openUI5Location;
 			}

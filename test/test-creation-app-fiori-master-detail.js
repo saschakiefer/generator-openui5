@@ -30,7 +30,8 @@
 				licenseType: "Apache License, Version 2.0",
 				applicationType: "fiori",
 				fioriComponentNamespace: "sap.ui.demo",
-				fioriAppType: "masterdetail"
+				fioriAppType: "masterdetail",
+				openUI5LocationOption: "bower"
 			};
 			var expected = [
 				"test/.gitkeep",

@@ -1,4 +1,4 @@
-/*global module:false*/
+/*global module:false, require */
 var semver = require("semver");
 
 module.exports = function(grunt) {

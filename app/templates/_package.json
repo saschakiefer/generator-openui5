@@ -18,6 +18,7 @@
 		"grunt-contrib-jshint": "~0.6.3",
 		"grunt-contrib-watch": "~0.5.2",
 		"grunt-execute": "~0.1.5",
-		"grunt-open": "~0.2.3"
+		"grunt-open": "~0.2.3",
+		"grunt-jads": "~0.1.0"
 	}
 }
