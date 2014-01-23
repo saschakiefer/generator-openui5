@@ -27,9 +27,6 @@ module.exports = function(grunt) {
 					"view": true,
 					"model": true
 				}
-				// Uncomment the following lines, if you want the lint results beign generatedt to a file
-				// "reporter": "jslint",
-				// "reporterOutput": "jslint_report.xml"
 			},
 
 			gruntfile: {
@@ -81,13 +78,13 @@ module.exports = function(grunt) {
 			options: {
 				port: "8080",
 				document_root: ".",
-				alias: { <%
-					if (openUI5LocationOption === "bower") { %>
-							"sapui5": "bower_components/openui5-bower" <%
-					} %> <%
-					if (openUI5LocationOption === "custom" && openUI5Location.indexOf("http") === -1) { %>
-							"sapui5": "<%= originalOpenUI5Location %>" <%
-					} %>
+				alias: {<%
+					if (openUI5LocationOption === "bower") {%>
+					"openui5": "bower_components/openui5-bower"<%
+					}%> <%
+					if (openUI5LocationOption === "custom" && openUI5Location.indexOf("http") === -1) {%>
+					"openui5": "<%= originalOpenUI5Location %>"<%
+					}%>
 				}
 			}
 		}

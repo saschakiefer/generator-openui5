@@ -18,6 +18,8 @@
 	 * Sets global variables:
 	 * this.openUI5LocationOption: bower or custom
 	 * this.openUI5Location: full path including sap-ui-core.js
+	 * this.originalOpenUI5Location: full path excluding sap-ui-core.js used
+	 *                               only for custom local paths.
 	 */
 	Generator.prototype.promptForUI5Location = function() {
 		console.log("");
@@ -49,10 +51,10 @@
 
 			// Create full path
 			if (this.openUI5LocationOption === "bower") {
-				this.openUI5Location = "sapui5/resources/";
+				this.openUI5Location = "openui5/resources/";
 			} else if (this.openUI5LocationOption === "custom" && props.openUI5Location.indexOf("http") === -1) {
 				this.originalOpenUI5Location = props.openUI5Location;
-				this.openUI5Location = "sapui5/";
+				this.openUI5Location = "openui5/";
 			} else {
 				this.openUI5Location = props.openUI5Location;
 			}
@@ -62,8 +64,6 @@
 			}
 
 			this.openUI5Location += "sap-ui-core.js";
-
-			console.log(this.openUI5Location);
 
 			cb();
 		}.bind(this));
