@@ -97,7 +97,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-contrib-jshint");
 	grunt.loadNpmTasks("grunt-contrib-watch");
 	grunt.loadNpmTasks("grunt-open");
-	grunt.loadNpmTasks("grunt-JADS");
+	grunt.loadNpmTasks("grunt-jads");
 
 
 
