@@ -136,8 +136,8 @@
 	 * @return {[type]} [description]
 	 */
 	openui5Generator.prototype.projectFiles = function projectfiles() {
-		this.copy("Gruntfile.js", "Gruntfile.js");
 		this.copy("jshintrc", ".jshintrc");
+		this.copy("Gruntfile.js", "Gruntfile.js");
 		this.template("_bower.json", "bower.json");
 		this.template("_package.json", "package.json");
 		this.template("_README.md", "README.md");
@@ -224,30 +224,5 @@
 
 		this.template("fiori_application/_index.html", "index.html");
 		this.template("fiori_application/_Component.js", "Component.js");
-	};
-
-	openui5Generator.prototype.jadsServer = function() {
-		this.mkdir("JADS");
-		this.mkdir("JADS/objects");
-		this.template("JADS/_config.js", "JADS/config.js");
-		this.copy("JADS/jads.js", "JADS/jads.js");
-		this.copy("JADS/LICENSE", "JADS/LICENSE");
-		this.copy("JADS/README.md", "JADS/README.md");
-
-		this.mkdir("JADS/docs");
-		this.copy("JADS/docs/about.html", "JADS/docs/about.html");
-
-		this.mkdir("JADS/objects");
-		this.copy("JADS/objects/globalFunctions.js", "JADS/objects/globalFunctions.js");
-		this.copy("JADS/objects/jads_dir_list.template", "JADS/objects/jads_dir_list.template");
-		this.copy("JADS/objects/jads_directory.js", "JADS/objects/jads_directory.js");
-		this.copy("JADS/objects/jads_error.js", "JADS/objects/jads_error.js");
-		this.copy("JADS/objects/jads_proxy.js", "JADS/objects/jads_proxy.js");
-		this.copy("JADS/objects/jads_request.js", "JADS/objects/jads_request.js");
-		this.copy("JADS/objects/jads_response.js", "JADS/objects/jads_response.js");
-
-		this.mkdir("JADS/objects/resources");
-		this.copy("JADS/objects/resources/file.jpg", "JADS/objects/resources/file.jpg");
-		this.copy("JADS/objects/resources/folder.jpg", "JADS/objects/resources/folder.jpg");
 	};
 }());

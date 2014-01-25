@@ -1,4 +1,4 @@
-/*global module:false*/
+/*global module:false, require */
 var semver = require("semver");
 
 module.exports = function(grunt) {
@@ -151,9 +151,6 @@ module.exports = function(grunt) {
 
 	// Default task.
 	grunt.registerTask("default", ["jshint", "mochaTest"]);
-
-
-
 	grunt.registerTask("prepare", ["bump", "changelog"]);
 
 	// grunt release can be called directly

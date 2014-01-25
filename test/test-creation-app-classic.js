@@ -29,6 +29,7 @@
 				gitRepository: "ssh://github.com/ropository/url.git",
 				licenseType: "Apache License, Version 2.0",
 				applicationType: "classical",
+				openUI5LocationOption: "bower"
 			};
 
 			var expected = [
