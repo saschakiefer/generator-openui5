@@ -65,7 +65,8 @@ module.exports = function(grunt) {
 				options: {
 					livereload: "<%= connect.options.livereload %>"
 				},
-				files: "<%= jshint.application.src %>" // Be careful to not watch npm dependencies
+				//files: "<%= jshint.application.src %>" // Be careful to not watch npm dependencies
+				files: ["model/**/*.js", "util/**/*.js", "view/**/*.js", "*.js", "view/**/*.xml"]
 			}
 		},
 
