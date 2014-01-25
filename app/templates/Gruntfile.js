@@ -88,44 +88,58 @@ module.exports = function(grunt) {
 				hostname: "localhost",
 				base: "."
 			},
-			proxies: {
-				context: "/Northwind",  // When the url contains this...
-				host: "services.odata.org", // Proxy to this host
-				changeOrigin: true
-				//port: 80 //,
-				//rewrite: {
-				//	"^/odata": ""
-				//"^/changingcontext": "/anothercontext"
-				//}
-			},
+
+			//=====================================================================
+			// RESOURCE PROXY - un-comment the proxies setting below to configure
+			// a proxy. context, host and changeOrigin are necessary. port defaults
+			// to 80 anyway and rewrite allows you to re-write the url's sent to
+			// the target host if you require this.
+			// Also un-comment the connect middleware option under the
+			// connect:livereload target - this starts the proxy which looks up
+			// the proxies setting to determine which services to act on.
+			// When not using grunt-connect-proxy you still must have the
+			// livereload target for connect.
+
+			//proxies: {
+			//	context: "/Northwind",  // When the url contains this...
+			//	host: "services.odata.org", // Proxy to this host
+			//	changeOrigin: true
+			//	//port: 80 //,
+			//	//rewrite: {
+			//	//	"^/odata": ""
+			//	//"^/changingcontext": "/anothercontext"
+			//	//}
+			//},
+			//=====================================================================
+
 			// Requires the Livereload browser extension or a middleware to inject the livereload script
 			livereload: {
-				options: {
-					middleware: function(connect, options) {
-						if (!Array.isArray(options.base)) {
-							options.base = [options.base];
-						}
+				// options: {
+				// 	middleware: function(connect, options) {
+				// 		if (!Array.isArray(options.base)) {
+				// 			options.base = [options.base];
+				// 		}
 
-						// Setup the proxy
-						var middlewares = [require("grunt-connect-proxy/lib/utils").proxyRequest];
+				// 		// Setup the proxy
+				// 		var middlewares = [require("grunt-connect-proxy/lib/utils").proxyRequest];
 
-						// Serve static files.
-						options.base.forEach(function(base) {
-							middlewares.push(connect.static(base));
-						});
+				// 		// Serve static files.
+				// 		options.base.forEach(function(base) {
+				// 			middlewares.push(connect.static(base));
+				// 		});
 
-						// The below commented options show how to setup a middleware function
-						// to set CORS headers - not necessary when proxying resources.
-						//middlewares.push(function(req, res, next) {
-						//	res.setHeader("Access-Control-Allow-Origin", "*");
-						//	res.setHeader("Access-Control-Allow-Methods", "*");
-						//	res.setHeader("Access-Control-Allow-Headers", "*");
-						//	next();
-						//});
+				// 		// The below commented options show how to setup a middleware function
+				// 		// to set CORS headers - not necessary when proxying resources.
+				// 		//middlewares.push(function(req, res, next) {
+				// 		//	res.setHeader("Access-Control-Allow-Origin", "*");
+				// 		//	res.setHeader("Access-Control-Allow-Methods", "*");
+				// 		//	res.setHeader("Access-Control-Allow-Headers", "*");
+				// 		//	next();
+				// 		//});
 
-						return middlewares;
-					}
-				}
+				// 		return middlewares;
+				// 	}
+				// }
 			}
 		}
 	});
