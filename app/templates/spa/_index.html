@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta charset="UTF-8">
+
+        <title><%= applicationName %></title>
+
+        <script id="sap-ui-bootstrap" 
+                src="<%= openUI5Location %>"
+                data-sap-ui-theme="sap_bluecrystal"
+                data-sap-ui-libs="sap.m"
+                data-sap-ui-xx-bindingSyntax="complex">
+        </script>
+
+
+        <!-- XML-based view definition -->
+        <script id="view1" type="sapui5/xmlview">
+            <mvc:View
+                controllerName="local.controller"
+                xmlns:mvc="sap.ui.core.mvc"
+                xmlns="sap.m">
+                <!-- Add your XML-based controls here -->
+                <Button
+                    icon="sap-icon://example"
+                    press="clicked" />
+            </mvc:View> 
+        </script>
+
+        <script>
+
+            // Controller definition
+            sap.ui.controller("local.controller", {
+                
+                onInit: function(oEvent) {
+                    // code
+                },
+                clicked: function(oEvent) {
+                    jQuery.sap.require("sap.ui.commons.MessageBox");
+                    sap.ui.commons.MessageBox.alert("Yep, you clicked the button. Well done!");
+                }
+
+            });
+            
+            // Instantiate the View, assign a model and display
+            var oView = sap.ui.xmlview({
+                viewContent: jQuery('#view1').html()
+            });
+            
+            oView.setModel(new sap.ui.model.json.JSONModel({
+                name: "value"
+            }));
+            
+            oView.placeAt("content");
+
+        </script>
+
+    </head>
+
+    <body class="sapUiBody" role="application" id="content">
+    </body>
+</html>

@@ -68,6 +68,9 @@
 			}, {
 				name: "Fiori",
 				value: "fiori"
+			}, {
+				name: "Single Page MVC App",
+				value: "spa"
 			}]
 		}, { // Fiori specific question
 			when: function(response) {
@@ -108,8 +111,9 @@
 			// it can only be done via files as the options passed to the view generator are already
 			// set before the app generator questions are answered...
 			// If we are scaffolding a fiori app we don't need the view generator so it will just exit.
+			// (View generator not required for SPA app either.)
 			var LocalStorage = require("node-localstorage").LocalStorage;
-			if (this.applicationType === "fiori") {
+			if (this.applicationType === "fiori" || this.applicationType === "spa") {
 				new LocalStorage("./scratch").setItem("fiori", "true");
 			} else {
 				new LocalStorage("./scratch").setItem("fiori", "false");
@@ -185,7 +189,7 @@
 	 * Scaffolding for the fiori application dependent project files.
 	 * This is only executed when application type "fiori" is selected
 	 */
-	openui5Generator.prototype.fioriApplication = function app() {
+	openui5Generator.prototype.fioriApplication = function() {
 		if (this.applicationType !== "fiori") {
 			return;
 		}
@@ -224,5 +228,13 @@
 
 		this.template("fiori_application/_index.html", "index.html");
 		this.template("fiori_application/_Component.js", "Component.js");
+	};
+
+	openui5Generator.prototype.singlePageApplication = function() {
+		if (this.applicationType !== "spa") {
+			return;
+		}
+
+		this.template("spa/_index.html", "index.html");
 	};
 }());
