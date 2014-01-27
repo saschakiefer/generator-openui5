@@ -69,12 +69,15 @@
 				name: "Fiori",
 				value: "fiori"
 			}, {
+				name: "Fiori Tiles App",
+				value: "tiles"
+			}, {
 				name: "Single Page MVC App",
 				value: "spa"
 			}]
 		}, { // Fiori specific question
 			when: function(response) {
-				return (response.applicationType === "fiori");
+				return (response.applicationType === "fiori" || response.applicationType === "tiles");
 			},
 			name: "fioriComponentNamespace",
 			message: "What component namespace do you want?",
@@ -116,7 +119,7 @@
 			// If we are scaffolding a fiori app we don't need the view generator so it will just exit.
 			// (View generator not required for SPA app either.)
 			var LocalStorage = require("node-localstorage").LocalStorage;
-			if (this.applicationType === "fiori" || this.applicationType === "spa") {
+			if (this.applicationType === "fiori" || this.applicationType === "spa" || this.applicationType === "tiles") {
 				new LocalStorage("./scratch").setItem("fiori", "true");
 			} else {
 				new LocalStorage("./scratch").setItem("fiori", "false");
@@ -148,6 +151,12 @@
 		this.template("_bower.json", "bower.json");
 		this.template("_package.json", "package.json");
 		this.template("_README.md", "README.md");
+
+		if (this.applicationType === "tiles") {
+			this.copy("Gruntfile_with_proxy.js", "Gruntfile.js");
+		} else {
+			this.copy("Gruntfile.js", "Gruntfile.js");
+		}
 	};
 
 
@@ -239,5 +248,43 @@
 		}
 
 		this.template("spa/_index.html", "index.html");
+	};
+
+	openui5Generator.prototype.tilesApplication = function() {
+		if (this.applicationType !== "tiles") {
+			return;
+		}
+
+		this.mkdir("css");
+		this.copy("gitkeep", "css/.gitkeep");
+
+		this.mkdir("test");
+		this.copy("gitkeep", "test/.gitkeep");
+
+		this.mkdir("i18n");
+		this.copy("fiori_tiles_app/i18n/messageBundle.properties", "i18n/messageBundle.properties");
+
+		this.mkdir("img");
+		this.copy("gitkeep", "img/.gitkeep");
+
+		this.mkdir("model");
+		this.copy("fiori_tiles_app/model/Config.js", "model/Config.js");
+		this.copy("fiori_tiles_app/model/img.json", "model/img.json");
+		this.copy("fiori_tiles_app/model/mock.json", "model/mock.json");
+
+		this.mkdir("util");
+		this.template("fiori_tiles_app/util/_Formatter.js", "util/Formatter.js");
+		this.template("fiori_tiles_app/util/_Grouper.js", "util/Grouper.js");
+
+		this.mkdir("view");
+		this.template("fiori_tiles_app/view/_Root.view.xml", "view/Root.view.xml");
+		this.template("fiori_tiles_app/view/_Root.controller.js", "view/Root.controller.js");
+		this.template("fiori_tiles_app/view/_Home.view.js", "view/Home.view.js");
+		this.template("fiori_tiles_app/view/_Home.controller.js", "view/Home.controller.js");
+		this.template("fiori_tiles_app/view/_Detail.view.xml", "view/Detail.view.xml");
+		this.template("fiori_tiles_app/view/_Detail.controller.js", "view/Detail.controller.js");
+
+		this.template("fiori_tiles_app/_index.html", "index.html");
+		this.template("fiori_tiles_app/_Component.js", "Component.js");
 	};
 }());
