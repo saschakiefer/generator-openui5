@@ -14,6 +14,13 @@
 				data-sap-ui-resourceroots='{ "<%= fioriComponentNamespace %>": "./" }' >
 		</script>
 
+		<!-- *** Enable fake OData service ***
+		These two scripts are provided by UI5 for faking the Northwind sample OData service.
+		Delete them if you wish to use the real service or another method to mock your calls.
+		-->
+		<script type="text/javascript" src="https://openui5.netweaver.ondemand.com/resources/sap/ui/thirdparty/sinon.js"></script>
+		<script type="text/javascript" src="https://openui5.netweaver.ondemand.com/test-resources/sap/ui/core/qunit/ODataModelFakeService.js"></script>
+
 		<script>
 			new sap.ui.core.ComponentContainer({
 				name: "<%= fioriComponentNamespace %>"

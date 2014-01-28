@@ -66,7 +66,7 @@
 				name: "Classical",
 				value: "classical"
 			}, {
-				name: "Fiori",
+				name: "Fiori Splitter App",
 				value: "fiori"
 			}, {
 				name: "Fiori Tiles App",
@@ -151,12 +151,6 @@
 		this.template("_bower.json", "bower.json");
 		this.template("_package.json", "package.json");
 		this.template("_README.md", "README.md");
-
-		if (this.applicationType === "tiles") {
-			this.copy("Gruntfile_with_proxy.js", "Gruntfile.js");
-		} else {
-			this.copy("Gruntfile.js", "Gruntfile.js");
-		}
 	};
 
 
@@ -198,8 +192,7 @@
 
 
 	/**
-	 * Scaffolding for the fiori application dependent project files.
-	 * This is only executed when application type "fiori" is selected
+	 * Scaffolding for a Fiori SplitterApp application.
 	 */
 	openui5Generator.prototype.fioriApplication = function() {
 		if (this.applicationType !== "fiori") {
@@ -242,6 +235,9 @@
 		this.template("fiori_application/_Component.js", "Component.js");
 	};
 
+	/**
+	 * Scaffolding for a Fiori single page MVC application.
+	 */
 	openui5Generator.prototype.singlePageApplication = function() {
 		if (this.applicationType !== "spa") {
 			return;
@@ -250,6 +246,9 @@
 		this.template("spa/_index.html", "index.html");
 	};
 
+	/**
+	 * Scaffolding for a Fiori TileContainer MVC application.
+	 */
 	openui5Generator.prototype.tilesApplication = function() {
 		if (this.applicationType !== "tiles") {
 			return;
