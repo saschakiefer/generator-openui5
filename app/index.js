@@ -34,33 +34,23 @@
 
 
 	/**
+	 * Generator prompts for configuration - basic prompts for all apps
+	 */
+	openui5Generator.prototype.askForBasics = function() {
+		this.promptForBasicDetails();
+	};
+
+
+
+	/**
 	 * Generator prompts for configuration
 	 */
-	openui5Generator.prototype.askFor = function askFor() {
+	openui5Generator.prototype.askForApplication = function askFor() {
 		var cb = this.async();
 
 		var prompts = [{
-			name: "applicationName",
-			message: "What do you want to name this application?",
-			default: "My Application"
-		}, {
-			name: "appDescription",
-			message: "Please describe it with a few words:"
-		}, {
-			name: "authorName",
-			message: "What is your name?",
-			default: "John Doe"
-		}, {
-			name: "gitRepository",
-			message: "What is your git repository?",
-			default: "ssh://github.com/ropository/url.git"
-		}, {
-			name: "licenseType",
-			message: "What is your license Type?",
-			default: "Apache License, Version 2.0"
-		}, {
-			type: "list",
 			name: "applicationType",
+			type: "list",
 			message: "What type of application do you want?",
 			choices: [{
 				name: "Classical",
@@ -75,28 +65,13 @@
 				name: "Single Page MVC App",
 				value: "spa"
 			}]
-		}, { // Fiori specific question
+		}, { // Only ask these questions if fiori-type app is chosen
 			when: function(response) {
 				return (response.applicationType === "fiori" || response.applicationType === "tiles");
 			},
 			name: "fioriComponentNamespace",
 			message: "What component namespace do you want?",
 			default: "sap.ui.demo"
-		}, {
-			// This question is to allow the user to choose from various basic types of fiori app
-			when: function(response) {
-				return (response.applicationType === "fiori");
-			},
-			type: "list",
-			name: "fioriAppType",
-			message: "What type of Fiori app would you like?",
-			choices: [{
-				name: "Master / Detail",
-				value: "masterdetail"
-			}, {
-				name: "Single Page (tbd)",
-				value: "singlepage"
-			}]
 		}];
 
 		this.prompt(prompts, function(props) {
