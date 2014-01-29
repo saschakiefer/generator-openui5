@@ -7,6 +7,8 @@
 
 	describe("openui5 view generator", function() {
 		beforeEach(function(done) {
+			console.log("*** View ***");
+
 			helpers.testDirectory(path.join(__dirname, "temp"), function(err) {
 				if (err) {
 					return done(err);
@@ -32,7 +34,7 @@
 			});
 
 			this.view.run({}, function() {
-				helpers.assertFiles(expected);
+				helpers.assertFile(expected);
 				done();
 			});
 		});
@@ -49,7 +51,7 @@
 			});
 
 			this.view.run({}, function() {
-				helpers.assertFiles(expected);
+				helpers.assertFile(expected);
 				done();
 			});
 		});
