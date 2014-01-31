@@ -2,7 +2,7 @@ jQuery.sap.declare("<%= fioriComponentNamespace + '.util.Formatter' %>");
 
 jQuery.sap.require("sap.ui.core.format.DateFormat");
 
-<%= fioriComponentNamespace %> .util.Formatter = {
+<%= fioriComponentNamespace %>.util.Formatter = {
 
 	_statusStateMap: {
 		"Neu": "Warning",
@@ -10,7 +10,7 @@ jQuery.sap.require("sap.ui.core.format.DateFormat");
 	},
 
 	statusState: function(value) {
-		var map = <%= fioriComponentNamespace %> .util.Formatter._statusStateMap;
+		var map = <%= fioriComponentNamespace %>.util.Formatter._statusStateMap;
 		return (value && map[value]) ? map[value] : "None";
 	},
 

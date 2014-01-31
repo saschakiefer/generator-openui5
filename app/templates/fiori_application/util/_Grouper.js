@@ -1,6 +1,6 @@
 jQuery.sap.declare("<%= fioriComponentNamespace + '.util.Grouper' %>");
 
-<%= fioriComponentNamespace %> .util.Grouper = {
+<%= fioriComponentNamespace %>.util.Grouper = {
 
 	BillingStatus: function(oContext) {
 		var status = oContext.getProperty("BillingStatus");
