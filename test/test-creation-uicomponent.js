@@ -7,6 +7,8 @@
 
 	describe("openui5 uiComponent generator", function() {
 		beforeEach(function(done) {
+			console.log("*** UI Component ***");
+
 			helpers.testDirectory(path.join(__dirname, "temp"), function(err) {
 				if (err) {
 					return done(err);
@@ -36,7 +38,7 @@
 			});
 
 			this.component.run({}, function() {
-				helpers.assertFiles(expected);
+				helpers.assertFile(expected);
 				done();
 			});
 		});

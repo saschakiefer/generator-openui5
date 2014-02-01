@@ -5,9 +5,9 @@
 	var path = require("path");
 	var helpers = require("yeoman-generator").test;
 
-	describe("openui5 app generator", function() {
+	describe("openui5 app generator - single page mvc app", function() {
 		beforeEach(function(done) {
-			console.log("*** Classic App ***");
+			console.log("*** SPA MVC App ***");
 
 			helpers.testDirectory(path.join(__dirname, "temp"), function(err) {
 				if (err) {
@@ -30,33 +30,22 @@
 				authorName: "John Doe",
 				gitRepository: "ssh://github.com/ropository/url.git",
 				licenseType: "Apache License, Version 2.0",
-				applicationType: "classical",
+				applicationType: "spa",
+				//fioriComponentNamespace: "sap.ui.demo",
+				//fioriAppType: "masterdetail",
 				openUI5LocationOption: "bower"
 			};
-
 			var expected = [
-				"css/style.css",
-				"ext/.gitkeep",
-				"test/.gitkeep",
-				"i18n/messageBundle.properties",
-				"img/.gitkeep",
-				"model/Config.js",
-				"model/img.json",
-				"util/.gitkeep",
 				"index.html",
 				"Gruntfile.js",
 				".jshintrc",
 				"bower.json",
 				"package.json",
-				"README.md",
-				"view/Main.controller.js",
-				"view/Main.view.js",
-				"Application.js"
+				"README.md"
 			];
 
 			helpers.mockPrompt(this.app, mockPrompts);
 
-			// Test the view generation in this case via parameter
 			this.app.args = ["Main", false];
 			this.app.options["skip-install"] = true;
 			this.app.run({}, function() {
@@ -64,6 +53,7 @@
 				done();
 			});
 		});
+
 	});
 
 }());

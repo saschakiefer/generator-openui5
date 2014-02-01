@@ -14,6 +14,7 @@
     "browser": true,
     "quotmark": "double",
     "trailing": true,
+    "smarttabs": true,
     "globals": {
         "$": true,
         "jQuery": true,

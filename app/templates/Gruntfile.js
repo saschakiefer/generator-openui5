@@ -50,22 +50,22 @@ module.exports = function(grunt) {
 
 		watch: {
 			gruntfile: {
-				files: "<%= jshint.gruntfile.src %>",
+				files: "<%%= jshint.gruntfile.src %>",
 				tasks: ["jshint:gruntfile"]
 			},
 			libTest: {
-				files: "<%= jshint.libTest.src %>",
+				files: "<%%= jshint.libTest.src %>",
 				tasks: ["jshint:lib_test", "qunit"]
 			},
 			application: {
-				files: "<%= jshint.application.src %>",
+				files: "<%%= jshint.application.src %>",
 				tasks: ["jshint:application"]
 			},
 			livereload: {
 				options: {
-					livereload: "<%= connect.options.livereload %>"
+					livereload: "<%%= connect.options.livereload %>"
 				},
-				//files: "<%= jshint.application.src %>" // Be careful to not watch npm dependencies
+				//files: "<%%= jshint.application.src %>" // Be careful to not watch npm dependencies
 				files: ["model/**/*.js", "util/**/*.js", "view/**/*.js", "*.js", "view/**/*.xml"]
 			}
 		},
@@ -73,7 +73,7 @@ module.exports = function(grunt) {
 
 		open: {
 			root: {
-				path: "http://<%= connect.options.hostname %>:<%= connect.options.port %>",
+				path: "http://<%%= connect.options.hostname %>:<%%= connect.options.port %>",
 				options: {
 					delay: 500
 				}
@@ -83,7 +83,7 @@ module.exports = function(grunt) {
 
 		connect: {
 			options: {
-				port: 8080,
+				port: <%= localServerPort %>,
 				livereload: 35729,
 				hostname: "localhost",
 				base: "."
@@ -127,16 +127,7 @@ module.exports = function(grunt) {
 				// 		options.base.forEach(function(base) {
 				// 			middlewares.push(connect.static(base));
 				// 		});
-
-				// 		// The below commented options show how to setup a middleware function
-				// 		// to set CORS headers - not necessary when proxying resources.
-				// 		//middlewares.push(function(req, res, next) {
-				// 		//	res.setHeader("Access-Control-Allow-Origin", "*");
-				// 		//	res.setHeader("Access-Control-Allow-Methods", "*");
-				// 		//	res.setHeader("Access-Control-Allow-Headers", "*");
-				// 		//	next();
-				// 		//});
-
+				//
 				// 		return middlewares;
 				// 	}
 				// }

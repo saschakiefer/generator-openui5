@@ -9,16 +9,12 @@
 	xmlns="sap.m">
 
 	<Shell showLogout="false">
-		<SplitApp id="idRoot">
-			<masterPages>
-				<mvc:XMLView viewName="<%= fioriComponentNamespace %>.view.Master" id="idViewMaster" />
-			</masterPages>
-			<detailPages>
-				<mvc:XMLView viewName="<%= fioriComponentNamespace %>.view.Empty" id="idViewEmpty" />
+		<App id="idApp">
+			<pages>
+				<mvc:JSView viewName="<%= fioriComponentNamespace %>.view.Home" id="idViewHome" />
 				<mvc:XMLView viewName="<%= fioriComponentNamespace %>.view.Detail" id="idViewDetail" />
-				<mvc:XMLView viewName="<%= fioriComponentNamespace %>.view.LineItem" id="idViewLineItem" />
-			</detailPages>
-		</SplitApp>
+			</pages>
+		</App>
 	</Shell>
-	
+
 </core:View>
