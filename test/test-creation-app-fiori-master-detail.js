@@ -7,6 +7,8 @@
 
 	describe("openui5 app generator - fiori master/detail", function() {
 		beforeEach(function(done) {
+			console.log("*** Fiori Splitter App ***");
+
 			helpers.testDirectory(path.join(__dirname, "temp"), function(err) {
 				if (err) {
 					return done(err);
@@ -64,7 +66,7 @@
 			this.app.args = ["Main", false];
 			this.app.options["skip-install"] = true;
 			this.app.run({}, function() {
-				helpers.assertFiles(expected);
+				helpers.assertFile(expected);
 				done();
 			});
 		});

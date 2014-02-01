@@ -14,6 +14,44 @@
 
 
 	/**
+	 * Prompt to get the basic details for all apps.
+	 */
+	Generator.prototype.promptForBasicDetails = function() {
+		var cb = this.async();
+
+		var prompts = [{
+			name: "applicationName",
+			message: "What do you want to name this application?",
+			default: "My Application"
+		}, {
+			name: "appDescription",
+			message: "Please describe it with a few words:"
+		}, {
+			name: "authorName",
+			message: "What is your name?",
+			default: "John Doe"
+		}, {
+			name: "gitRepository",
+			message: "What is your git repository?",
+			default: "ssh://github.com/ropository/url.git"
+		}, {
+			name: "licenseType",
+			message: "What is your license Type?",
+			default: "Apache License, Version 2.0"
+		}];
+
+		this.prompt(prompts, function(props) {
+			this.applicationName = props.applicationName;
+			this.appDescription = props.appDescription;
+			this.authorName = props.authorName;
+			this.gitRepository = props.gitRepository;
+			this.licenseType = props.licenseType;
+
+			cb();
+		}.bind(this));
+	};
+
+	/**
 	 * Prompt to get the UI5 Location string for the bootstrap
 	 * Sets global variables:
 	 * this.openUI5LocationOption: bower or custom

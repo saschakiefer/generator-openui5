@@ -7,9 +7,10 @@
         <title><%= applicationName %></title>
         
         <script id="sap-ui-bootstrap" 
-            src="<%= openUI5Location %>"
-            data-sap-ui-libs="sap.ui.commons"
-            data-sap-ui-theme="sap_bluecrystal">
+                src="<%= openUI5Location %>"
+                data-sap-ui-libs="sap.ui.commons"
+                data-sap-ui-theme="sap_bluecrystal"
+                data-sap-ui-xx-bindingSyntax="complex">
         </script>
         <!-- add sap.ui.table,sap.ui.ux3 and/or other libraries to 'data-sap-ui-libs' if required -->
         
@@ -17,18 +18,18 @@
         
         <script>
             // Tell UI5 where to find application content
-            sap.ui.localResources( "util" );  // paths starting with "util" will be resolved relative to the index.html location
-            sap.ui.localResources( "view" );
-            sap.ui.localResources( "model" );
-            sap.ui.localResources( "i18n" );
+            sap.ui.localResources("util");  // paths starting with "util" will be resolved relative to the index.html location
+            sap.ui.localResources("view");
+            sap.ui.localResources("model");
+            sap.ui.localResources("i18n");
             /* endOfResources */
-            /* DO NOT DELETE THE LINE ABOVE. IT'S NEEDED BY THE OPENUI5 YEOMAN GENERATOR!!!! */
+            // DO NOT DELETE THE LINE ABOVE. IT'S NEEDED BY THE OPENUI5 YEOMAN GENERATOR!!!! 
             
-            jQuery.sap.registerModulePath( "Application", "Application" );
+            jQuery.sap.registerModulePath("Application", "Application");
 
             // Launch application
-            jQuery.sap.require( "Application" );
-            var oApp = new Application({root : "content"}); // instantiate your application and mark the HTML element with id "content" as location for the UI
+            jQuery.sap.require("Application");
+            var oApp = new Application({root: "content"}); // instantiate your application and mark the HTML element with id "content" as location for the UI
         </script>  
 
         
