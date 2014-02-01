@@ -60,14 +60,14 @@ module.exports = function(grunt) {
 			application: {
 				files: "<%%= jshint.application.src %>",
 				tasks: ["jshint:application"]
-			},
+			}<% if (liveReload) { %>,
 			livereload: {
 				options: {
 					livereload: "<%%= connect.options.livereload %>"
 				},
 				//files: "<%%= jshint.application.src %>" // Be careful to not watch npm dependencies
 				files: ["model/**/*.js", "util/**/*.js", "view/**/*.js", "*.js", "view/**/*.xml"]
-			}
+			}<% } %>
 		},
 
 
@@ -83,8 +83,8 @@ module.exports = function(grunt) {
 
 		connect: {
 			options: {
-				port: <%= localServerPort %>,
-				livereload: 35729,
+				port: <%= localServerPort %>,<% if (liveReload) { %>
+				livereload: 35729,<% } %>
 				hostname: "localhost",
 				base: "."
 			},

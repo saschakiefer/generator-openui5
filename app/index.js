@@ -121,10 +121,16 @@
 			name: "localServerPort",
 			message: "Local server port?",
 			default: "8080"
+		}, {
+			type: "confirm",
+			name: "liveReload",
+			message: "Enable live-reload of browser?",
+			default: false
 		}];
 
 		this.prompt(prompts, function(props) {
 			this.localServerPort = props.localServerPort;
+			this.liveReload  = props.liveReload;
 
 			cb();
 		}.bind(this));
@@ -139,7 +145,6 @@
 	 */
 	openui5Generator.prototype.projectFiles = function projectfiles() {
 		this.copy("jshintrc", ".jshintrc");
-		//this.copy("Gruntfile.js", "Gruntfile.js");
 		this.template("Gruntfile.js", "Gruntfile.js");
 		this.template("_bower.json", "bower.json");
 		this.template("_package.json", "package.json");
