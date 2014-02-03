@@ -119,7 +119,7 @@
 
 		var prompts = [{
 			name: "localServerPort",
-			message: "Local server port?",
+			message: "What port should the local server use?",
 			default: "8080"
 		}];
 
