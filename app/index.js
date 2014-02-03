@@ -10,16 +10,6 @@
 		ScriptBase.apply(this, arguments);
 		console.log(this.yeoman);
 
-		this.hookFor("openui5:view", {
-			options: {
-				args: args,
-				options: {
-					skipApplicationJs: false, // Tell the view to also copy the Application.js (since the ViewName needs to be added there)
-					fiori: this.fiori
-				}
-			}
-		});
-
 		this.on("end", function() {
 			this.installDependencies({
 				skipInstall: options["skip-install"]
@@ -84,21 +74,6 @@
 
 			this.fioriComponentNamespace = props.fioriComponentNamespace;
 			this.fioriAppType = props.fioriAppType;
-
-			// We need to pass the fiori option through to the called View generator. so that it
-			// knows whether to execute or not. At the time that the prompts have been answered
-			// the hook to run the view generator has already been set!
-			// Currently comunication with the sub-generato can only be done via files as the
-			// options passed to the view generator are already set before the app generator
-			// questions are answered...
-			// If we are scaffolding a fiori app we don't need the view generator so it will just exit.
-			// (View generator not required for SPA app either.)
-			var LocalStorage = require("node-localstorage").LocalStorage;
-			if (this.applicationType === "fiori" || this.applicationType === "spa" || this.applicationType === "tiles") {
-				new LocalStorage("./scratch").setItem("fiori", "true");
-			} else {
-				new LocalStorage("./scratch").setItem("fiori", "false");
-			}
 
 			this.namespace = props.componentNamespace;
 
@@ -180,7 +155,12 @@
 		this.mkdir("util");
 		this.copy("gitkeep", "util/.gitkeep");
 
+		this.mkdir("view");
+		this.template("application/view/_Main.view.js", "view/Main.view.js");
+		this.template("application/view/_Main.controller.js", "view/Main.controller.js");
+
 		this.template("application/_index.html", "index.html");
+		this.template("application/_Application.js", "Application.js");
 	};
 
 
