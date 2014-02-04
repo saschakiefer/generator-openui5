@@ -65,11 +65,11 @@
 		}];
 
 		this.prompt(prompts, function(props) {
-			this.applicationName = props.applicationName;
-			this.appDescription = props.appDescription;
-			this.authorName = props.authorName;
-			this.gitRepository = props.gitRepository;
-			this.licenseType = props.licenseType;
+			//this.applicationName = props.applicationName;
+			//this.appDescription = props.appDescription;
+			//this.authorName = props.authorName;
+			//this.gitRepository = props.gitRepository;
+			//this.licenseType = props.licenseType;
 			this.applicationType = props.applicationType;
 
 			this.fioriComponentNamespace = props.fioriComponentNamespace;
@@ -96,10 +96,16 @@
 			name: "localServerPort",
 			message: "What port should the local server use?",
 			default: "8080"
+		}, {
+			type: "confirm",
+			name: "liveReload",
+			message: "Enable live-reload of browser?",
+			default: false
 		}];
 
 		this.prompt(prompts, function(props) {
 			this.localServerPort = props.localServerPort;
+			this.liveReload  = props.liveReload;
 
 			cb();
 		}.bind(this));
@@ -114,7 +120,6 @@
 	 */
 	openui5Generator.prototype.projectFiles = function projectfiles() {
 		this.copy("jshintrc", ".jshintrc");
-		//this.copy("Gruntfile.js", "Gruntfile.js");
 		this.template("Gruntfile.js", "Gruntfile.js");
 		this.template("_bower.json", "bower.json");
 		this.template("_package.json", "package.json");
