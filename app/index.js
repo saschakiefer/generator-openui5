@@ -62,15 +62,25 @@
 			name: "fioriComponentNamespace",
 			message: "What component namespace do you want?",
 			default: "sap.ui.demo"
+		}, { // Only ask these questions if classical app is chosen
+			when: function(response) {
+				return (response.applicationType === "classical");
+			},
+			type: "list",
+			name: "viewType",
+			message: "What view type would you like?",
+			choices: [{
+				name: "JS View",
+				value: "jsView",
+			}, {
+				name: "XML View",
+				value: "xmlView",
+			}]
 		}];
 
 		this.prompt(prompts, function(props) {
-			//this.applicationName = props.applicationName;
-			//this.appDescription = props.appDescription;
-			//this.authorName = props.authorName;
-			//this.gitRepository = props.gitRepository;
-			//this.licenseType = props.licenseType;
 			this.applicationType = props.applicationType;
+			this.viewType = props.viewType;
 
 			this.fioriComponentNamespace = props.fioriComponentNamespace;
 			this.fioriAppType = props.fioriAppType;
@@ -105,7 +115,7 @@
 
 		this.prompt(prompts, function(props) {
 			this.localServerPort = props.localServerPort;
-			this.liveReload  = props.liveReload;
+			this.liveReload = props.liveReload;
 
 			cb();
 		}.bind(this));
@@ -161,7 +171,13 @@
 		this.copy("gitkeep", "util/.gitkeep");
 
 		this.mkdir("view");
-		this.template("application/view/_Main.view.js", "view/Main.view.js");
+
+		if (this.viewType === "jsView") {
+			this.template("application/view/_Main.view.js", "view/Main.view.js");
+		} else {
+			this.template("application/view/_Main.view.xml", "view/Main.view.xml");
+		}
+
 		this.template("application/view/_Main.controller.js", "view/Main.controller.js");
 
 		this.template("application/_index.html", "index.html");

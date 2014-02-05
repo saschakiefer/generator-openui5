@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<core:View
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.ui.commons"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	controllerName="view.Main">
+	<Panel text="Hello World from an XML view">
+		<Button text="Button" press="doSomething"></Button>
+	</Panel>
+</core:View>

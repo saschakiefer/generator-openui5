@@ -7,7 +7,7 @@
 
 	describe("openui5 app generator", function() {
 		beforeEach(function(done) {
-			console.log("*** Classic App ***");
+			console.log("*** Classic App w/ JS View ***");
 
 			helpers.testDirectory(path.join(__dirname, "temp"), function(err) {
 				if (err) {
@@ -15,8 +15,7 @@
 				}
 
 				this.app = helpers.createGenerator("openui5:app", [
-					"../../app",
-					"../../view"
+					"../../app"
 				]);
 
 				done();
@@ -31,6 +30,7 @@
 				gitRepository: "ssh://github.com/ropository/url.git",
 				licenseType: "Apache License, Version 2.0",
 				applicationType: "classical",
+				viewType: "jsView",
 				openUI5LocationOption: "bower"
 			};
 
