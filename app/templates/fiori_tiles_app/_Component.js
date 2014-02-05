@@ -31,7 +31,7 @@ Component details:
 			});
 
 			// set data model on root view
-			var sURI = "http://localhost:8080/Northwind/Northwind.svc/";
+			var sURI = "http://localhost:<%= localServerPort %>/Northwind/Northwind.svc/";
 			if (typeof baseURL === "string") {
 				sURI = baseURL; //if mock service use the baseURL
 			}
