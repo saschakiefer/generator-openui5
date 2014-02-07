@@ -22,8 +22,8 @@
 		<%
 		var sinonLocation = openUI5Location.substr(0, openUI5Location.lastIndexOf("/")) + "/sap/ui/thirdparty/sinon.js";
 		%>
-		<script type="text/javascript" src="<%= sinonLocation %>"></script>
-		<script type="text/javascript" src="model/ODataModelFakeService.js"></script>
+		<script src="<%= sinonLocation %>"></script>
+		<script src="model/ODataModelFakeService.js"></script>
 
 		<script>
 			new sap.ui.core.ComponentContainer({
