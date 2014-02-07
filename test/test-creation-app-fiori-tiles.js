@@ -95,7 +95,7 @@
 				assert($("title").text() === "My Tiles Application", "index.html title is incorrect");
 				assert($("#sap-ui-bootstrap").attr("src") === "bower_components/openui5-bower/resources/sap-ui-core.js",
 							"index.html bootstrap tag is incorrect. Should be " + "bower_components/openui5-bower/resources/sap-ui-core.js");
-				assert($("script"));
+				//TODO: assert($("script"));
 
 				done();
 			}.bind(this));
