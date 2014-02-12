@@ -36,7 +36,8 @@
 		"load-grunt-tasks": "~0.3.0",
 		"marked": "~0.3.1",
 		"semver": "~2.2.1",
-		"grunt-conventional-changelog": "~1.0.0"
+		"grunt-conventional-changelog": "~1.0.0",
+		"cheerio": "~0.13.1"
 	},
 	"peerDependencies": {
 		"yo": ">=1.0.0-rc.1"
