@@ -7,12 +7,24 @@
 
 	sap.ui.controller("<%= fioriComponentNamespace %>.view.Detail", {
 
-		handleNavButtonPress: function() {
-			this.navigation.navBack();
+		onInit: function() {
+			this.bus = sap.ui.getCore().getEventBus();
 		},
 
-		handleApprove: function() {
+		handleNavButtonPress: function() {
+			this.bus.publish("nav", "back");
+		},
 
+		handleLineItemPress: function(evt) {
+			this.bus.publish("nav", "to", {
+				id: "idViewRoot--idViewLineItem",
+				data: {
+					context: evt.getSource().getBindingContext()
+				}
+			});
+		},
+		
+		handleApprove: function() {
 			// show confirmation dialog
 			var bundle = this.getView().getModel("i18n").getResourceBundle();
 			sap.m.MessageBox.confirm(
@@ -28,11 +40,8 @@
 
 				bundle.getText("ApproveDialogTitle")
 			);
-		},
-
-		handleLineItemPress: function(evt) {
-			this.navigation.navTo("idViewRoot--idViewLineItem", evt.getSource().getBindingContext());
 		}
+
 	});
 
 }());

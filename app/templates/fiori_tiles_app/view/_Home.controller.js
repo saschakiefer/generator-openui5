@@ -3,8 +3,17 @@
 
 	sap.ui.controller("<%= fioriComponentNamespace %>.view.Home", {
 
+		onInit: function() {
+			this.bus = sap.ui.getCore().getEventBus();
+		},
+
 		handleTileTap: function(evt) {
-			this.navigation.navTo("idViewRoot--idViewDetail", evt.getSource().getBindingContext());
+			this.bus.publish("nav", "to", {
+				id: "idViewRoot--idViewDetail",
+				data: {
+					context: evt.getSource().getBindingContext()
+				}
+			});
 		},
 
 		productCount: function(oValue) {

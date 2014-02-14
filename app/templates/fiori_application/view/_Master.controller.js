@@ -6,6 +6,10 @@
 
 	sap.ui.controller("<%= fioriComponentNamespace %>.view.Master", {
 
+		onInit: function() {
+			this.bus = sap.ui.getCore().getEventBus();
+		},
+
 		onExit: function() {
 			if (this._lineItemViewDialog) {
 				this._lineItemViewDialog.destroy();
@@ -13,13 +17,16 @@
 			}
 		},
 
-		handleListItemPress: function(evt) {
-			var context = evt.getSource().getBindingContext();
-			this.nav.to("Detail", context);
+		handleListSelect: function(evt) {
+			this.bus.publish("nav", "to", {
+				id: "idViewRoot--idViewDetail",
+				data: {
+					context: evt.getParameter("listItem").getBindingContext()
+				}
+			});
 		},
 
 		handleSearch: function(evt) {
-
 			// create model filter
 			var filters = [];
 			var query = evt.getParameter("query");
@@ -34,13 +41,8 @@
 			binding.filter(filters);
 		},
 
-		handleListSelect: function(evt) {
-			this.navigation.navTo("idViewRoot--idViewDetail", evt.getParameter("listItem").getBindingContext());
-		},
-
 		handleViewSettings: function() {
-
-			// create dialog
+			// create and open settings dialog
 			var that = this;
 			if (!this._lineItemViewDialog) {
 				this._lineItemViewDialog = new sap.m.ViewSettingsDialog({
@@ -60,7 +62,7 @@
 						if (mParams.groupItem) {
 							var sPath = mParams.groupItem.getKey();
 							var bDescending = mParams.groupDescending;
-							var vGroup = <%= fioriComponentNamespace %> .util.Grouper[sPath];
+							var vGroup = <%= fioriComponentNamespace %>.util.Grouper[sPath];
 							aSorters.push(new sap.ui.model.Sorter(sPath, bDescending, vGroup));
 						}
 						var oBinding = that.getView().byId("list").getBinding("items");
@@ -69,9 +71,9 @@
 				});
 			}
 
-			// open dialog
 			this._lineItemViewDialog.open();
 		}
+
 	});
 
 }());

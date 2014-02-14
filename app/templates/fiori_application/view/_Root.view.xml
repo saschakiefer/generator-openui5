@@ -9,7 +9,7 @@
 	xmlns="sap.m">
 
 	<Shell showLogout="false">
-		<SplitApp id="idRoot">
+		<SplitApp id="idApp">
 			<masterPages>
 				<mvc:XMLView viewName="<%= fioriComponentNamespace %>.view.Master" id="idViewMaster" />
 			</masterPages>

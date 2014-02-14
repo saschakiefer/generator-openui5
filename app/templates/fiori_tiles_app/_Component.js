@@ -19,7 +19,6 @@ Component details:
 	sap.ui.core.UIComponent.extend("<%= fioriComponentNamespace %>.Component", {
 
 		createContent: function() {
-
 			// create root view
 			var oView = sap.ui.view({
 				id: "idViewRoot",
@@ -46,9 +45,7 @@ Component details:
 			deviceModel.setDefaultBindingMode("OneWay");
 			oView.setModel(deviceModel, "device");
 
-			// done
 			return oView;
-
 		}
 	});
 

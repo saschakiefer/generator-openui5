@@ -4,38 +4,24 @@
 	sap.ui.controller("<%= fioriComponentNamespace %>.view.Root", {
 
 		onInit: function() {
+			var bus = sap.ui.getCore().getEventBus();
 
-			this.oRoot = this.getView().byId("idRoot");
+			bus.subscribe("nav", "to", this.navToHandler, this);
+			bus.subscribe("nav", "back", this.navBackHandler, this);
 
-			// Have child views use this controller for navigation
-			var that = this;
-			this.oRoot.getMasterPages().forEach(function(oPage) {
-				oPage.getController().navigation = that;
-			});
-
-			this.oRoot.getDetailPages().forEach(function(oPage) {
-				if (oPage.getId() !== "idViewRoot--idViewEmpty") {
-					oPage.getController().navigation = that;
-				}
-			});
-
+			this.app = this.getView().byId("idApp");
 		},
 
-
-		navTo: function(sPageId, oContext) {
-
-			this.oRoot.to(sPageId);
-			if (oContext) {
-				this.oRoot.getPage(sPageId).setBindingContext(oContext);
+		navToHandler: function(channelId, eventId, data) {
+			//data.id holds the page id
+			this.app.to(data.id);
+			if (data.data.context) {
+				this.app.getPage(data.id).setBindingContext(data.data.context);
 			}
-
 		},
 
-
-		navBack: function() {
-
-			this.oRoot.backDetail();
-
+		navBackHandler: function() {
+			this.app.backDetail();
 		}
 
 	});

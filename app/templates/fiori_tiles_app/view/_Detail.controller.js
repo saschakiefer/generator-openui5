@@ -6,8 +6,12 @@
 
 	sap.ui.controller("<%= fioriComponentNamespace %>.view.Detail", {
 
+		onInit: function() {
+			this.bus = sap.ui.getCore().getEventBus();
+		},
+		
 		handleNavButtonPress: function() {
-			this.navigation.navBack();
+			this.bus.publish("nav", "back");
 		}
 		
 	});
