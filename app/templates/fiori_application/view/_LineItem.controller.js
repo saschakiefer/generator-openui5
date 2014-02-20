@@ -3,8 +3,12 @@
 
 	sap.ui.controller("<%= fioriComponentNamespace %>.view.LineItem", {
 
+		onInit: function() {
+			this.bus = sap.ui.getCore().getEventBus();
+		},
+
 		handleNavBack: function() {
-			this.navigation.navBack();
+			this.bus.publish("nav", "back");
 		}
 
 	});

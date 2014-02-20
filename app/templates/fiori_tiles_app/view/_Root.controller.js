@@ -3,24 +3,24 @@
 
 	sap.ui.controller("<%= fioriComponentNamespace %>.view.Root", {
 		onInit: function() {
-			this.app = this.getView().byId("idApp");
+			var bus = sap.ui.getCore().getEventBus();
 
-			// Have child views use this controller for navigation
-			var that = this;
-			this.app.getPages().forEach(function(page) {
-				page.getController().navigation = that;
-			});
+			bus.subscribe("nav", "to", this.navToHandler, this);
+			bus.subscribe("nav", "back", this.navBackHandler, this);
+
+			this.app = this.getView().byId("idApp");
 		},
 
-		navTo: function(pageId, context) {
-			this.app.to(pageId);
-			if (context) {
-				this.app.getPage(pageId).setBindingContext(context);
+		navToHandler: function(channelId, eventId, data) {
+			//data.id holds the page id
+			this.app.to(data.id);
+			if (data.data.context) {
+				this.app.getPage(data.id).setBindingContext(data.data.context);
 			}
 
 		},
 
-		navBack: function() {
+		navBackHandler: function() {
 			this.app.back();
 		}
 
