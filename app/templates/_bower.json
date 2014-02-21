@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"dependencies": { <%
 		if (openUI5LocationOption === "bower") { %>
-				"openui5-bower": "~1.16.8-SNAPSHOT" <%
+				"openui5-bower": "~1.18.8" <%
 		} %>
 	}
 }
