@@ -1,7 +1,7 @@
 (function() {
 	"use strict";
 
-	sap.ui.controller("<%= viewName %>", {
+	sap.ui.controller("<%= applicationNamespace%><%= viewName %>", {
 
 		/**
 		 * Called when a controller is instantiated and its View controls (if available) are already created.

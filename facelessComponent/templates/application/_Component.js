@@ -2,13 +2,13 @@
 	"use strict";
 	// other require statements can go here
 	jQuery.sap.require("sap.ui.core.Component");
-	jQuery.sap.declare("<%= componentName %>.Component"); // change this to your package/component name
+	jQuery.sap.declare("<%= applicationNamespace%><%= componentName %>.Component"); // change this to your package/component name
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------------
 	// Metadata
 	//---------------------------------------------------------------------------------------------------------------------------------------------------
 
-	sap.ui.core.UIComponent.extend("<%= componentName %>.Component", { //this should be changed to match the declare statement
+	sap.ui.core.UIComponent.extend("<%= applicationNamespace%><%= componentName %>.Component", { //this should be changed to match the declare statement
 		metadata: {
 			"abstract": true,
 			version: "1.0",
@@ -41,7 +41,7 @@
 	/**
 	 * Initialize the component
 	 */
-	<%= componentName %>.Component.prototype.init = function() {
+	<%= applicationNamespace %><%= componentName %>.Component.prototype.init = function() {
 		sap.ui.core.UIComponent.prototype.init.apply(this);
 	};
 

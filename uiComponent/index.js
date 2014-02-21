@@ -17,6 +17,10 @@
 
 	util.inherits(ComponentGenerator, ScriptBase);
 
+
+	/**
+	 * Generator Prompt for view name *
+	 */
 	ComponentGenerator.prototype.askForViewName = function askForViewName() {
 		// If a name was passed as parameter, we don"t need to ask for a name
 		if (this.componentName) {
@@ -37,6 +41,17 @@
 			cb();
 		}.bind(this));
 	};
+
+
+
+	/**
+	 * Generator prompts for namespace confirmation
+	 */
+	ComponentGenerator.prototype.askForNamespaceConfirmation = function() {
+		this.promptForNamespaceConfirmation();
+	};
+
+
 
 	ComponentGenerator.prototype.createComponent = function createComponent() {
 		if (!this.componentName) {
@@ -70,6 +85,9 @@
 		this.template("application/_component.json", path + "component.json");
 
 		// Check if a link to the local resource exists and if not, add it.
-		this.addLocalResource(this.componentName);
+		// But only, if the application namespace is not part of the object already
+		if (!this.addApplicationNamespaceToObject) {
+			this.addResource(this.componentName);
+		}
 	};
 }());
