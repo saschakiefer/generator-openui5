@@ -65,15 +65,33 @@
 			}
 		});
 
+		// Count the spaces before the needle and add the splicable
+		// padded to the same number of spaces so that we finish with
+		// nice formatting.
+		// Handle spaces or tabs as whitespace!
 		var spaces = 0;
 		while (lines[otherwiseLineIndex].charAt(spaces) === " ") {
 			spaces += 1;
 		}
 
 		var spaceStr = "";
-		while ((spaces -= 1) >= 0) {
-			spaceStr += " ";
+
+		if (spaces > 0) {
+			while ((spaces -= 1) >= 0) {
+				spaceStr += " ";
+			}
+		} else {
+			var tabs = 0;
+			while (lines[otherwiseLineIndex].charAt(tabs) === "\t") {
+				tabs += 1;
+			}
+
+			while ((tabs -= 1) >= 0) {
+				spaceStr += "\t";
+			}
 		}
+
+
 
 		lines.splice(otherwiseLineIndex, 0, args.splicable.map(function(line) {
 			return spaceStr + line;
@@ -82,8 +100,34 @@
 		return lines.join("\n");
 	}
 
+
+	/**
+	 * Read the namespace from the index.html. Returns blank if none is found.
+	 *
+	 * @return {string} Namespace
+	 */
+	function getNamespace() {
+		var namespace;
+
+		try {
+			var indexPath = path.join(process.cwd(), "index.html");
+			var indexContent = fs.readFileSync(indexPath, "utf8").replace(/[\n\r\t]/g, " "); // File as long string w/o CR and TAB
+
+			namespace = indexContent.match(/(data\-sap\-ui\-resourceroots\s*\=\s*')(?:(?=(\\?))\2.)*?'/)[0].
+			match(/"(.*?)"/)[0].
+			split("\"")[1];
+		} catch (e) {
+			namespace = "";
+		}
+
+		return namespace;
+	}
+
+
+
 	module.exports = {
 		rewrite: rewrite,
-		rewriteFile: rewriteFile
+		rewriteFile: rewriteFile,
+		getNamespace: getNamespace
 	};
 }());

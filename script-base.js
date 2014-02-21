@@ -1,5 +1,6 @@
 /*global process, module, require */
 (function() {
+	var fs = require("fs");
 	var util = require("util");
 	var path = require("path");
 	var yeoman = require("yeoman-generator");
@@ -50,6 +51,8 @@
 			cb();
 		}.bind(this));
 	};
+
+
 
 	/**
 	 * Prompt to get the UI5 Location string for the bootstrap
@@ -107,6 +110,74 @@
 
 
 	/**
+	 * Prompt to get the basic details for all apps.
+	 */
+	Generator.prototype.promptForNamespaceConfirmation = function() {
+		this.applicationNamespace = "";
+
+		var cb = this.async();
+		var extractedNamespace = openUI5Utils.getNamespace();
+
+		var namespacePrompt = [{
+			type: "confirm",
+			name: "addNamespace",
+			message: "Do you want to add it to the application namespace",
+			default: true
+		}, {
+			when: function(response) {
+				if (response.addNamespace === true) {
+					if (extractedNamespace.replace(" ", "") !== "") {
+						console.log(chalk.green("    Application namespace found: " + extractedNamespace));
+					} else {
+						console.log(chalk.yellow("    No Application Namespace found."));
+					}
+					return true;
+				} else {
+					return false;
+				}
+			},
+			name: "applicationNamespace",
+			message: "Please confirm or change the namespace",
+			default: extractedNamespace
+		}];
+
+		this.prompt(namespacePrompt, function(props) {
+			this.addApplicationNamespaceToObject = props.addNamespace;
+
+
+
+			if (props.applicationNamespace && props.applicationNamespace.replace(" ", "") !== "") {
+				this.applicationNamespace = props.applicationNamespace + ".";
+			} else {
+				this.applicationNamespace = "";
+			}
+
+			cb();
+		}.bind(this));
+	};
+
+
+
+	/**
+	 * Adds an element path to either the UI5 Bootstrap (Component Version) or as a local
+	 * resource (Application.js Version)
+	 *
+	 * @param {String} elementPath Path of the element to be checked
+	 */
+	Generator.prototype.addResource = function(elementPath) {
+		if (fs.existsSync("Component.js")) {
+			this.addResourceRoot(elementPath);
+		}
+
+		if (fs.existsSync("Application.js")) {
+			this.addLocalResource(elementPath);
+		}
+
+	};
+
+
+
+	/**
 	 * Check if a sap.ui.localResources() entry exists for the first element of the
 	 * elemetPath in index.html. If not, it's added to index.html.
 	 *
@@ -125,6 +196,33 @@
 			});
 		} catch (e) {
 			console.log(chalk.red("\nUnable to find " + indexPath + ". ") + chalk.yellow(localResourcesString) + " could not be registered. Please check the resource register manaually.\n");
+		}
+	};
+
+
+
+	/**
+	 * Check if a UI5 bootstrap resource root entry exists for the
+	 * first element of the elemetPath in index.html. If not, it's added to index.html.
+	 *
+	 * @param {String} elementPath Path of the element to be checked
+	 */
+	Generator.prototype.addResourceRoot = function(elementPath) {
+		var indexPath = path.join(process.cwd(), "index.html");
+
+		//"foo.bar.MyComponent": "./foo/bar/MyComponent"
+		var resourcePath = elementPath.replace(/\./g, "/");
+		var resourceRoot = ", \"" + elementPath + "\": \"" + resourcePath + "\"";
+
+		try {
+			console.log(chalk.green("    check ") + "resource root registered in UI5 bootstrap in index.html.");
+			openUI5Utils.rewriteFile({
+				file: "index.html",
+				needle: "/* endOfResourceroots */",
+				splicable: [resourceRoot]
+			});
+		} catch (e) {
+			console.log(chalk.red("\nUnable to find " + indexPath + ". ") + chalk.yellow(resourceRoot) + " could not be registered. Please check the resource register manaually.\n");
 		}
 	};
 }());

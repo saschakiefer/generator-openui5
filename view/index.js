@@ -67,6 +67,15 @@
 
 
 	/**
+	 * Generator prompts for namespace confirmation
+	 */
+	ViewGenerator.prototype.askForNamespaceConfirmation = function() {
+		this.promptForNamespaceConfirmation();
+	};
+
+
+
+	/**
 	 * Scaffolding of the view
 	 */
 	ViewGenerator.prototype.createView = function createView() {

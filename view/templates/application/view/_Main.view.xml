@@ -4,7 +4,7 @@
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.ui.commons"
 	xmlns:html="http://www.w3.org/1999/xhtml"
-	controllerName="<%= viewName %>">
+	controllerName="<%= applicationNamespace%><%= viewName %>">
 	<Panel text="Hello World from an XML view">
 		<Button text="Button" press="doSomething"></Button>
 	</Panel>

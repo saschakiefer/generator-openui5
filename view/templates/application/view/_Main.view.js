@@ -1,14 +1,14 @@
 (function() {
 	"use strict";
 
-	sap.ui.jsview("<%= viewName %>", {
+	sap.ui.jsview("<%= applicationNamespace%><%= viewName %>", {
 
 		/** Specifies the Controller belonging to this View. 
 		 * In the case that it is not implemented, or that "null" is returned, this View does not have a Controller.
 		 * @memberOf fioricollaboration.ShellView
 		 */
 		getControllerName: function() {
-			return "<%= viewName %>";
+			return "<%= applicationNamespace%><%= viewName %>";
 		},
 
 		//#######################################################################################################################################################

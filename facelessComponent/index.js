@@ -38,6 +38,17 @@
 		}.bind(this));
 	};
 
+
+
+	/**
+	 * Generator prompts for namespace confirmation
+	 */
+	ComponentGenerator.prototype.askForNamespaceConfirmation = function() {
+		this.promptForNamespaceConfirmation();
+	};
+
+
+
 	ComponentGenerator.prototype.createComponent = function createComponent() {
 		if (!this.componentName) {
 			console.error(chalk.red("Sorry, but without a component name, I could not generate a component."));
@@ -57,6 +68,9 @@
 		this.template("application/_component.json", path + "component.json");
 
 		// Check if a link to the local resource exists and if not, add it.
-		this.addLocalResource(this.componentName);
+		// But only, if the application namespace is not part of the object already
+		if (!this.addApplicationNamespaceToObject) {
+			this.addResource(this.componentName);
+		}
 	};
 }());
