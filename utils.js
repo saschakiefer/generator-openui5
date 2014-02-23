@@ -43,6 +43,8 @@
 	 * @param  {Object} args.splicable: Content to be added if not present
 	 *                  args.haysteck:  Content string to be searched within
 	 *                  args.needle:    Hook string, before which the content is added
+	 *                  args.extraIndents: Number of extra indents when formatting
+	 *                                      the spicable value
 	 *
 	 * @return {String} Modified content
 	 */
@@ -75,8 +77,11 @@
 		}
 
 		var spaceStr = "";
+		args.extraIndents = args.extraIndents || 0;
 
 		if (spaces > 0) {
+			spaces += args.extraIndents;
+
 			while ((spaces -= 1) >= 0) {
 				spaceStr += " ";
 			}
@@ -86,6 +91,7 @@
 				tabs += 1;
 			}
 
+			tabs += args.extraIndents;
 			while ((tabs -= 1) >= 0) {
 				spaceStr += "\t";
 			}
