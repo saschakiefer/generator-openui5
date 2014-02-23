@@ -58,14 +58,21 @@
 			return args.haystack;
 		}
 
+		// scan the haystack looking for a needle
 		var lines = args.haystack.split("\n");
+		var otherwiseLineIndex = 0,
+			foundNeedle = false;
 
-		var otherwiseLineIndex = 0;
 		lines.forEach(function(line, i) {
 			if (line.indexOf(args.needle) !== -1) {
 				otherwiseLineIndex = i;
+				foundNeedle = true;
 			}
 		});
+
+		if (!foundNeedle) {
+			throw "Needle not in Haystack";
+		}
 
 		// Count the spaces before the needle and add the splicable
 		// padded to the same number of spaces so that we finish with
