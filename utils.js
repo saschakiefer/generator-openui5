@@ -43,6 +43,8 @@
 	 * @param  {Object} args.splicable: Content to be added if not present
 	 *                  args.haysteck:  Content string to be searched within
 	 *                  args.needle:    Hook string, before which the content is added
+	 *                  args.extraIndents: Number of extra indents when formatting
+	 *                                      the spicable value
 	 *
 	 * @return {String} Modified content
 	 */
@@ -56,14 +58,24 @@
 			return args.haystack;
 		}
 
+		// scan the haystack looking for a needle
 		var lines = args.haystack.split("\n");
+		var otherwiseLineIndex = 0,
+			foundNeedle = false;
 
-		var otherwiseLineIndex = 0;
 		lines.forEach(function(line, i) {
 			if (line.indexOf(args.needle) !== -1) {
 				otherwiseLineIndex = i;
+				foundNeedle = true;
 			}
 		});
+
+		if (!foundNeedle) {
+			throw {
+				name: "not_found",
+				message: "Needle not in Haystack"
+			};
+		}
 
 		// Count the spaces before the needle and add the splicable
 		// padded to the same number of spaces so that we finish with
@@ -75,8 +87,11 @@
 		}
 
 		var spaceStr = "";
+		args.extraIndents = args.extraIndents || 0;
 
 		if (spaces > 0) {
+			spaces += args.extraIndents;
+
 			while ((spaces -= 1) >= 0) {
 				spaceStr += " ";
 			}
@@ -86,6 +101,7 @@
 				tabs += 1;
 			}
 
+			tabs += args.extraIndents;
 			while ((tabs -= 1) >= 0) {
 				spaceStr += "\t";
 			}
