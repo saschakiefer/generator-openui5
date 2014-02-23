@@ -223,7 +223,11 @@
 				extraIndents: 1
 			});
 		} catch (e) {
-			console.log(chalk.red("\nUnable to find " + indexPath + ". ") + chalk.yellow(resourceRoot) + " could not be registered. Please check the resource register manaually.\n");
+			if (e.name === "not_found") {
+				console.log(chalk.red("Unable to add component namespace as application resource root. Could not find identifier /* endOfResourceroots */"));
+			} else {
+				console.log(chalk.red("\nUnable to find " + indexPath + ". ") + chalk.yellow(resourceRoot) + " could not be registered. Please check the resource register manaually.\n");
+			}
 		}
 	};
 }());

@@ -71,7 +71,10 @@
 		});
 
 		if (!foundNeedle) {
-			throw "Needle not in Haystack";
+			throw {
+				name: "not_found",
+				message: "Needle not in Haystack"
+			}
 		}
 
 		// Count the spaces before the needle and add the splicable
