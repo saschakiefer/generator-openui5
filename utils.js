@@ -2,6 +2,7 @@
 (function() {
 	var path = require("path");
 	var fs = require("fs");
+	var chalk = require("chalk");
 
 	// This concept is borrowed from the generator-angular project.
 
@@ -14,12 +15,11 @@
 	 */
 	function rewriteFile(args) {
 		args.path = args.path || process.cwd();
-		var fullPath = path.join(args.path, args.file);
-
-		args.haystack = fs.readFileSync(fullPath, "utf8");
+		args.fullPath = path.join(args.path, args.file);
+		args.haystack = fs.readFileSync(args.fullPath, "utf8");
 		var body = rewrite(args);
 
-		fs.writeFileSync(fullPath, body);
+		fs.writeFileSync(args.fullPath, body);
 	}
 
 
@@ -73,7 +73,8 @@
 		if (!foundNeedle) {
 			throw {
 				name: "not_found",
-				message: "Needle not in Haystack"
+				file: args.fullPath,
+				needle: args.needle
 			};
 		}
 
@@ -186,7 +187,8 @@
 		if (!foundNeedle) {
 			throw {
 				name: "not_found",
-				message: "Needle not in Haystack"
+				file: fullPath,
+				needle: args.needle
 			};
 		}
 
@@ -194,7 +196,9 @@
 		if (lineIndex < 0) {
 			throw {
 				name: "line_index_negative",
-				message: "The position found to add a comma is before the start of the file"
+				file: fullPath,
+				needle: args.needle,
+				offset: args.offset
 			};
 		}
 
@@ -219,10 +223,24 @@
 
 
 
+	function logResourceRootEditingError(e) {
+		if (e.name === "not_found") {
+			console.log(chalk.red("Unable to find identifier: ") + chalk.yellow(e.needle) + chalk.red(" in " + e.file + ". Please edit manually."));
+		} else if (e.name === "line_index_negative") {
+			console.log(chalk.red("Unable to format the resource roots in index.html. An invalid offset has been used: " + e.offset + ". Please format the resource roots json manually."));
+		} else {
+			console.log(chalk.red("\nUnable to anter resource root:"));
+			console.log(chalk.red(e.message));
+		}
+	}
+
+
+
 	module.exports = {
 		rewrite: rewrite,
 		rewriteFile: rewriteFile,
 		addCommaToLine: addCommaToLine,
-		getNamespace: getNamespace
+		getNamespace: getNamespace,
+		logResourceRootEditingError: logResourceRootEditingError
 	};
 }());
