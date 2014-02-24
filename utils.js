@@ -108,10 +108,21 @@
 		}
 
 
+		var windowsCarriageReturn = false;
+		if (lines[otherwiseLineIndex].slice(-1) === "\r") {
+			windowsCarriageReturn = true;
+			lines[otherwiseLineIndex] = lines[otherwiseLineIndex].replace(/\r/, "");
+		}
+
 
 		lines.splice(otherwiseLineIndex, 0, args.splicable.map(function(line) {
 			return spaceStr + line;
 		}).join("\n"));
+
+
+		if (windowsCarriageReturn) {
+			lines[otherwiseLineIndex] += "\r";
+		}
 
 		return lines.join("\n");
 	}
@@ -141,9 +152,77 @@
 
 
 
+	/**
+	 * Method to add a line terminating comma on a specified line within a file.
+	 *
+	 * @param  {Object} args.path:   Path to filename (use CWD if not provided)
+	 *                  args.file:   Filename
+	 *                  args.needle: Hook string - insertion point marker
+	 *                  args.offset: Number of line above or below the needle to
+	 *                               add the comma. i.e. -2 is 2 lines before.
+	 */
+	function addCommaToLine(args) {
+		var fullPath = "",
+			haystack = "",
+			lines,
+			line,
+			lineIndex = 0,
+			foundNeedle = false,
+			windowsCarriageReturn = false;
+
+		args.path = args.path || process.cwd();
+		fullPath = path.join(args.path, args.file);
+		haystack = fs.readFileSync(fullPath, "utf8");
+
+		// scan the haystack looking for the needle
+		lines = haystack.split("\n");
+		lines.forEach(function(line, i) {
+			if (line.indexOf(args.needle) !== -1) {
+				lineIndex = i;
+				foundNeedle = true;
+			}
+		});
+
+		if (!foundNeedle) {
+			throw {
+				name: "not_found",
+				message: "Needle not in Haystack"
+			};
+		}
+
+		lineIndex += args.offset;
+		if (lineIndex < 0) {
+			throw {
+				name: "line_index_negative",
+				message: "The position found to add a comma is before the start of the file"
+			};
+		}
+
+		line = lines[lineIndex];
+
+		if (lines[lineIndex].slice(-1) === "\r") {
+			windowsCarriageReturn = true;
+			line = lines[lineIndex].replace(/\r/, "");
+		}
+
+		if (line.slice(-1) === ",") {
+			console.log("last char is already a comma!");
+			return;
+		} else {
+			line += windowsCarriageReturn? ",\r" : ",";
+		}
+
+		lines[lineIndex] = line;
+
+		fs.writeFileSync(fullPath, lines.join("\n"));
+	}
+
+
+
 	module.exports = {
 		rewrite: rewrite,
 		rewriteFile: rewriteFile,
+		addCommaToLine: addCommaToLine,
 		getNamespace: getNamespace
 	};
 }());

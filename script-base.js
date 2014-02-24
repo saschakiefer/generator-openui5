@@ -212,7 +212,8 @@
 
 		//"foo.bar.MyComponent": "./foo/bar/MyComponent"
 		var resourcePath = elementPath.replace(/\./g, "/");
-		var resourceRoot = ", \"" + elementPath + "\": \"" + resourcePath + "\"";
+		//var resourceRoot = ", \"" + elementPath + "\": \"" + resourcePath + "\"";
+		var resourceRoot = "\"" + elementPath + "\": \"" + resourcePath + "\"";
 
 		try {
 			console.log(chalk.green("    check ") + "resource root registered in UI5 bootstrap in index.html.");
@@ -229,5 +230,11 @@
 				console.log(chalk.red("\nUnable to find " + indexPath + ". ") + chalk.yellow(resourceRoot) + " could not be registered. Please check the resource register manaually.\n");
 			}
 		}
+
+		openUI5Utils.addCommaToLine({
+			file: "index.html",
+			needle: "/* endOfResourceroots */",
+			offset: -2
+		});
 	};
 }());
