@@ -57,6 +57,15 @@ Create a faceless Component:
 ```
 $ yo openui5:facelessComponent
 ```
+#####Sub Generators and Namespaces
+When creating a component, you get asked "Do you want to add it to the application namespace?". What does that mean?
+
+When you create a component or view, you can add namespace based name (e.g. foo.bar.Component). That component will then be created in the sub directory ```ApplicationRoot/foo/bar/Component``` and it will be referenced in the code with "foo.bar.Component". Per default the resource root "foo" is not known to UI5 so you have to make it known to the framework. Usually that is done with a ```sap.ui.localResources("foo")``` statement (or a ```data-sap-ui-resourceroots``` entry in the bootstrap).
+
+Especially in Fiori like apps one often has an application namespace set in the bootstrap (sth. like ```data-sap-ui-resourceroots='{"sap.ui.demo": "./"}'```). With that you have the possibility to prefix your component name foo.bar.Component with sap.ui.demo to sap.ui.demo.foo.bar.Component, so that UI5 can find the coding without adding an additional resource root.
+
+That is exactly what happens, when you choose _yes_ as an answer for the above question. The generator tries to assemble the current application namespace and adds that to the component name (same for views). For sure, you have to possibility to change that name before it's finally generated.
+
 
 ## Participate
 We're happy about everybody who wants to help us create an even more amazing tool. To make sure, that everything fits together, please familiarize yourself with our project guidelines:

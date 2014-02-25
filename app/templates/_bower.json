@@ -1,5 +1,9 @@
 {
 	"name": "package",
 	"version": "0.0.1",
-	"dependencies": {}
+	"dependencies": { <%
+		if (openUI5LocationOption === "bower") { %>
+				"openui5-bower": "~1.18.8" <%
+		} %>
+	}
 }

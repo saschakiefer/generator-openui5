@@ -1,6 +1,16 @@
-sap.ui.controller("<%= fioriComponentNamespace %>.view.LineItem", {
+(function() {
+	"use strict";
 
-	handleNavBack: function(evt) {
-		this.nav.back("Detail");
-	}
-});
+	sap.ui.controller("<%= fioriComponentNamespace %>.view.LineItem", {
+
+		onInit: function() {
+			this.bus = sap.ui.getCore().getEventBus();
+		},
+
+		handleNavBack: function() {
+			this.bus.publish("nav", "back");
+		}
+
+	});
+
+}());

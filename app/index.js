@@ -10,16 +10,6 @@
 		ScriptBase.apply(this, arguments);
 		console.log(this.yeoman);
 
-		this.hookFor("openui5:view", {
-			options: {
-				args: args,
-				options: {
-					skipApplicationJs: false, // Tell the view to also copy the Application.js (since the ViewName needs to be added there)
-					fiori: this.fiori
-				}
-			}
-		});
-
 		this.on("end", function() {
 			this.installDependencies({
 				skipInstall: options["skip-install"]
@@ -34,85 +24,98 @@
 
 
 	/**
+	 * Generator prompts for configuration - basic prompts for all apps
+	 */
+	openui5Generator.prototype.askForBasics = function() {
+		this.promptForBasicDetails();
+	};
+
+
+
+	/**
 	 * Generator prompts for configuration
 	 */
-	openui5Generator.prototype.askFor = function askFor() {
+	openui5Generator.prototype.askForApplication = function askFor() {
 		var cb = this.async();
 
 		var prompts = [{
-			name: "applicationName",
-			message: "What do you want to name this application?",
-			default: "My Application"
-		}, {
-			name: "appDescription",
-			message: "Please describe it with a few words:"
-		}, {
-			name: "authorName",
-			message: "What is your name?",
-			default: "John Doe"
-		}, {
-			name: "gitRepository",
-			message: "What is your git repository?",
-			default: "ssh://github.com/ropository/url.git"
-		}, {
-			name: "licenseType",
-			message: "What is your license Type?",
-			default: "Apache License, Version 2.0"
-		}, {
-			type: "list",
 			name: "applicationType",
+			type: "list",
 			message: "What type of application do you want?",
 			choices: [{
 				name: "Classical",
 				value: "classical"
 			}, {
-				name: "Fiori",
+				name: "Fiori Splitter App",
 				value: "fiori"
+			}, {
+				name: "Fiori Tiles App",
+				value: "tiles"
+			}, {
+				name: "Single Page MVC App",
+				value: "spa"
 			}]
-		}, { // Fiori specific question
+		}, { // Only ask these questions if fiori-type app is chosen
 			when: function(response) {
-				return (response.applicationType === "fiori");
+				return (response.applicationType === "fiori" || response.applicationType === "tiles");
 			},
 			name: "fioriComponentNamespace",
 			message: "What component namespace do you want?",
 			default: "sap.ui.demo"
-		}, {
-			// This question is to allow the user to choose from various basic types of fiori app
+		}, { // Only ask these questions if classical app is chosen
 			when: function(response) {
-				return (response.applicationType === "fiori");
+				return (response.applicationType === "classical");
 			},
 			type: "list",
-			name: "fioriAppType",
-			message: "What type of Fiori app would you like?",
+			name: "viewType",
+			message: "What view type would you like?",
 			choices: [{
-				name: "Master / Detail",
-				value: "masterdetail",
+				name: "JS View",
+				value: "jsView",
+			}, {
+				name: "XML View",
+				value: "xmlView",
 			}]
 		}];
 
 		this.prompt(prompts, function(props) {
-			this.applicationName = props.applicationName;
-			this.appDescription = props.appDescription;
-			this.authorName = props.authorName;
-			this.gitRepository = props.gitRepository;
-			this.licenseType = props.licenseType;
 			this.applicationType = props.applicationType;
+			this.viewType = props.viewType;
 
 			this.fioriComponentNamespace = props.fioriComponentNamespace;
 			this.fioriAppType = props.fioriAppType;
 
-			// We need to pass the fiori option through to the called View generator. At this stage
-			// it can only be done via files as the options passed to the view generator are already
-			// set before the app generator questions are answered...
-			// If we are scaffolding a fiori app we don't need the view generator so it will just exit.
-			var LocalStorage = require("node-localstorage").LocalStorage;
-			if (this.applicationType === "fiori") {
-				new LocalStorage("./scratch").setItem("fiori", "true");
-			} else {
-				new LocalStorage("./scratch").setItem("fiori", "false");
-			}
-
 			this.namespace = props.componentNamespace;
+
+			cb();
+		}.bind(this));
+	};
+
+
+
+	openui5Generator.prototype.askForUI5Location = function() {
+		this.promptForUI5Location();
+	};
+
+
+
+	openui5Generator.prototype.askForBuildOptions = function() {
+		var cb = this.async();
+
+		var prompts = [{
+			name: "localServerPort",
+			message: "What port should the local server use?",
+			default: "8080"
+		}, {
+			type: "confirm",
+			name: "liveReload",
+			message: "Enable live-reload of browser?",
+			default: false
+		}];
+
+		this.prompt(prompts, function(props) {
+			this.localServerPort = props.localServerPort;
+			this.liveReload = props.liveReload;
 
 			cb();
 		}.bind(this));
@@ -126,10 +129,11 @@
 	 * @return {[type]} [description]
 	 */
 	openui5Generator.prototype.projectFiles = function projectfiles() {
-		this.copy("Gruntfile.js", "Gruntfile.js");
 		this.copy("jshintrc", ".jshintrc");
+		this.template("Gruntfile.js", "Gruntfile.js");
 		this.template("_bower.json", "bower.json");
 		this.template("_package.json", "package.json");
+		this.template("gitignore", ".gitignore");
 		this.template("_README.md", "README.md");
 	};
 
@@ -166,16 +170,26 @@
 		this.mkdir("util");
 		this.copy("gitkeep", "util/.gitkeep");
 
+		this.mkdir("view");
+
+		if (this.viewType === "jsView") {
+			this.template("application/view/_Main.view.js", "view/Main.view.js");
+		} else {
+			this.template("application/view/_Main.view.xml", "view/Main.view.xml");
+		}
+
+		this.template("application/view/_Main.controller.js", "view/Main.controller.js");
+
 		this.template("application/_index.html", "index.html");
+		this.template("application/_Application.js", "Application.js");
 	};
 
 
 
 	/**
-	 * Scaffolding for the fiori application dependent project files.
-	 * This is only executed when application type "fiori" is selected
+	 * Scaffolding for a Fiori SplitterApp application.
 	 */
-	openui5Generator.prototype.fioriApplication = function app() {
+	openui5Generator.prototype.fioriApplication = function() {
 		if (this.applicationType !== "fiori") {
 			return;
 		}
@@ -183,8 +197,14 @@
 		this.mkdir("css");
 		this.copy("gitkeep", "css/.gitkeep");
 
+		this.mkdir("test");
+		this.copy("gitkeep", "test/.gitkeep");
+
 		this.mkdir("i18n");
 		this.copy("fiori_application/i18n/messageBundle.properties", "i18n/messageBundle.properties");
+
+		this.mkdir("img");
+		this.copy("gitkeep", "img/.gitkeep");
 
 		this.mkdir("model");
 		this.copy("fiori_application/model/Config.js", "model/Config.js");
@@ -196,8 +216,8 @@
 		this.template("fiori_application/util/_Grouper.js", "util/Grouper.js");
 
 		this.mkdir("view");
-		this.template("fiori_application/view/_App.view.js", "view/App.view.js");
-		this.template("fiori_application/view/_App.controller.js", "view/App.controller.js");
+		this.template("fiori_application/view/_Root.view.xml", "view/Root.view.xml");
+		this.template("fiori_application/view/_Root.controller.js", "view/Root.controller.js");
 		this.template("fiori_application/view/_Master.view.xml", "view/Master.view.xml");
 		this.template("fiori_application/view/_Master.controller.js", "view/Master.controller.js");
 		this.template("fiori_application/view/_Empty.view.xml", "view/Empty.view.xml");
@@ -208,5 +228,57 @@
 
 		this.template("fiori_application/_index.html", "index.html");
 		this.template("fiori_application/_Component.js", "Component.js");
+	};
+
+	/**
+	 * Scaffolding for a Fiori single page MVC application.
+	 */
+	openui5Generator.prototype.singlePageApplication = function() {
+		if (this.applicationType !== "spa") {
+			return;
+		}
+
+		this.template("spa/_index.html", "index.html");
+	};
+
+	/**
+	 * Scaffolding for a Fiori TileContainer MVC application.
+	 */
+	openui5Generator.prototype.tilesApplication = function() {
+		if (this.applicationType !== "tiles") {
+			return;
+		}
+
+		this.mkdir("css");
+		this.copy("gitkeep", "css/.gitkeep");
+
+		this.mkdir("test");
+		this.copy("gitkeep", "test/.gitkeep");
+
+		this.mkdir("i18n");
+		this.copy("fiori_tiles_app/i18n/messageBundle.properties", "i18n/messageBundle.properties");
+
+		this.mkdir("img");
+		this.copy("gitkeep", "img/.gitkeep");
+
+		this.mkdir("model");
+		this.copy("fiori_tiles_app/model/Config.js", "model/Config.js");
+		this.copy("fiori_tiles_app/model/img.json", "model/img.json");
+		this.copy("fiori_tiles_app/model/ODataModelFakeService.js", "model/ODataModelFakeService.js");
+
+		this.mkdir("util");
+		this.template("fiori_tiles_app/util/_Formatter.js", "util/Formatter.js");
+		this.template("fiori_tiles_app/util/_Grouper.js", "util/Grouper.js");
+
+		this.mkdir("view");
+		this.template("fiori_tiles_app/view/_Root.view.xml", "view/Root.view.xml");
+		this.template("fiori_tiles_app/view/_Root.controller.js", "view/Root.controller.js");
+		this.template("fiori_tiles_app/view/_Home.view.js", "view/Home.view.js");
+		this.template("fiori_tiles_app/view/_Home.controller.js", "view/Home.controller.js");
+		this.template("fiori_tiles_app/view/_Detail.view.xml", "view/Detail.view.xml");
+		this.template("fiori_tiles_app/view/_Detail.controller.js", "view/Detail.controller.js");
+
+		this.template("fiori_tiles_app/_index.html", "index.html");
+		this.template("fiori_tiles_app/_Component.js", "Component.js");
 	};
 }());

@@ -4,23 +4,9 @@
 	var util = require("util");
 	var ScriptBase = require("../script-base.js");
 
-	var ViewGenerator = module.exports = function ViewGenerator(args, options /*, config*/ ) {
+	/*jshint unused: vars */
+	var ViewGenerator = module.exports = function ViewGenerator(args, options, config) {
 		ScriptBase.apply(this, arguments);
-
-		// Is the app generator scaffolding a fiori app - if so then just exit.
-		var LocalStorage = require("node-localstorage").LocalStorage;
-		var ls = new LocalStorage("./scratch");
-		if (ls.getItem("fiori") === "true") {
-			this.fiori = true;
-			ls._deleteLocation();
-			console.log("view generator: skipping as this is a fiori app.");
-		}
-
-		if (typeof options.skipApplicationJs === "undefined") {
-			this.skipApplicationJS = true;
-		} else {
-			this.skipApplicationJS = false;
-		}
 
 		// Assume the first argument being the file name and the second the view type
 		// TODO: Refactor this, since the dependency on the right sequenc is unfortunate
@@ -28,7 +14,7 @@
 			this.viewName = "view." + args[0];
 
 			//true = xml view; false = js view
-            if (args[1] === "true") {
+			if (args[1] === "true") {
 				this.viewType = "xmlView";
 			} else {
 				this.viewType = "jsView";
@@ -81,6 +67,15 @@
 
 
 	/**
+	 * Generator prompts for namespace confirmation
+	 */
+	ViewGenerator.prototype.askForNamespaceConfirmation = function() {
+		this.promptForNamespaceConfirmation();
+	};
+
+
+
+	/**
 	 * Scaffolding of the view
 	 */
 	ViewGenerator.prototype.createView = function createView() {
@@ -104,13 +99,6 @@
 			this.template("application/view/_Main.view.xml", absoluteNamePref + ".view.xml");
 		} else {
 			this.template("application/view/_Main.view.js", absoluteNamePref + ".view.js");
-		}
-
-		// If the generator is called from the main task, the Application.js needs to be copied as well.
-		// This can be done only here, since the dynamic view name needs to be templated into the view
-		// TODO: This dependency needs to be resolved 
-		if (!this.skipApplicationJS) {
-			this.template("../../app/templates/application/_Application.js", "Application.js");
 		}
 	};
 }());

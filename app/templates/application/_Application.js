@@ -38,9 +38,9 @@
 			// create app view and put to html root element
 			var root = this.getRoot(); <%
 			if (viewType === "xmlView") { %>
-					sap.ui.xmlview("main", "<%= viewName %>").placeAt(root); <%
+					sap.ui.xmlview("main", "view.Main").placeAt(root); <%
 			} else { %>
-					sap.ui.jsview("main", "<%= viewName %>").placeAt(root); <%
+					sap.ui.jsview("main", "view.Main").placeAt(root); <%
 			} %>
 		}
 	});

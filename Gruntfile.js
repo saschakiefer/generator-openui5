@@ -1,4 +1,4 @@
-/*global module:false*/
+/*global module:false, require */
 var semver = require("semver");
 
 module.exports = function(grunt) {
@@ -6,6 +6,7 @@ module.exports = function(grunt) {
 
 	// Load all plugins
 	require("load-grunt-tasks")(grunt);
+
 
 	// Project configuration.
 	grunt.initConfig({
@@ -29,8 +30,6 @@ module.exports = function(grunt) {
 					"require": true,
 					"module": true
 				},
-				// "reporter": "jslint",
-				// "reporterOutput": "jslint_report.xml",
 				"ignores": ["test/temp/**/*.js", "./**/templates/**/*.js"],
 				"quotmark": "double"
 			},
@@ -54,7 +53,6 @@ module.exports = function(grunt) {
 		},
 
 
-
 		mochaTest: {
 			test: {
 				src: ["test/*.js"]
@@ -62,7 +60,7 @@ module.exports = function(grunt) {
 		},
 
 
-
+		// Note: use Ctrl-C to terminate a watch task!
 		watch: {
 			gruntfile: {
 				files: "<%= jshint.gruntfile.src %>",
@@ -79,17 +77,21 @@ module.exports = function(grunt) {
 				tasks: ["jshint:generators"]
 			},
 
+			default: {
+				files: "<%= jshint.generators.src %>",
+				tasks: ["jshint:generators", "mochaTest"],
+				options: {
+					interrupt: true,
+				},
+			},
+
 			util: {
 				files: "<%= jshint.util.src %>",
 				tasks: ["jshint:generators"]
 			}
 		},
 
-
-
 		pkg: grunt.file.readJSON("package.json"),
-
-
 
 		changelog: {
 			options: {
@@ -97,7 +99,6 @@ module.exports = function(grunt) {
 				versionFile: "package.json"
 			}
 		},
-
 
 
 		release: {
@@ -115,7 +116,6 @@ module.exports = function(grunt) {
 				npmtag: true, //default: no tag
 			}
 		},
-
 
 
 		stage: {
@@ -151,9 +151,6 @@ module.exports = function(grunt) {
 
 	// Default task.
 	grunt.registerTask("default", ["jshint", "mochaTest"]);
-
-
-
 	grunt.registerTask("prepare", ["bump", "changelog"]);
 
 	// grunt release can be called directly

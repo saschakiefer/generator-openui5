@@ -13,5 +13,14 @@
     "eqnull": true,
     "browser": true,
     "quotmark": "double",
-    "trailing": true
+    "trailing": true,
+    "smarttabs": true,
+    "globals": {
+        "$": true,
+        "jQuery": true,
+        "model": true,
+        "sap": true,
+        "util": true,
+        "view": true
+    }
 }

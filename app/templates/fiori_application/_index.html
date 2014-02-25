@@ -1,29 +1,28 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta charset="UTF-8">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta charset="UTF-8">
 
-        <title>SAPUI5/Fiori Demo</title>
+		<title><%= applicationName %></title>
 
-        <script
-            id="sap-ui-bootstrap"
-            src="https://openui5.netweaver.ondemand.com/resources/sap-ui-core.js"
-            data-sap-ui-theme="sap_bluecrystal"
-            data-sap-ui-libs="sap.m, sap.ui.layout"
-            data-sap-ui-xx-bindingSyntax="complex"
-            data-sap-ui-resourceroots='{
-                "<%= fioriComponentNamespace %>": "./"
-            }' >
-        </script>
+		<script id="sap-ui-bootstrap"
+				src="<%= openUI5Location %>"
+				data-sap-ui-theme="sap_bluecrystal"
+				data-sap-ui-libs="sap.m, sap.ui.layout"
+				data-sap-ui-xx-bindingSyntax="complex"
+				data-sap-ui-resourceroots='{
+					"<%= fioriComponentNamespace %>": "./"
+				}' > /* endOfResourceroots */
+		</script>
 
-        <script>
-            new sap.ui.core.ComponentContainer({
-                name : "<%= fioriComponentNamespace %>"
-            }).placeAt( "content" );
-        </script>
+		<script>
+			new sap.ui.core.ComponentContainer({
+				name: "<%= fioriComponentNamespace %>"
+			}).placeAt("content");
+		</script>
 
-    </head>
-    <body class="sapUiBody" id="content">
-    </body>
+	</head>
+	<body class="sapUiBody" role="application" id="content">
+	</body>
 </html>

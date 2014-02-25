@@ -1,39 +1,42 @@
-jQuery.sap.declare("<%= namespace %>.Component");
+/*
+Component details:
+	- Main Control: sap.m.SplitApp (wrapped in sap.m.Shell to center app on screen
+					and limit width - remove if you want a fullscreen app)
+	- Views: XML
+	- Navigation: EventBus
+*/
+(function() {
+	"use strict";
 
-sap.ui.core.UIComponent.extend("<%= fioriComponentNamespace %>.Component", {
+	jQuery.sap.declare("<%= fioriComponentNamespace %>.Component");
 
-	createContent: function() {
+	sap.ui.core.UIComponent.extend("<%= fioriComponentNamespace %>.Component", {
 
-		// create root view
-		var oView = sap.ui.view({
-			id: "app",
-			viewName: "<%= fioriComponentNamespace %>.view.App",
-			type: "JS",
-			viewData: {
-				component: this
-			}
-		});
+		createContent: function() {
+			// create root view
+			var oView = sap.ui.view({
+				id: "idViewRoot",
+				viewName: "<%= fioriComponentNamespace %>.view.Root",
+				type: "XML",
+				viewData: {
+					component: this
+				}
+			});
 
-		// set data model on root view
-		var oModel = new sap.ui.model.json.JSONModel("model/mock.json");
-		oView.setModel(oModel);
+			// set data model on root view
+			oView.setModel(new sap.ui.model.json.JSONModel("model/mock.json"));
 
-		// set i18n model
-		var i18nModel = new sap.ui.model.resource.ResourceModel({
-			bundleUrl: "i18n/messageBundle.properties"
-		});
-		oView.setModel(i18nModel, "i18n");
+			// set device model
+			var deviceModel = new sap.ui.model.json.JSONModel({
+				isPhone: jQuery.device.is.phone,
+				listMode: (jQuery.device.is.phone) ? "None" : "SingleSelectMaster",
+				listItemType: (jQuery.device.is.phone) ? "Active" : "Inactive"
+			});
+			deviceModel.setDefaultBindingMode("OneWay");
+			oView.setModel(deviceModel, "device");
 
-		// set device model
-		var deviceModel = new sap.ui.model.json.JSONModel({
-			isPhone: jQuery.device.is.phone,
-			listMode: (jQuery.device.is.phone) ? "None" : "SingleSelectMaster",
-			listItemType: (jQuery.device.is.phone) ? "Active" : "Inactive"
-		});
-		deviceModel.setDefaultBindingMode("OneWay");
-		oView.setModel(deviceModel, "device");
+			return oView;
+		}
+	});
 
-		// done
-		return oView;
-	}
-});
+}());
