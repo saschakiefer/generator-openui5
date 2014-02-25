@@ -2,6 +2,7 @@
 (function() {
 	var path = require("path");
 	var fs = require("fs");
+	var chalk = require("chalk");
 
 	// This concept is borrowed from the generator-angular project.
 
@@ -14,12 +15,11 @@
 	 */
 	function rewriteFile(args) {
 		args.path = args.path || process.cwd();
-		var fullPath = path.join(args.path, args.file);
-
-		args.haystack = fs.readFileSync(fullPath, "utf8");
+		args.fullPath = path.join(args.path, args.file);
+		args.haystack = fs.readFileSync(args.fullPath, "utf8");
 		var body = rewrite(args);
 
-		fs.writeFileSync(fullPath, body);
+		fs.writeFileSync(args.fullPath, body);
 	}
 
 
@@ -73,7 +73,8 @@
 		if (!foundNeedle) {
 			throw {
 				name: "not_found",
-				message: "Needle not in Haystack"
+				file: args.fullPath,
+				needle: args.needle
 			};
 		}
 
@@ -108,10 +109,21 @@
 		}
 
 
+		var windowsCarriageReturn = false;
+		if (lines[otherwiseLineIndex].slice(-1) === "\r") {
+			windowsCarriageReturn = true;
+			lines[otherwiseLineIndex] = lines[otherwiseLineIndex].replace(/\r/, "");
+		}
+
 
 		lines.splice(otherwiseLineIndex, 0, args.splicable.map(function(line) {
 			return spaceStr + line;
 		}).join("\n"));
+
+
+		if (windowsCarriageReturn) {
+			lines[otherwiseLineIndex] += "\r";
+		}
 
 		return lines.join("\n");
 	}
@@ -141,9 +153,94 @@
 
 
 
+	/**
+	 * Method to add a line terminating comma on a specified line within a file.
+	 *
+	 * @param  {Object} args.path:   Path to filename (use CWD if not provided)
+	 *                  args.file:   Filename
+	 *                  args.needle: Hook string - insertion point marker
+	 *                  args.offset: Number of line above or below the needle to
+	 *                               add the comma. i.e. -2 is 2 lines before.
+	 */
+	function addCommaToLine(args) {
+		var fullPath = "",
+			haystack = "",
+			lines,
+			line,
+			lineIndex = 0,
+			foundNeedle = false,
+			windowsCarriageReturn = false;
+
+		args.path = args.path || process.cwd();
+		fullPath = path.join(args.path, args.file);
+		haystack = fs.readFileSync(fullPath, "utf8");
+
+		// scan the haystack looking for the needle
+		lines = haystack.split("\n");
+		lines.forEach(function(line, i) {
+			if (line.indexOf(args.needle) !== -1) {
+				lineIndex = i;
+				foundNeedle = true;
+			}
+		});
+
+		if (!foundNeedle) {
+			throw {
+				name: "not_found",
+				file: fullPath,
+				needle: args.needle
+			};
+		}
+
+		lineIndex += args.offset;
+		if (lineIndex < 0) {
+			throw {
+				name: "line_index_negative",
+				file: fullPath,
+				needle: args.needle,
+				offset: args.offset
+			};
+		}
+
+		line = lines[lineIndex];
+
+		if (lines[lineIndex].slice(-1) === "\r") {
+			windowsCarriageReturn = true;
+			line = lines[lineIndex].replace(/\r/, "");
+		}
+
+		if (line.slice(-1) === ",") {
+			console.log("last char is already a comma!");
+			return;
+		} else {
+			line += windowsCarriageReturn? ",\r" : ",";
+		}
+
+		lines[lineIndex] = line;
+
+		fs.writeFileSync(fullPath, lines.join("\n"));
+	}
+
+
+
+	function logResourceRootEditingError(e) {
+		if (e.name === "not_found") {
+			console.log(chalk.red("Unable to find identifier: ") + chalk.yellow(e.needle) + chalk.red(" in " + e.file + ". Please edit manually."));
+		} else if (e.name === "line_index_negative") {
+			console.log(chalk.red("Unable to format the resource roots in index.html. An invalid offset has been used: " + e.offset + ". Please format the resource roots json manually."));
+		} else {
+			console.log(chalk.red("\nUnable to anter resource root:"));
+			console.log(chalk.red(e.message));
+		}
+	}
+
+
+
 	module.exports = {
 		rewrite: rewrite,
 		rewriteFile: rewriteFile,
-		getNamespace: getNamespace
+		addCommaToLine: addCommaToLine,
+		getNamespace: getNamespace,
+		logResourceRootEditingError: logResourceRootEditingError
 	};
 }());

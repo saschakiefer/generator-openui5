@@ -208,11 +208,9 @@
 	 * @param {String} elementPath Path of the element to be checked
 	 */
 	Generator.prototype.addResourceRoot = function(elementPath) {
-		var indexPath = path.join(process.cwd(), "index.html");
-
-		//"foo.bar.MyComponent": "./foo/bar/MyComponent"
-		var resourcePath = elementPath.replace(/\./g, "/");
-		var resourceRoot = ", \"" + elementPath + "\": \"" + resourcePath + "\"";
+		var //indexPath = path.join(process.cwd(), "index.html"),
+			resourcePath = elementPath.replace(/\./g, "/"),
+			resourceRoot = "\"" + elementPath + "\": \"" + resourcePath + "\"";
 
 		try {
 			console.log(chalk.green("    check ") + "resource root registered in UI5 bootstrap in index.html.");
@@ -222,12 +220,14 @@
 				splicable: [resourceRoot],
 				extraIndents: 1
 			});
+
+			openUI5Utils.addCommaToLine({
+				file: "index.html",
+				needle: "/* endOfResourceroots */",
+				offset: -2
+			});
 		} catch (e) {
-			if (e.name === "not_found") {
-				console.log(chalk.red("Unable to add component namespace as application resource root. Could not find identifier /* endOfResourceroots */"));
-			} else {
-				console.log(chalk.red("\nUnable to find " + indexPath + ". ") + chalk.yellow(resourceRoot) + " could not be registered. Please check the resource register manaually.\n");
-			}
+			openUI5Utils.logResourceRootEditingError(e);
 		}
 	};
 }());
