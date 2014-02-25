@@ -32,11 +32,11 @@ module.exports = function(grunt) {
 			gruntfile: {
 				src: "Gruntfile.js"
 			},
-			libTest: {
-				src: ["lib/**/*.js", "test/**/*.js"]
-			},
 			application: {
-				src: ["model/**/*.js", "util/**/*.js", "view/**/*.js", "*.js"<% if (applicationType === "tiles") { %>, "!model/ODataModelFakeService.js"<% } %>]
+				src: ["model/**/*.js", "util/**/*.js", "view/**/*.js", "*.js" <%
+					if (applicationType === "tiles") { %> , "!model/ODataModelFakeService.js" <%
+					} %>
+				]
 			}
 		},
 
@@ -53,21 +53,26 @@ module.exports = function(grunt) {
 				files: "<%%= jshint.gruntfile.src %>",
 				tasks: ["jshint:gruntfile"]
 			},
-			libTest: {
-				files: "<%%= jshint.libTest.src %>",
-				tasks: ["jshint:lib_test", "qunit"]
+			qunit: {
+				files: ["<%%= jshint.application.src %>", "<%%= qunit.all.src %>"],
+				tasks: ["qunit"]
 			},
 			application: {
 				files: "<%%= jshint.application.src %>",
 				tasks: ["jshint:application"]
-			}<% if (liveReload) { %>,
-			livereload: {
-				options: {
-					livereload: "<%%= connect.options.livereload %>"
-				},
-				//files: "<%%= jshint.application.src %>" // Be careful to not watch npm dependencies
-				files: ["model/**/*.js", "util/**/*.js", "view/**/*.js", "*.js", "view/**/*.xml"<% if (applicationType === "tiles") { %>, "!model/ODataModelFakeService.js"<% } %>]
-			}<% } %>
+			} <%
+			if (liveReload) { %> ,
+				livereload: {
+					options: {
+						livereload: "<%%= connect.options.livereload %>"
+					},
+					//files: "<%%= jshint.application.src %>" // Be careful to not watch npm dependencies
+					files: ["model/**/*.js", "util/**/*.js", "view/**/*.js", "*.js", "view/**/*.xml" <%
+						if (applicationType === "tiles") { %> , "!model/ODataModelFakeService.js" <%
+						} %>
+					]
+				} <%
+			} %>
 		},
 
 
@@ -83,9 +88,13 @@ module.exports = function(grunt) {
 
 		connect: {
 			options: {
-				port: <%= localServerPort %>,<% if (liveReload) { %>
-				livereload: 35729,<% } %>
-				hostname: "localhost",
+				port: <%= localServerPort %> ,
+				<%
+				if (liveReload) { %>
+						livereload: 35729,
+					<%
+				} %>
+					hostname: "localhost",
 				base: "."
 			},
 
