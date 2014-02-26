@@ -230,4 +230,14 @@
 			openUI5Utils.logResourceRootEditingError(e);
 		}
 	};
+
+
+	/**
+	 * Check which library the index.html file is using.
+	 *
+	 * @return {String} Library "sap.m" or "sap.ui.commons".
+	 */
+	Generator.prototype.whichLibrary = function() {
+		return openUI5Utils.whichLibrary();
+	};
 }());
