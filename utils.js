@@ -176,7 +176,7 @@
 				}
 			});
 		} catch (e) {
-			console.log(chalk("Error determining the UI5 library: Unable to read index.html:"));
+			console.log(chalk.red("Error determining the UI5 library: Unable to read index.html:"));
 			console.log(e.message);
 			library = "";
 		}
