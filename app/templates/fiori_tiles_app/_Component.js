@@ -4,13 +4,8 @@ Component details:
 					and limit width - remove if you want a fullscreen app)
 	- Views: XML
 	- Navigation: EventBus
-
-	Sinon.js is used to fake the XHR request for the Northwind OData service. See
-	index.xml for the two included scripts. Remove these to automatically use
-	the real service - or implement your own.
 	
 */
-/*global baseURL*/
 (function() {
 	"use strict";
 
@@ -30,11 +25,7 @@ Component details:
 			});
 
 			// set data model on root view
-			var sURI = "http://localhost:<%= localServerPort %>/Northwind/Northwind.svc/";
-			if (typeof baseURL === "string") {
-				sURI = baseURL; //if mock service use the baseURL
-			}
-			oView.setModel(new sap.ui.model.odata.ODataModel(sURI, false)); // use XML for the fake request
+			oView.setModel(new sap.ui.model.json.JSONModel("model/mock.json"));
 
 			// set device model
 			var deviceModel = new sap.ui.model.json.JSONModel({
