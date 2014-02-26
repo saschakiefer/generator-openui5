@@ -43,7 +43,7 @@
 				"img/.gitkeep",
 				"model/Config.js",
 				"model/img.json",
-				"model/ODataModelFakeService.js",
+				"model/mock.json",
 				"util/Formatter.js",
 				"util/Grouper.js",
 				"index.html",
