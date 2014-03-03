@@ -142,13 +142,46 @@
 			var indexContent = fs.readFileSync(indexPath, "utf8").replace(/[\n\r\t]/g, " "); // File as long string w/o CR and TAB
 
 			namespace = indexContent.match(/(data\-sap\-ui\-resourceroots\s*\=\s*')(?:(?=(\\?))\2.)*?'/)[0].
-			match(/"(.*?)"/)[0].
-			split("\"")[1];
+				match(/"(.*?)"/)[0].
+				split("\"")[1];
 		} catch (e) {
 			namespace = "";
 		}
 
 		return namespace;
+	}
+
+
+
+	/**
+	 * Which UI5 library is the app using.
+	 * Parse the index.html file looking for the library declaration.
+	 * If sap.m is found, return it, otherwise return sap.ui.commons.
+	 *
+	 * @return {string} Library: "sap.m" or "sap.ui.commons"
+	 */
+	function whichLibrary() {
+		var library = "sap.ui.commons";
+
+		try {
+			var indexPath = path.join(process.cwd(), "index.html");
+			var indexContent = fs.readFileSync(indexPath, "utf8");
+			var lines = indexContent.split("\n");
+
+			lines.forEach(function(line) {
+				if (line.indexOf("data-sap-ui-libs") !== -1) {
+					if(line.indexOf("sap.m") !== -1) {
+						library = "sap.m";
+					}
+				}
+			});
+		} catch (e) {
+			console.log(chalk.red("Error determining the UI5 library: Unable to read index.html:"));
+			console.log(e.message);
+			library = "";
+		}
+
+		return library;
 	}
 
 
@@ -241,6 +274,7 @@
 		rewriteFile: rewriteFile,
 		addCommaToLine: addCommaToLine,
 		getNamespace: getNamespace,
-		logResourceRootEditingError: logResourceRootEditingError
+		logResourceRootEditingError: logResourceRootEditingError,
+		whichLibrary: whichLibrary
 	};
 }());

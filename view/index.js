@@ -75,6 +75,12 @@
 
 
 
+	ViewGenerator.prototype.whichUI5Library = function() {
+		this.UI5library = this.whichLibrary();
+	};
+
+
+
 	/**
 	 * Scaffolding of the view
 	 */
