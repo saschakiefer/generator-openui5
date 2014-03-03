@@ -264,7 +264,7 @@
 		this.mkdir("model");
 		this.copy("fiori_tiles_app/model/Config.js", "model/Config.js");
 		this.copy("fiori_tiles_app/model/img.json", "model/img.json");
-		this.copy("fiori_tiles_app/model/ODataModelFakeService.js", "model/ODataModelFakeService.js");
+		this.copy("fiori_tiles_app/model/mock.json", "model/mock.json");
 
 		this.mkdir("util");
 		this.template("fiori_tiles_app/util/_Formatter.js", "util/Formatter.js");

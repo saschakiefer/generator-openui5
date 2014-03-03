@@ -5,10 +5,27 @@
 	xmlns:form="sap.ui.layout.form"
 	xmlns:core="sap.ui.core" >
 	<Page
-		title="{i18n>DetailTitle}"
+		title="{CategoryName}"
 		class="sapUiFioriObjectPage"
 		showNavButton="true"
 		navButtonPress="handleNavButtonPress" >
 		
+		<content>
+			<ObjectHeader intro="{Description}" />
+			<List
+				headerText="List"
+				items="{Products}"
+				noDataText="No products found">
+
+				<ObjectListItem
+					title="{ProductName}"
+					number="{path:'UnitPrice',type:'sap.ui.model.type.Float',formatOptions:{maxFractionDigits:2}}"
+					numberUnit="EUR">
+					<attributes>
+						<ObjectAttribute text="{QuantityPerUnit}" />
+					</attributes>
+				</ObjectListItem>
+			</List>
+		</content>
 	</Page>
 </core:View>
