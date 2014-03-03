@@ -34,7 +34,7 @@
 		}, {
 			name: "gitRepository",
 			message: "What is your git repository?",
-			default: "ssh://github.com/ropository/url.git"
+			default: "ssh://github.com/repository/url.git"
 		}, {
 			name: "licenseType",
 			message: "What is your license Type?",
