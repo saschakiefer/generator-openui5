@@ -26,6 +26,16 @@
 			});
 		},
 
+		/* handle selection of list item in mobile mode */
+		handleListItemPress: function(evt) {
+			this.bus.publish("nav", "to", {
+				id: "idViewRoot--idViewDetail",
+				data: {
+					context: evt.getSource().getBindingContext()
+				}
+			});
+		},
+
 		handleSearch: function(evt) {
 			// create model filter
 			var filters = [];
