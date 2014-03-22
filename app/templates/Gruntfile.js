@@ -33,10 +33,7 @@ module.exports = function(grunt) {
 				src: "Gruntfile.js"
 			},
 			application: {
-				src: ["model/**/*.js", "util/**/*.js", "view/**/*.js", "*.js" <%
-					if (applicationType === "tiles") { %> , "!model/ODataModelFakeService.js" <%
-					} %>
-				]
+				src: ["model/**/*.js", "util/**/*.js", "view/**/*.js", "*.js"]
 			}
 		},
 
@@ -60,19 +57,14 @@ module.exports = function(grunt) {
 			application: {
 				files: "<%%= jshint.application.src %>",
 				tasks: ["jshint:application"]
-			} <%
-			if (liveReload) { %> ,
-				livereload: {
-					options: {
-						livereload: "<%%= connect.options.livereload %>"
-					},
-					//files: "<%%= jshint.application.src %>" // Be careful to not watch npm dependencies
-					files: ["model/**/*.js", "util/**/*.js", "view/**/*.js", "*.js", "view/**/*.xml" <%
-						if (applicationType === "tiles") { %> , "!model/ODataModelFakeService.js" <%
-						} %>
-					]
-				} <%
-			} %>
+			}<% if (liveReload) { %>,
+			livereload: {
+				options: {
+					livereload: "<%%= connect.options.livereload %>"
+				},
+				//files: "<%%= jshint.application.src %>" // Be careful to not watch npm dependencies
+				files: ["model/**/*.js", "util/**/*.js", "view/**/*.js", "*.js", "view/**/*.xml"]
+			}<% } %>
 		},
 
 
@@ -88,13 +80,9 @@ module.exports = function(grunt) {
 
 		connect: {
 			options: {
-				port: <%= localServerPort %> ,
-				<%
-				if (liveReload) { %>
-						livereload: 35729,
-					<%
-				} %>
-					hostname: "localhost",
+				port: <%= localServerPort %>,<% if (liveReload) { %>
+				livereload: 35729,<% } %>
+				hostname: "localhost",
 				base: "."
 			},
 
@@ -124,6 +112,7 @@ module.exports = function(grunt) {
 			*/
 
 			// Requires the Livereload browser extension or a middleware to inject the livereload script
+			// Must have at least one connect task!
 			livereload: {
 				/*
 				options: {
