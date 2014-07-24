@@ -254,7 +254,9 @@
 		this.copy("tdg/model/Supplier.json", "model/Supplier.json");
 
 		this.mkdir("tests");
-		this.copy("tdg/tests/Navigation.qunit.html", "tests/Navigation.qunit.html");
+		this.copy("gitkeep", "img/.gitkeep");
+		//Not copying a test file at this stage - the sap provided one is wrong!
+		//this.copy("tdg/tests/Navigation.qunit.html", "tests/Navigation.qunit.html");
 
 		this.mkdir("util");
 		this.template("tdg/util/_Controller.js", "util/Controller.js");
