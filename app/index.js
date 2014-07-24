@@ -49,6 +49,9 @@
 				name: "Fiori Splitter App",
 				value: "fiori"
 			}, {
+				name: "TDG Best Practices App",
+				value: "tdg"
+			}, {
 				name: "Fiori Tiles App",
 				value: "tiles"
 			}, {
@@ -57,7 +60,7 @@
 			}]
 		}, { // Only ask these questions if fiori-type app is chosen
 			when: function(response) {
-				return (response.applicationType === "fiori" || response.applicationType === "tiles");
+				return (response.applicationType === "fiori" || response.applicationType === "tiles" || response.applicationType === "tdg");
 			},
 			name: "fioriComponentNamespace",
 			message: "What component namespace do you want?",
@@ -228,6 +231,51 @@
 
 		this.template("fiori_application/_index.html", "index.html");
 		this.template("fiori_application/_Component.js", "Component.js");
+	};
+
+	/**
+	 * Scaffolding for the SAP 'Best Practices' TDG application.
+	 */
+	openui5Generator.prototype.tdgApplication = function() {
+		if (this.applicationType !== "tdg") {
+			return;
+		}
+
+		this.mkdir("css");
+		this.copy("tdg/css/style.css", "css/style.css");
+
+		this.mkdir("i18n");
+		this.copy("tdg/i18n/messageBundle.properties", "i18n/messageBundle.properties");
+
+		this.mkdir("model");
+		this.copy("tdg/model/Category.json", "model/Category.json");
+		this.copy("tdg/model/metadata.xml", "model/metadata.xml");
+		this.copy("tdg/model/Product.json", "model/Product.json");
+		this.copy("tdg/model/Supplier.json", "model/Supplier.json");
+
+		this.mkdir("tests");
+		this.copy("tdg/tests/Navigation.qunit.html", "tests/Navigation.qunit.html");
+
+		this.mkdir("util");
+		this.template("tdg/util/_Controller.js", "util/Controller.js");
+		this.template("tdg/util/_Formatter.js", "util/Formatter.js");
+
+		this.mkdir("view");
+		this.template("tdg/view/_AddProduct.controller.js", "view/AddProduct.controller.js");
+		this.template("tdg/view/_AddProduct.view.xml", "view/AddProduct.view.xml");
+		this.template("tdg/view/_App.view.xml", "view/App.view.xml");
+		this.template("tdg/view/_CategoryInfoForm.fragment.xml", "view/CategoryInfoForm.fragment.xml");
+		this.template("tdg/view/_Detail.controller.js", "view/Detail.controller.js");
+		this.template("tdg/view/_Detail.view.xml", "view/Detail.view.xml");
+		this.template("tdg/view/_Master.controller.js", "view/Master.controller.js");
+		this.template("tdg/view/_Master.view.xml", "view/Master.view.xml");
+		this.template("tdg/view/_NameRequiredDialog.fragment.xml", "view/NameRequiredDialog.fragment.xml");
+		this.template("tdg/view/_NotFound.view.xml", "view/NotFound.view.xml");
+		this.template("tdg/view/_SupplierAddressForm.fragment.xml", "view/SupplierAddressForm.fragment.xml");
+
+		this.template("tdg/_index.html", "index.html");
+		this.template("tdg/_Component.js", "Component.js");
+		this.template("tdg/_MyRouter.js", "MyRouter.js");
 	};
 
 	/**
