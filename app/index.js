@@ -138,6 +138,9 @@
 		this.template("_package.json", "package.json");
 		this.template("gitignore", ".gitignore");
 		this.template("_README.md", "README.md");
+
+		//This is to ignore npm_modules/ if the app is loaded onto an ABAP system
+		this.template("_Ui5RepositoryIgnore", ".Ui5RepositoryIgnore");
 	};
 
 
