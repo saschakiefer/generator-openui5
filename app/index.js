@@ -3,6 +3,7 @@
 	"use strict";
 	var util = require("util");
 	var path = require("path");
+	var chalk = require("chalk");
 	var ScriptBase = require("../script-base.js");
 
 	/*jshint unused: vars */
@@ -12,7 +13,16 @@
 
 		this.on("end", function() {
 			this.installDependencies({
-				skipInstall: options["skip-install"]
+				skipInstall: options["skip-install"],
+				callback: function() {
+					if (this.applicationType === "tdg") {
+						this.log("\n\n============================================================================");
+						this.log(chalk.yellow("The TDG app has been generated! Please run it with the query string: ?responderOn=true to use mock OData."));
+						this.log(chalk.yellow("To use the real Northwind service, configure the grunt connect proxy in Gruntfile.js."));
+						this.log("\n");
+					}
+					this.log(chalk.blue("Yeoman OpenUI5 Generator bought to you by: Jason Scott & Sascha Kiefer.\n"));
+				}.bind(this)
 			});
 		});
 

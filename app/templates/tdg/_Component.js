@@ -17,7 +17,7 @@ sap.ui.core.UIComponent.extend("<%= fioriComponentNamespace %>.Component", {
 			resourceBundle : "i18n/messageBundle.properties",
 			serviceConfig : {
 				name : "Northwind",
-				serviceUrl : "/uilib-sample/proxy/http/services.odata.org/V2/(S(sapuidemotdg))/OData/OData.svc/"
+				serviceUrl : "http://services.odata.org/V2/(S(sapuidemotdg))/OData/OData.svc/"
 			}
 		},
 
@@ -115,4 +115,3 @@ sap.ui.core.UIComponent.extend("<%= fioriComponentNamespace %>.Component", {
 	}
 
 });
-
