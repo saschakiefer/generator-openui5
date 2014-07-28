@@ -80,41 +80,36 @@ module.exports = function(grunt) {
 
 		connect: {
 			options: {
-				port: <%= localServerPort %>,<% if (liveReload) { %>
+				port: <%= serverPort %>,<% if (liveReload) { %>
 				livereload: 35729,<% } %>
 				hostname: "localhost",
 				base: "."
 			},
 
+			<% if (proxy) { %>
 			/*
-			//=====================================================================
-			//RESOURCE PROXY - un-comment the proxies setting below to configure
-			//a proxy. context, host and changeOrigin are necessary. port defaults
-			//to 80 anyway and rewrite allows you to re-write the url's sent to
-			//the target host if you require this.
-			//Also un-comment the connect middleware option under the
-			//connect:livereload target - this starts the proxy which looks up
-			//the proxies setting to determine which services to act on.
-			//When not using grunt-connect-proxy you still must have the
-			//livereload target for connect.
-			//
+			Resource proxy - required to bypass CORS when accessing HTTP
+			services on another server.
+			*/
 			proxies: {
 				context: "/Northwind",  // When the url contains this...
 				host: "services.odata.org", // Proxy to this host
 				changeOrigin: true
-				//port: 80 //,
+				//port: 80,
 				//rewrite: {
 				//	"^/odata": ""
 				//"^/changingcontext": "/anothercontext"
 				//}
 			},
-			//=====================================================================
-			*/
+			<% } %>
 
-			// Requires the Livereload browser extension or a middleware to inject the livereload script
+			// Requires the Livereload browser extension or a middleware to inject the livereload script.
 			// Must have at least one connect task!
 			livereload: {
+				<% if (proxy) { %>
 				/*
+				Start the connect proxy middleware.
+				*/
 				options: {
 					middleware: function(connect, options) {
 						if (!Array.isArray(options.base)) {
@@ -132,7 +127,7 @@ module.exports = function(grunt) {
 						return middlewares;
 					}
 				}
-				*/
+				<% } %>
 			}
 		}
 	});
