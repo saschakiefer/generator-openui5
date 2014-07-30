@@ -1,0 +1,22 @@
+{
+	"name": "my_project",
+	"version": "0.0.1",
+	"description": "My Project",
+	"main": "index.html",
+	"repository": {
+		"type": "git",
+		"url": ""
+	},
+	"author": "My Name",
+	"license": "",
+	"devDependencies": {
+		"grunt": "~0.4.1",
+		"grunt-contrib-qunit": "~0.4.0",
+		"grunt-contrib-jshint": "~0.8.0",
+		"grunt-contrib-watch": "~0.5.2",
+		"grunt-execute": "~0.1.5",
+		"grunt-open": "~0.2.3",
+		"grunt-contrib-connect": "~0.6.0",
+    	"grunt-connect-proxy": "~0.1.7"
+	}
+}
