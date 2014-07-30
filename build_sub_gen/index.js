@@ -10,9 +10,13 @@
 		ScriptBase.apply(this, arguments);
 
 		this.on("end", function() {
-			this.log("\n\ngrunt - will start jsHint on all js files and xml views.");
-			this.log("grunt serve - will start a local web server with live-reload and CORS proxy (if configured) and open the default html file.");
-			this.log(chalk.blue("\n\nYeoman OpenUI5 Generator bought to you by: Jason Scott & Sascha Kiefer.\n"));
+			this.installDependencies({
+				callback: function() {
+					this.log("\n\ngrunt - will start jsHint on all js files and xml views.");
+					this.log("grunt serve - will start a local web server with live-reload and CORS proxy (if configured) and open the default html file.");
+					this.log(chalk.blue("\n\nYeoman OpenUI5 Generator bought to you by: Jason Scott & Sascha Kiefer.\n"));
+				}.bind(this)
+			});
 		});
 	};
 
@@ -88,8 +92,8 @@
 
 
 	BuildToolGenerator.prototype.copyFiles = function() {
-		//this.copy("application/Gruntfile.js", "Gruntfile.js");
 		this.template("application/Gruntfile.js", "Gruntfile.js");
+		this.template("application/_package.json", "package.json");
 
 		if (this.ui5Ignore) {
 			this.copy("application/Ui5RepositoryIgnore", ".Ui5RepositoryIgnore");
