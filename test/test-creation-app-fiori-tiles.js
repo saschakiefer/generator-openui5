@@ -88,7 +88,7 @@
 			helpers.mockPrompt(this.app, mockPrompts);
 			this.app.args = ["Main", false];
 			this.app.options["skip-install"] = true;
-			
+
 			this.app.run({}, function() {
 				var indexFile = this.app.readFileAsString("index.html"),
 					$ = cheerio.load(indexFile),
@@ -121,7 +121,7 @@
 			helpers.mockPrompt(this.app, mockPrompts);
 			this.app.args = ["Main", false];
 			this.app.options["skip-install"] = true;
-			
+
 			this.app.run({}, function() {
 				var indexFile = this.app.readFileAsString("index.html"),
 					$ = cheerio.load(indexFile),
