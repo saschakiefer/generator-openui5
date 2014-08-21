@@ -13,7 +13,7 @@
 
 		this.on("end", function() {
 			this.installDependencies({
-				skipInstall: options["skip-install"],
+				skipInstall: !!~options.argv.remain.indexOf("skip-install"),
 				callback: function() {
 					if (this.applicationType === "tdg") {
 						this.log("\n\n============================================================================");
