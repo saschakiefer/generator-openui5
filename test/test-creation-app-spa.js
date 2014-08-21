@@ -31,8 +31,6 @@
 				gitRepository: "ssh://github.com/ropository/url.git",
 				licenseType: "Apache License, Version 2.0",
 				applicationType: "spa",
-				//fioriComponentNamespace: "sap.ui.demo",
-				//fioriAppType: "masterdetail",
 				openUI5LocationOption: "bower"
 			};
 			var expected = [
