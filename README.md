@@ -65,9 +65,9 @@ When you create a component or view, you can add namespace based name (e.g. foo.
 Especially in Fiori like apps one often has an application namespace set in the bootstrap (sth. like ```data-sap-ui-resourceroots='{"sap.ui.demo": "./"}'```). With that you have the possibility to prefix your component name foo.bar.Component with sap.ui.demo to sap.ui.demo.foo.bar.Component, so that UI5 can find the coding without adding an additional resource root.
 
 That is exactly what happens, when you choose _yes_ as an answer for the above question. The generator tries to assemble the current application namespace and adds that to the component name (same for views). For sure, you have to possibility to change that name before it's finally generated.
-#####TDG Best Practices App
-When generating the ```TDG Best Practices App``` please note that you should add the query parameter ```?responderOn=true``` to your local testing url. This allows you to use the mock data.
 
+##TDG Best Practices App
+When generating the ```TDG Best Practices App``` please note that you should add the query parameter ```?responderOn=true``` to your local testing url. This allows you to use the mock data.
 
 ## Participate
 We're happy about everybody who wants to help us create an even more amazing tool. To make sure, that everything fits together, please familiarize yourself with our project guidelines:
