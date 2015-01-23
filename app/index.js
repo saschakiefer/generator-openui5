@@ -21,7 +21,7 @@
 						this.log(chalk.yellow("To use the real Northwind service, configure the grunt connect proxy in Gruntfile.js."));
 						this.log("\n");
 					}
-					this.log(chalk.blue("Yeoman OpenUI5 Generator bought to you by: Jason Scott & Sascha Kiefer.\n"));
+					this.log(chalk.blue("\nYeoman OpenUI5 Generator bought to you by: Jason Scott & Sascha Kiefer.\n"));
 				}.bind(this)
 			});
 		});
