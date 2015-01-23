@@ -53,24 +53,27 @@
 			type: "list",
 			message: "What type of application do you want?",
 			choices: [{
-				name: "Classical",
+				name: "Classical (Simple desktop app - old style Application.js)",
 				value: "classical"
 			}, {
-				name: "Fiori Splitter App",
+				name: "Fiori Master/Detail App (Component-based, can be used in Fiori Launchpad)",
 				value: "fiori"
 			}, {
-				name: "TDG Best Practices App",
+				name: "TDG Best Practices App (The Best Practices app as described in the SDK)",
 				value: "tdg"
 			}, {
 				name: "Fiori Tiles App",
 				value: "tiles"
 			}, {
-				name: "Single Page MVC App",
+				name: "OpenUI5 Sample App (Modern Component-based to-do list app)",
+				value: "openui5-sample"
+			}, {
+				name: "Single Page MVC App (For testing or micro apps)",
 				value: "spa"
 			}]
-		}, { // Only ask these questions if fiori-type app is chosen
+		}, { // Only ask these questions if a component-based app is chosen
 			when: function(response) {
-				return (response.applicationType === "fiori" || response.applicationType === "tiles" || response.applicationType === "tdg");
+				return (response.applicationType !== "classical" && response.applicationType !== "spa");
 			},
 			name: "fioriComponentNamespace",
 			message: "What component namespace do you want?",
@@ -343,5 +346,32 @@
 
 		this.template("fiori_tiles_app/_index.html", "index.html");
 		this.template("fiori_tiles_app/_Component.js", "Component.js");
+	};
+
+	/**
+	* Scaffolding for the openui5-sample to-do's application.
+	* This temlpate app can be used when you need a blank page; when
+	* you might develop a full screen app that is not master/detail.
+	* For a master/detail app, use the Fiori template intead.
+	*/
+	openui5Generator.prototype.openui5Sample = function() {
+		if (this.applicationType !== "openui5-sample") {
+			return;
+		}
+
+		this.mkdir("css");
+		this.copy("openui5-sample/css/styles.css", "css/styles.css");
+
+		this.mkdir("i18n");
+		this.copy("openui5-sample/i18n/messageBundle.properties", "i18n/messageBundle.properties");
+		this.copy("openui5-sample/i18n/messageBundle_en.properties", "i18n/messageBundle_en.properties");
+		this.copy("openui5-sample/i18n/messageBundle_en_US.properties", "i18n/messageBundle_en_US.properties");
+
+		this.mkdir("view");
+		this.template("openui5-sample/view/_App.controller.js", "view/App.controller.js");
+		this.template("openui5-sample/view/_App.view.xml", "view/App.view.xml");
+
+		this.template("openui5-sample/_index.html", "index.html");
+		this.template("openui5-sample/_Component.js", "Component.js");
 	};
 }());
