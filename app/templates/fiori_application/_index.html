@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html>
+
+	<!-- IMPORTANT
+		This HTML file is meant for testing the application/component standalone, outside the Unified Shell.
+		Some integration functionality, personalization etc. will not be available when running standalone.
+	-->
+
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta charset="UTF-8">
 
 		<title><%= applicationName %></title>
@@ -9,20 +16,26 @@
 		<script id="sap-ui-bootstrap"
 				src="<%= openUI5Location %>"
 				data-sap-ui-theme="sap_bluecrystal"
-				data-sap-ui-libs="sap.m, sap.ui.layout"
+				data-sap-ui-libs="sap.m, sap.me"
 				data-sap-ui-xx-bindingSyntax="complex"
 				data-sap-ui-resourceroots='{
 					"<%= fioriComponentNamespace %>": "./"
 				}' > /* endOfResourceroots */
 		</script>
 
+		<!-- Application launch configuration -->
 		<script>
-			new sap.ui.core.ComponentContainer({
-				name: "<%= fioriComponentNamespace %>"
-			}).placeAt("content");
+			sap.ui.getCore().attachInitEvent(function() {
+				var oComponentContainer = new sap.ui.core.ComponentContainer({
+					height : "100%",
+					name : "<%= fioriComponentNamespace %>"
+				});
+				oComponentContainer.placeAt("content");
+			});
 		</script>
-
 	</head>
+
+	<!-- UI Content -->
 	<body class="sapUiBody" role="application" id="content">
 	</body>
 </html>

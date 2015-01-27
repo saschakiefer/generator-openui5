@@ -1,109 +1,100 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<core:View
+<mvc:View
 	controllerName="<%= fioriComponentNamespace %>.view.Detail"
 	xmlns="sap.m"
 	xmlns:form="sap.ui.layout.form"
-	xmlns:core="sap.ui.core" >
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core">
 	<Page
-		title="{i18n>DetailTitle}"
+		id="detailsPage"
+		title="{i18n>DETAIL_TITLE}"
 		class="sapUiFioriObjectPage"
 		showNavButton="{device>/isPhone}"
-		navButtonPress="handleNavButtonPress" >
-		<ObjectHeader
-			title="{SoId}"
-			number="{GrossAmount}"
-			numberUnit="{CurrencyCode}" >
-			<attributes>
-				<ObjectAttribute text="{BuyerName}" />
-				<ObjectAttribute text="{CreatedByBp}" />
-				<ObjectAttribute text="{
-						path: 'CreatedAt',
-						formatter: '<%= fioriComponentNamespace %>.util.Formatter.date'
-				}" />
+		navButtonPress="handleNavButtonPress">
+
+		<ObjectHeader id="header"
+			title="{ProductName}"
+			number="{UnitsInStock}"
+			numberUnit="EA">
+
+			<customData id="customData1">
+				<core:CustomData id="coreCustomData1" key="sapDtResourcePath" value="Products"></core:CustomData>
+			</customData>
+
+			<attributes id="detailsAttributes">
+				<ObjectAttribute id="ATTR" text="ID: {ProductID}" /> <!--{i18n>DETAIL_TEXT}-->
 			</attributes>
-			<firstStatus>
-				<ObjectStatus
-						text="{BillingStatus}"
-						state="{
-								path: 'BillingStatus',
-								formatter: '<%= fioriComponentNamespace %>.util.Formatter.statusState'
-						}" />
-			</firstStatus>
 		</ObjectHeader>
+
 		<IconTabBar
+			id="iconTabBar"
 			expanded="{device>/isNoPhone}" >
-			<items>
-				<IconTabFilter
-					text="Supplier"
-					icon="sap-icon://supplier">
+			<customData id="customData2">
+				<core:CustomData id="coreCustomData2" key="sapDtResourcePath" value="Products"></core:CustomData>
+			</customData>
+			<items id="detailsItems">
+				<IconTabFilter id="iconTabFilter1"
+					key="hint"
+					icon="sap-icon://hint">
 					<form:SimpleForm
+						id="form1"
+						layout="ResponsiveGridLayout"
 						minWidth="1024" >
-						<core:Title text="Address" />
-						<Label text="Name"/>
-						<Text text="{BusinessPartner/CompanyName}" />
-						<Label text="City"/>
-						<Text text="{BusinessPartner/City}, {BusinessPartner/PostalCode}" />
-						<Label text="Street"/>
-						<Text text="{BusinessPartner/Street}" />
+						<core:Title id="title1" text="More Details" />
+						<Label id="label1" text="Product Name">
+							<customData id="customData3">
+								<core:CustomData id="coreCustomData3" key="sapDtResourcePath" value="Products"></core:CustomData>
+							</customData>
+						</Label>
+
+						<Text id="text1" text="{ProductName}" >
+							<customData id="customData4">
+								<core:CustomData id="coreCustomData4" key="sapDtResourcePath" value="Products"></core:CustomData>
+							</customData>
+						</Text>
+
+						<Label text="Product Category" />
+						<Text text="{Category/CategoryName}" />
+
+						<Label text="Supplier" />
+						<Text text="{SupplierID}" />
+
+						<core:ExtensionPoint name="extIconTabFilterForm1"/>
+
 					</form:SimpleForm>
 				</IconTabFilter>
+
+				<IconTabFilter id="iconTabFilter2"
+					key="display"
+					icon="sap-icon://display">
+					<form:SimpleForm
+						id="form2"
+						layout="ResponsiveGridLayout"
+						minWidth="1024" >
+						<core:Title id="title2" text="More Details" />
+						<Label text="Category ID" />
+						<Text text="{Category/CategoryID}" />
+
+						<Label text="Category Descr." />
+						<Text text="{Category/Description}" />
+
+						<core:ExtensionPoint name="extIconTabFilterForm2"/>
+
+					</form:SimpleForm>
+				</IconTabFilter>
+
+				<core:ExtensionPoint name="extIconTabFilter"/>
+
 			</items>
 		</IconTabBar>
-		<Table
-			headerText="{i18n>LineItemTableHeader}"
-			items="{LineItems}" >
-			<columns>
-				<Column>
-					<header><Label text="Product" /></header>
-				</Column>
-				<Column
-					minScreenWidth="Tablet"
-					demandPopin="true"
-					hAlign="Center" >
-					<header><Label text="Delivery Date" /></header>
-				</Column>
-				<Column
-					minScreenWidth="Tablet"
-					demandPopin="true"
-					hAlign="Center" >
-					<header><Label text="Quantity" /></header>
-				</Column>
-				<Column
-					hAlign="Right" >
-					<header><Label text="Price" /></header>
-				</Column>
-			</columns>
-			<ColumnListItem
-				type="Navigation"
-				press="handleLineItemPress" >
-				<cells>
-					<ObjectIdentifier
-						title="{ProductId}" />
-					<Text
-						text="{
-							path:'DeliveryDate',
-							formatter:'<%= fioriComponentNamespace %>.util.Formatter.date'
-						}"/>
-					<Text
-						text="{
-							path:'Quantity',
-							formatter:'<%= fioriComponentNamespace %>.util.Formatter.quantity'
-						}"/>
-					<ObjectNumber
-						number="{GrossAmount}"
-						numberUnit="{CurrencyCode}" />
-				</cells>
-			</ColumnListItem>
-		</Table>
-		<footer>
-			<Bar>
-				<contentRight>
-					<Button
-						text="{i18n>ApproveButtonText}"
-						icon="sap-icon://accept"
-						press="handleApprove" />
+
+		<core:ExtensionPoint name="extDetail"/>
+
+		<footer id="detailsFooter">
+			<Bar id="bar">
+				<contentRight id="detailsContentRight">
+					<Button id="actionButton" icon="sap-icon://action" press="openActionSheet"></Button>
 				</contentRight>
 			</Bar>
 		</footer>
 	</Page>
-</core:View>
+</mvc:View>

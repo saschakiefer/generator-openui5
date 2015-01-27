@@ -226,24 +226,22 @@
 		this.copy("gitkeep", "img/.gitkeep");
 
 		this.mkdir("model");
-		this.copy("fiori_application/model/Config.js", "model/Config.js");
 		this.copy("fiori_application/model/img.json", "model/img.json");
 		this.copy("fiori_application/model/mock.json", "model/mock.json");
+		this.copy("fiori_application/model/metadata.xml", "model/metadata.xml");
 
 		this.mkdir("util");
 		this.template("fiori_application/util/_Formatter.js", "util/Formatter.js");
 		this.template("fiori_application/util/_Grouper.js", "util/Grouper.js");
 
 		this.mkdir("view");
-		this.template("fiori_application/view/_Root.view.xml", "view/Root.view.xml");
-		this.template("fiori_application/view/_Root.controller.js", "view/Root.controller.js");
+		this.template("fiori_application/view/_App.view.xml", "view/App.view.xml");
+		this.template("fiori_application/view/_App.controller.js", "view/App.controller.js");
 		this.template("fiori_application/view/_Master.view.xml", "view/Master.view.xml");
 		this.template("fiori_application/view/_Master.controller.js", "view/Master.controller.js");
 		this.template("fiori_application/view/_Empty.view.xml", "view/Empty.view.xml");
 		this.template("fiori_application/view/_Detail.view.xml", "view/Detail.view.xml");
 		this.template("fiori_application/view/_Detail.controller.js", "view/Detail.controller.js");
-		this.template("fiori_application/view/_LineItem.view.xml", "view/LineItem.view.xml");
-		this.template("fiori_application/view/_LineItem.controller.js", "view/LineItem.controller.js");
 
 		this.template("fiori_application/_index.html", "index.html");
 		this.template("fiori_application/_Component.js", "Component.js");

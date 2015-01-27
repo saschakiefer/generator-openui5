@@ -3,7 +3,15 @@ module.exports = function(grunt) {
 
 	// Project configuration.
 	grunt.initConfig({
+
 		// Task configuration.
+
+		dir: {
+			webapp: "webapp",
+			dist: "dist",
+			bower_components: "bower_components"
+		},
+
 		jshint: {
 			options: {
 				"devel": true,
@@ -145,6 +153,9 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-open");
 	grunt.loadNpmTasks("grunt-contrib-connect");
 	grunt.loadNpmTasks("grunt-connect-proxy");
+	grunt.loadNpmTasks("grunt-contrib-clean");
+	grunt.loadNpmTasks("grunt-contrib-copy");
+	grunt.loadNpmTasks("grunt-openui5");
 
 
 	grunt.registerTask("default", ["jshint", "qunit:all", "watch"]);
