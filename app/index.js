@@ -139,13 +139,23 @@
 	 * @return {[type]} [description]
 	 */
 	openui5Generator.prototype.projectFiles = function projectfiles() {
-		this.copy("jshintrc", ".jshintrc");
-		this.template("Gruntfile.js", "Gruntfile.js");
-		this.template("_bower.json", "bower.json");
-		this.template("_package.json", "package.json");
-		this.template("gitignore", ".gitignore");
-		this.template("_README.md", "README.md");
 
+		if (this.applicationType === "openui5-sample") {
+			this.template("Gruntfile_openui5.js", "Gruntfile.js");
+			this.copy("eslintrc_openui5", ".eslintrc");
+			this.template("_bower_openui5.json", "bower.json");
+			this.template("_package_openui5.json", "package.json");
+
+		} else {
+			this.template("Gruntfile.js", "Gruntfile.js");
+			this.copy("jshintrc", ".jshintrc");
+			this.template("_bower.json", "bower.json");
+			this.template("_package.json", "package.json");
+		}
+
+		this.template("_README.md", "README.md");
+		this.copy("gitignore", ".gitignore");
+		this.copy("editorconfig", ".editorconfig");
 		//This is to ignore npm_modules/ if the app is loaded onto an ABAP system
 		this.template("_Ui5RepositoryIgnore", ".Ui5RepositoryIgnore");
 	};

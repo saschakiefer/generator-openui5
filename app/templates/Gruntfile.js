@@ -110,7 +110,6 @@ module.exports = function(grunt) {
 		}
 	});
 
-
 	// These plugins provide necessary tasks
 	grunt.loadNpmTasks("grunt-contrib-qunit");
 	grunt.loadNpmTasks("grunt-contrib-jshint");
@@ -118,10 +117,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-open");
 	grunt.loadNpmTasks("grunt-contrib-connect");
 	grunt.loadNpmTasks("grunt-connect-proxy");
-	//grunt.loadNpmTasks("grunt-contrib-clean");
-	//grunt.loadNpmTasks("grunt-contrib-copy");
-	//grunt.loadNpmTasks("grunt-openui5");
-
 
 	grunt.registerTask("default", ["jshint", "qunit:all", "watch"]);
 	grunt.registerTask("serve", function() {
