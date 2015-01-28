@@ -122,16 +122,10 @@
 			name: "localServerPort",
 			message: "What port should the local server use?",
 			default: "8080"
-		}, {
-			type: "confirm",
-			name: "liveReload",
-			message: "Enable live-reload of browser?",
-			default: false
 		}];
 
 		this.prompt(prompts, function(props) {
 			this.localServerPort = props.localServerPort;
-			this.liveReload = props.liveReload;
 
 			cb();
 		}.bind(this));
