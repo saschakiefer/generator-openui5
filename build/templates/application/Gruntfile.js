@@ -1,70 +1,43 @@
 /*global module:false*/
 module.exports = function(grunt) {
 
-	// Project configuration.
 	grunt.initConfig({
-		// Task configuration.
+
+		dir: {
+			webapp: "webapp",
+			dist: "dist",
+			bower_components: "bower_components"
+		},
+
 		jshint: {
-			options: {
-				"devel": true,
-				"curly": true,
-				"eqeqeq": true,
-				"immed": true,
-				"latedef": true,
-				"newcap": true,
-				"noarg": true,
-				"sub": true,
-				"undef": true,
-				"unused": true,
-				"boss": true,
-				"eqnull": true,
-				"browser": true,
-				"globals": {
-					"jQuery": true,
-					"sap": true,
-					"$": true,
-					"util": true,
-					"view": true,
-					"model": true
-				}
-			},
-
-			gruntfile: {
-				src: "Gruntfile.js"
-			},
+			jshintrc: true,
 			application: {
-				src: ["model/**/*.js", "util/**/*.js", "view/**/*.js", "*.js"]
+				src: [
+					"<%%= dir.webapp %>/**",
+					"util/**/*.js",
+					"view/**/*.js",
+					"*.js"
+				]
 			}
 		},
-
-
-		qunit: {
-			all: {
-				src: ["test/**/*.html"]
-			}
-		},
-
 
 		watch: {
-			gruntfile: {
-				files: "<%%= jshint.gruntfile.src %>",
-				tasks: ["jshint:gruntfile"]
-			},
-			qunit: {
-				files: ["<%%= jshint.application.src %>", "<%%= qunit.all.src %>"],
-				tasks: ["qunit"]
-			},
 			application: {
 				files: "<%%= jshint.application.src %>",
-				tasks: ["jshint:application"]
-			}<% if (liveReload) { %>,
+				tasks: ["jshint"]
+			},
 			livereload: {
 				options: {
 					livereload: "<%%= connect.options.livereload %>"
 				},
-				//files: "<%%= jshint.application.src %>" // Be careful to not watch npm dependencies
-				files: ["model/**/*.js", "util/**/*.js", "view/**/*.js", "*.js", "view/**/*.xml"]
-			}<% } %>
+				files: [
+					"<%%= dir.webapp %>/**",
+					"util/**/*.js",
+					"view/**/*.js",
+					"*.js",
+					"view/**/*.xml"
+				]
+			}
 		},
 
 
@@ -80,36 +53,41 @@ module.exports = function(grunt) {
 
 		connect: {
 			options: {
-				port: <%= serverPort %>,<% if (liveReload) { %>
-				livereload: 35729,<% } %>
+				port: "<%= localServerPort %>",
+				livereload: 35729,
 				hostname: "localhost",
 				base: "."
 			},
 
-			<% if (proxy) { %>
 			/*
-			Resource proxy - required to bypass CORS when accessing HTTP
-			services on another server.
-			*/
+			//=====================================================================
+			//RESOURCE PROXY - un-comment the proxies setting below to configure
+			//a proxy. context, host and changeOrigin are necessary. port defaults
+			//to 80 anyway and rewrite allows you to re-write the url's sent to
+			//the target host if you require this.
+			//Also un-comment the connect middleware option under the
+			//connect:livereload target - this starts the proxy which looks up
+			//the proxies setting to determine which services to act on.
+			//When not using grunt-connect-proxy you still must have the
+			//livereload target for connect.
+			//
 			proxies: {
 				context: "/Northwind",  // When the url contains this...
 				host: "services.odata.org", // Proxy to this host
 				changeOrigin: true
-				//port: 80,
+				//port: 80 //,
 				//rewrite: {
 				//	"^/odata": ""
 				//"^/changingcontext": "/anothercontext"
 				//}
 			},
-			<% } %>
+			//=====================================================================
+			*/
 
-			// Requires the Livereload browser extension or a middleware to inject the livereload script.
+			// Requires the Livereload browser extension or a middleware to inject the livereload script
 			// Must have at least one connect task!
 			livereload: {
-				<% if (proxy) { %>
 				/*
-				Start the connect proxy middleware.
-				*/
 				options: {
 					middleware: function(connect, options) {
 						if (!Array.isArray(options.base)) {
@@ -127,11 +105,10 @@ module.exports = function(grunt) {
 						return middlewares;
 					}
 				}
-				<% } %>
+				*/
 			}
 		}
 	});
-
 
 	// These plugins provide necessary tasks
 	grunt.loadNpmTasks("grunt-contrib-qunit");
@@ -140,7 +117,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-open");
 	grunt.loadNpmTasks("grunt-contrib-connect");
 	grunt.loadNpmTasks("grunt-connect-proxy");
-
 
 	grunt.registerTask("default", ["jshint", "qunit:all", "watch"]);
 	grunt.registerTask("serve", function() {

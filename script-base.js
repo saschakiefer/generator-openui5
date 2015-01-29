@@ -56,6 +56,9 @@
 
 	/**
 	 * Prompt to get the UI5 Location string for the bootstrap
+	 * Note - the bower option is not the official OpenUI5 bower
+	 * library that has recently been made available.
+	 *
 	 * Sets global variables:
 	 * this.openUI5LocationOption: bower or custom
 	 * this.openUI5Location: full path including sap-ui-core.js
@@ -84,7 +87,7 @@
 			},
 			name: "openUI5Location",
 			message: "Where is your 'sap-ui-core.js' located?",
-			default: "https://openui5.netweaver.ondemand.com/resources"
+			default: "https://openui5.hana.ondemand.com/resources"
 		}];
 
 		this.prompt(openUI5LocationPrompt, function(props) {

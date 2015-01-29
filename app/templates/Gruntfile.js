@@ -1,70 +1,43 @@
 /*global module:false*/
 module.exports = function(grunt) {
 
-	// Project configuration.
 	grunt.initConfig({
-		// Task configuration.
+
+		dir: {
+			webapp: "webapp",
+			dist: "dist",
+			bower_components: "bower_components"
+		},
+
 		jshint: {
-			options: {
-				"devel": true,
-				"curly": true,
-				"eqeqeq": true,
-				"immed": true,
-				"latedef": true,
-				"newcap": true,
-				"noarg": true,
-				"sub": true,
-				"undef": true,
-				"unused": true,
-				"boss": true,
-				"eqnull": true,
-				"browser": true,
-				"globals": {
-					"jQuery": true,
-					"sap": true,
-					"$": true,
-					"util": true,
-					"view": true,
-					"model": true
-				}
-			},
-
-			gruntfile: {
-				src: "Gruntfile.js"
-			},
+			jshintrc: true,
 			application: {
-				src: ["model/**/*.js", "util/**/*.js", "view/**/*.js", "*.js"]
+				src: [
+					"<%%= dir.webapp %>/**",
+					"util/**/*.js",
+					"view/**/*.js",
+					"*.js"
+				]
 			}
 		},
-
-
-		qunit: {
-			all: {
-				src: ["test/**/*.html"]
-			}
-		},
-
 
 		watch: {
-			gruntfile: {
-				files: "<%%= jshint.gruntfile.src %>",
-				tasks: ["jshint:gruntfile"]
-			},
-			qunit: {
-				files: ["<%%= jshint.application.src %>", "<%%= qunit.all.src %>"],
-				tasks: ["qunit"]
-			},
 			application: {
 				files: "<%%= jshint.application.src %>",
-				tasks: ["jshint:application"]
-			}<% if (liveReload) { %>,
+				tasks: ["jshint"]
+			},
 			livereload: {
 				options: {
 					livereload: "<%%= connect.options.livereload %>"
 				},
-				//files: "<%%= jshint.application.src %>" // Be careful to not watch npm dependencies
-				files: ["model/**/*.js", "util/**/*.js", "view/**/*.js", "*.js", "view/**/*.xml"]
-			}<% } %>
+				files: [
+					"<%%= dir.webapp %>/**",
+					"util/**/*.js",
+					"view/**/*.js",
+					"*.js",
+					"view/**/*.xml"
+				]
+			}
 		},
 
 
@@ -80,8 +53,8 @@ module.exports = function(grunt) {
 
 		connect: {
 			options: {
-				port: <%= localServerPort %>,<% if (liveReload) { %>
-				livereload: 35729,<% } %>
+				port: "<%= localServerPort %>",
+				livereload: 35729,
 				hostname: "localhost",
 				base: "."
 			},
@@ -137,7 +110,6 @@ module.exports = function(grunt) {
 		}
 	});
 
-
 	// These plugins provide necessary tasks
 	grunt.loadNpmTasks("grunt-contrib-qunit");
 	grunt.loadNpmTasks("grunt-contrib-jshint");
@@ -145,7 +117,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-open");
 	grunt.loadNpmTasks("grunt-contrib-connect");
 	grunt.loadNpmTasks("grunt-connect-proxy");
-
 
 	grunt.registerTask("default", ["jshint", "qunit:all", "watch"]);
 	grunt.registerTask("serve", function() {
