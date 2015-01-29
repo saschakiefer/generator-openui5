@@ -2,7 +2,7 @@
 <core:View
 	xmlns:core="sap.ui.core"
 	xmlns:mvc="sap.ui.core.mvc"
-	xmlns="sap.ui.commons"
+	xmlns="<%= UI5library %>"
 	xmlns:html="http://www.w3.org/1999/xhtml"
 	controllerName="<%= applicationNamespace%><%= viewName %>">
 	<Panel text="Hello World from an XML view">

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>TDG Navigation</title>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge' />
+	<meta charset="UTF-8">
+
+	<script id="sap-ui-bootstrap"
+		src="../../../../../resources/sap-ui-core.js"
+		data-sap-ui-libs="sap.m"
+		data-sap-ui-theme="sap_bluecrystal"
+		data-sap-ui-xx-bindingSyntax="complex"
+		data-sap-ui-resourceroots='{"sap.ui.demo.tdg": "./"}'>
+	</script>
+
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet"
+		href="../../../../../../resources/sap/ui/thirdparty/qunit.css"
+		type="text/css" media="screen" />
+	<script src="../../../../../../resources/sap/ui/thirdparty/qunit.js"></script>
+	<script src="../../../../../../resources/sap/ui/qunit/QUnitUtils.js"></script>
+
+	<script>
+		jQuery.sap.require("sap.ui.test.Opa");
+		jQuery.sap.require("sap.ui.test.opaQunit");
+		var Opa = sap.ui.test.Opa;
+
+		var arrangements = new Opa5({
+			iStartMyApp : function () {
+				sap.ui.getCore().attachInit(function() {
+				new sap.m.Shell({
+					app: new sap.ui.core.ComponentContainer({
+						height : "100%",
+						name : "sap.ui.demo.tdg"
+					})
+				}).placeAt("content");
+				return this;
+			}
+		});
+
+		var actions = new Opa5({
+			iPressOnTheSecondItem : function (sCategoryName) {
+				var oSecondItem = this.getContext().oCategoryList.getItems()[1];
+				this.getContext().sCategoryName = oSecondItem.getTitle();
+				oSecondItem.firePress();
+				return this;
+			},
+
+			iLookAtTheScreen : function () {
+				return this;
+			}
+		});
+
+		var assertions = new Opa5({
+			iShouldSeeTheCategoryList : function () {
+				this.waitFor({
+					id : "categoryList",
+					viewName : "Home",
+					success : function (oList) {
+						this.getContext().oCategoryList = oList;
+						ok(oList, "Found the category List");
+					}
+				});
+				return this;
+			},
+
+			iShouldSeeTheProductList : function () {
+				this.waitFor({
+					id : "productList",
+					viewName : "Category",
+					success : function (oList) {
+						this.getContext().oProductList = oList;
+						ok(oList, "Found the product List");
+					}
+				});
+				return this;
+			},
+
+			iShouldBeTakenToTheSecondCategory : function () {
+				this.waitFor({
+					id : "page-title",
+					viewName : "Category",
+					check : function (oTitle) {
+						return oTitle.getText() === this.getContext().sCategoryName;
+					}
+				});
+				return this;
+			},
+
+			theCategoryListShouldHaveSomeEntries : function () {
+				this.waitFor({
+					check : function () {
+						return this.getContext().oCategoryList.getItems().length > 0;
+					},
+					success : function () {
+						ok(true, "CategoryList did contain entries");
+					},
+					errorMessage : "The category list did not contain entries"
+				});
+				return this;
+			},
+
+			theProductListShouldHaveSomeEntries : function () {
+				this.waitFor({
+					check : function () {
+						return this.getContext().oProductList.getItems().length > 0;
+					},
+					success : function () {
+						ok(true, "ProductList did contain entries");
+					},
+					errorMessage : "The product list did not contain entries"
+				});
+				return this;
+			}
+		});
+
+		sap.ui.test.Opa.extendConfig({
+			arrangements : arrangements,
+			actions : actions,
+			assertions : assertions
+		});
+
+		opaTest("Should see the category list", function (Given, When, Then) {
+			// Arrangements
+			Given.iStartMyApp();
+
+			//Actions
+			When.iLookAtTheScreen();
+
+			// Assertions
+			Then.iShouldSeeTheCategoryList().
+				and.theCategoryListShouldHaveSomeEntries();
+		});
+
+		//We are still on the second category
+		opaTest("Should see the product list", function (Given, When, Then) {
+			// Actions
+			When.iPressOnTheSecondCategory();
+
+			// Assertions
+			Then.iShouldBeTakenToTheSecondCategory().
+				and.iShouldSeeTheProductList().
+				and.theProductListShouldHaveSomeEntries();
+		});
+	</script>
+
+</head>
+<body>
+	<div id="content"></div>
+	<h1 id="qunit-header">lQunits for the shopping cart</h1>
+	<h2 id="qunit-banner"></h2>
+	<h2 id="qunit-userAgent"></h2>
+	<ol id="qunit-tests"></ol>
+</body>
+</html>
