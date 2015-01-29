@@ -70,7 +70,7 @@ Create a faceless Component:
 $ yo openui5:facelessComponent
 ```
 
-Add a build workflow using Grunt to an existin application:
+Add a build workflow using Grunt to an existing application:
 ```
 $ yo openui5:build
 ```
