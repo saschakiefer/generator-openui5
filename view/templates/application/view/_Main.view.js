@@ -21,7 +21,7 @@
 		 */
 		/*jshint unused: vars */
 		createContent: function(oController) {
-			var oControl = new sap.ui.commons.Button({
+			var oControl = new <%= UI5library %>.Button({
 				text: "{i18n>WELCOME_MESSAGE}",
 				press: oController.doSomething
 			});

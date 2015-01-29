@@ -1,3 +1,4 @@
+<% var globals; if (applicationNamespace === "") { globals = "/*global " + componentName.slice(0, componentName.indexOf(".")) + "*/"; } else { globals = "/*global " + applicationNamespace.slice(0, applicationNamespace.indexOf(".")) + "*/" } %><%= globals %>
 (function() {
 	"use strict";
 	// other require statements can go here
