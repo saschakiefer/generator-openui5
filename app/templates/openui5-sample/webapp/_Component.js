@@ -6,6 +6,6 @@ sap.ui.core.UIComponent.extend("<%= fioriComponentNamespace %>.Component", {
 		dependencies: {
 			libs: ["sap.m"]
 		},
-		rootView: "todo.view.App"
+		rootView: "<%= fioriComponentNamespace %>.view.App"
 	}
 });

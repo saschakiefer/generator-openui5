@@ -56,7 +56,7 @@
 				name: "Classical (Simple desktop app - old style Application.js)",
 				value: "classical"
 			}, {
-				name: "Fiori Master/Detail App (Component-based, can be used in Fiori Launchpad)",
+				name: "SAPUI5 WebIDE template (Component-based, can be used in Fiori Launchpad)",
 				value: "fiori"
 			}, {
 				name: "TDG Best Practices App (The Best Practices app as described in the SDK)",
@@ -110,6 +110,10 @@
 
 
 	openui5Generator.prototype.askForUI5Location = function() {
+		if (this.applicationType === "openui5-sample") {
+			return;
+		}
+
 		this.promptForUI5Location();
 	};
 
