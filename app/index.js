@@ -55,7 +55,7 @@
 				name: "TDG Best Practices App (The Best Practices app as described in the SDK)",
 				value: "tdg"
 			}, {
-				name: "OpenUI5 Sample App (Modern Component-based to-do list app)",
+				name: "OpenUI5 Sample App (Modern Component-based to-do list app with component pre-load and minimization)",
 				value: "openui5-sample"
 			}, {
 				name: "Single Page MVC App (For testing or micro apps)",
