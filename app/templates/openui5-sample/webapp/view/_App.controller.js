@@ -32,7 +32,7 @@
 			this.oModel.refresh();
 		},
 
-		toggleCompleted: function(oEvent) {
+		toggleCompleted: function() {
 			var iCompletedCount = 0;
 			var aTodos = this.oModel.getObject("/todos");
 			var i = aTodos.length;
@@ -46,7 +46,7 @@
 			this.oModel.refresh();
 		},
 
-		clearCompleted: function(oEvent) {
+		clearCompleted: function() {
 			var aTodos = this.oModel.getObject("/todos");
 			var i = aTodos.length;
 			while (i--) {

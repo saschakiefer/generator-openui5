@@ -141,7 +141,7 @@
 	openui5Generator.prototype.projectFiles = function projectfiles() {
 
 		if (this.applicationType === "openui5-sample") {
-			this.template("Gruntfile_openui5.js", "Gruntfile.js");
+			this.copy("Gruntfile_openui5.js", "Gruntfile.js");
 			this.copy("eslintrc_openui5", ".eslintrc");
 			this.template("_bower_openui5.json", "bower.json");
 			this.template("_package_openui5.json", "package.json");
@@ -157,7 +157,7 @@
 		this.copy("gitignore", ".gitignore");
 		this.copy("editorconfig", ".editorconfig");
 		//This is to ignore npm_modules/ if the app is loaded onto an ABAP system
-		this.template("_Ui5RepositoryIgnore", ".Ui5RepositoryIgnore");
+		this.copy("Ui5RepositoryIgnore", ".Ui5RepositoryIgnore");
 	};
 
 
@@ -361,19 +361,23 @@
 			return;
 		}
 
-		this.mkdir("css");
-		this.copy("openui5-sample/css/styles.css", "css/styles.css");
+		this.mkdir("webapp");
 
-		this.mkdir("i18n");
-		this.copy("openui5-sample/i18n/messageBundle.properties", "i18n/messageBundle.properties");
-		this.copy("openui5-sample/i18n/messageBundle_en.properties", "i18n/messageBundle_en.properties");
-		this.copy("openui5-sample/i18n/messageBundle_en_US.properties", "i18n/messageBundle_en_US.properties");
+		this.mkdir("webapp/css");
+		this.copy("openui5-sample/webapp/css/styles.css", "webapp/css/styles.css");
 
-		this.mkdir("view");
-		this.template("openui5-sample/view/_App.controller.js", "view/App.controller.js");
-		this.template("openui5-sample/view/_App.view.xml", "view/App.view.xml");
+		this.mkdir("webapp/i18n");
+		this.copy("openui5-sample/webapp/i18n/messageBundle.properties", "webapp/i18n/messageBundle.properties");
+		this.copy("openui5-sample/webapp/i18n/messageBundle_en.properties", "webapp/i18n/messageBundle_en.properties");
+		this.copy("openui5-sample/webapp/i18n/messageBundle_en_US.properties", "webapp/i18n/messageBundle_en_US.properties");
+		this.copy("openui5-sample/webapp/i18n/messageBundle_en_AU.properties", "webapp/i18n/messageBundle_en_AU.properties");
+		this.copy("openui5-sample/webapp/i18n/messageBundle_de.properties", "webapp/i18n/messageBundle_de.properties");
 
-		this.template("openui5-sample/_index.html", "index.html");
-		this.template("openui5-sample/_Component.js", "Component.js");
+		this.mkdir("webapp/view");
+		this.template("openui5-sample/webapp/view/_App.controller.js", "webapp/view/App.controller.js");
+		this.template("openui5-sample/webapp/view/_App.view.xml", "webapp/view/App.view.xml");
+
+		this.template("openui5-sample/webapp/_index.html", "webapp/index.html");
+		this.template("openui5-sample/webapp/_Component.js", "webapp/Component.js");
 	};
 }());
