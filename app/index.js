@@ -31,16 +31,12 @@
 
 	util.inherits(openui5Generator, ScriptBase);
 
-
-
 	/**
 	 * Generator prompts for configuration - basic prompts for all apps
 	 */
 	openui5Generator.prototype.askForBasics = function() {
 		this.promptForBasicDetails();
 	};
-
-
 
 	/**
 	 * Generator prompts for configuration
@@ -56,14 +52,8 @@
 				name: "Classical (Simple desktop app - old style Application.js)",
 				value: "classical"
 			}, {
-				name: "SAPUI5 WebIDE template (Component-based, can be used in Fiori Launchpad)",
-				value: "fiori"
-			}, {
 				name: "TDG Best Practices App (The Best Practices app as described in the SDK)",
 				value: "tdg"
-			}, {
-				name: "Fiori Tiles App",
-				value: "tiles"
 			}, {
 				name: "OpenUI5 Sample App (Modern Component-based to-do list app)",
 				value: "openui5-sample"
@@ -107,8 +97,6 @@
 		}.bind(this));
 	};
 
-
-
 	openui5Generator.prototype.askForUI5Location = function() {
 		if (this.applicationType === "openui5-sample") {
 			return;
@@ -116,8 +104,6 @@
 
 		this.promptForUI5Location();
 	};
-
-
 
 	openui5Generator.prototype.askForBuildOptions = function() {
 		var cb = this.async();
@@ -134,8 +120,6 @@
 			cb();
 		}.bind(this));
 	};
-
-
 
 	/**
 	 * Scaffolding of the common project files, which are needed for every project type
@@ -163,8 +147,6 @@
 		//This is to ignore npm_modules/ if the app is loaded onto an ABAP system
 		this.copy("Ui5RepositoryIgnore", ".Ui5RepositoryIgnore");
 	};
-
-
 
 	/**
 	 * Scaffolding for the classical application dependent project files.
@@ -209,50 +191,6 @@
 
 		this.template("application/_index.html", "index.html");
 		this.template("application/_Application.js", "Application.js");
-	};
-
-
-
-	/**
-	 * Scaffolding for a Fiori SplitterApp application.
-	 */
-	openui5Generator.prototype.fioriApplication = function() {
-		if (this.applicationType !== "fiori") {
-			return;
-		}
-
-		this.mkdir("css");
-		this.copy("gitkeep", "css/.gitkeep");
-
-		this.mkdir("test");
-		this.copy("gitkeep", "test/.gitkeep");
-
-		this.mkdir("i18n");
-		this.copy("fiori_application/i18n/messageBundle.properties", "i18n/messageBundle.properties");
-
-		this.mkdir("img");
-		this.copy("gitkeep", "img/.gitkeep");
-
-		this.mkdir("model");
-		this.copy("fiori_application/model/img.json", "model/img.json");
-		this.copy("fiori_application/model/mock.json", "model/mock.json");
-		this.copy("fiori_application/model/metadata.xml", "model/metadata.xml");
-
-		this.mkdir("util");
-		this.template("fiori_application/util/_Formatter.js", "util/Formatter.js");
-		this.template("fiori_application/util/_Grouper.js", "util/Grouper.js");
-
-		this.mkdir("view");
-		this.template("fiori_application/view/_App.view.xml", "view/App.view.xml");
-		this.template("fiori_application/view/_App.controller.js", "view/App.controller.js");
-		this.template("fiori_application/view/_Master.view.xml", "view/Master.view.xml");
-		this.template("fiori_application/view/_Master.controller.js", "view/Master.controller.js");
-		this.template("fiori_application/view/_Empty.view.xml", "view/Empty.view.xml");
-		this.template("fiori_application/view/_Detail.view.xml", "view/Detail.view.xml");
-		this.template("fiori_application/view/_Detail.controller.js", "view/Detail.controller.js");
-
-		this.template("fiori_application/_index.html", "index.html");
-		this.template("fiori_application/_Component.js", "Component.js");
 	};
 
 	/**
@@ -303,7 +241,7 @@
 	};
 
 	/**
-	 * Scaffolding for a Fiori single page MVC application.
+	 * Scaffolding for a Single page MVC application.
 	 */
 	openui5Generator.prototype.singlePageApplication = function() {
 		if (this.applicationType !== "spa") {
@@ -311,47 +249,6 @@
 		}
 
 		this.template("spa/_index.html", "index.html");
-	};
-
-	/**
-	 * Scaffolding for a Fiori TileContainer MVC application.
-	 */
-	openui5Generator.prototype.tilesApplication = function() {
-		if (this.applicationType !== "tiles") {
-			return;
-		}
-
-		this.mkdir("css");
-		this.copy("gitkeep", "css/.gitkeep");
-
-		this.mkdir("test");
-		this.copy("gitkeep", "test/.gitkeep");
-
-		this.mkdir("i18n");
-		this.copy("fiori_tiles_app/i18n/messageBundle.properties", "i18n/messageBundle.properties");
-
-		this.mkdir("img");
-		this.copy("gitkeep", "img/.gitkeep");
-
-		this.mkdir("model");
-		this.copy("fiori_tiles_app/model/Config.js", "model/Config.js");
-		this.copy("fiori_tiles_app/model/img.json", "model/img.json");
-		this.copy("fiori_tiles_app/model/mock.json", "model/mock.json");
-
-		this.mkdir("util");
-		this.template("fiori_tiles_app/util/_Formatter.js", "util/Formatter.js");
-		this.template("fiori_tiles_app/util/_Grouper.js", "util/Grouper.js");
-
-		this.mkdir("view");
-		this.template("fiori_tiles_app/view/_Root.view.xml", "view/Root.view.xml");
-		this.template("fiori_tiles_app/view/_Root.controller.js", "view/Root.controller.js");
-		this.template("fiori_tiles_app/view/_Home.view.js", "view/Home.view.js");
-		this.template("fiori_tiles_app/view/_Home.controller.js", "view/Home.controller.js");
-		this.template("fiori_tiles_app/view/_Detail.view.xml", "view/Detail.view.xml");
-		this.template("fiori_tiles_app/view/_Detail.controller.js", "view/Detail.controller.js");
-
-		this.template("fiori_tiles_app/_index.html", "index.html");
-		this.template("fiori_tiles_app/_Component.js", "Component.js");
 	};
 
 	/**
