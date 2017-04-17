@@ -84,7 +84,7 @@ Especially in Fiori like apps one often has an application namespace set in the 
 
 That is exactly what happens, when you choose _yes_ as an answer for the above question. The generator tries to assemble the current application namespace and adds that to the component name (same for views). For sure, you have to possibility to change that name before it's finally generated.
 
-##TDG Best Practices App
+## TDG Best Practices App
 When generating the ```TDG Best Practices App``` please note that you should add the query parameter ```?responderOn=true``` to your local testing url. This allows you to use the mock data.
 
 ## Offline
